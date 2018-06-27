@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour {
     private float maxSpeed;
     private Vector2 upForce;
     private float camSpeed;
-    private bool doOnce100, doOnce500;
+    private bool doOnce50, doOnce100;
 
     private Text currentHeightTxt, topHeightTxt;
     private float currentHeight, topHeight;
@@ -68,8 +68,9 @@ public class GameController : MonoBehaviour {
 
         playerAlive = true;
 
+        doOnce50 = false;
         doOnce100 = false;
-        doOnce500 = false;
+        
     }
     private void Score()
     {
@@ -126,22 +127,21 @@ public class GameController : MonoBehaviour {
         upForce = new Vector2(0, 10 + Mathf.Sqrt(currentHeight) / 10.0f);
         camSpeed = 0.6f + Mathf.Sqrt(currentHeight) / 100;
 
-        if (!doOnce100 && currentHeight > 100)
+        if (!doOnce50 && currentHeight > 500)
         {
             maxSpeed += 2;
             upForce = new Vector2(0, upForce.y + 2);
             camSpeed += 0.1f;
+            doOnce50 = true;
+        }
+
+        if (!doOnce100 && currentHeight > 100)
+        {
+            maxSpeed += 3;
+            upForce = new Vector2(0, upForce.y + 3);
+            camSpeed += 0.3f;
             doOnce100 = true;
         }
-
-        if (!doOnce500 && currentHeight > 500)
-        {
-            maxSpeed += 4;
-            upForce = new Vector2(0, upForce.y + 4);
-            camSpeed += 0.2f;
-            doOnce500 = true;
-        }
-
     }
     private void LineDraw()
     {
