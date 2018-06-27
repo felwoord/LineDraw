@@ -7,13 +7,15 @@ public class GameController : MonoBehaviour {
     public GameObject linePrefab;
 
     private Line activeLine;
-    private float maxSpeed;
-    private float playerSpeed;
     private Rigidbody2D playerRB;
     private GameObject player;
-    private Vector2 upForce;
     private GameObject cam;
     private bool playerAlive;
+
+    private float maxSpeed;
+    private Vector2 upForce;
+    private float camSpeed;
+    private bool doOnce100, doOnce500;
 
     private Text currentHeightTxt, topHeightTxt;
     private float currentHeight, topHeight;
@@ -36,9 +38,11 @@ public class GameController : MonoBehaviour {
             CameraPlayerMov();
 
             Score();
-        }
 
-        SpawnObjects();
+            SpawnObjects();
+        }
+        Progress();
+        
 
     }
     private void GameObjectFind()
@@ -57,11 +61,15 @@ public class GameController : MonoBehaviour {
     {
         maxSpeed = 2;
         upForce = new Vector2(0, 10);
+        camSpeed = 0.6f;
 
         currentHeight = 0;
         topHeightTxt.text = topHeight.ToString();
 
         playerAlive = true;
+
+        doOnce100 = false;
+        doOnce500 = false;
     }
     private void Score()
     {
@@ -86,6 +94,8 @@ public class GameController : MonoBehaviour {
             {
                 GameObject spike = Instantiate(Resources.Load("IceBlock") as GameObject);
                 spike.transform.position = new Vector3(Random.Range(-2.25f, 2.25f), player.transform.position.y + 12, 0);
+                spike.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-70, 70));
+                  
             }
             spikeSpawnCounter = 0;
         }
@@ -109,6 +119,29 @@ public class GameController : MonoBehaviour {
             }
             sideBarrierSpawnCounter = 0;
         }
+    }
+    private void Progress()
+    {
+        maxSpeed = 2 + Mathf.Sqrt(currentHeight)/10.0f;
+        upForce = new Vector2(0, 10 + Mathf.Sqrt(currentHeight) / 10.0f);
+        camSpeed = 0.6f + Mathf.Sqrt(currentHeight) / 100;
+
+        if (!doOnce100 && currentHeight > 100)
+        {
+            maxSpeed += 2;
+            upForce = new Vector2(0, upForce.y + 2);
+            camSpeed += 0.1f;
+            doOnce100 = true;
+        }
+
+        if (!doOnce500 && currentHeight > 500)
+        {
+            maxSpeed += 4;
+            upForce = new Vector2(0, upForce.y + 4);
+            camSpeed += 0.2f;
+            doOnce500 = true;
+        }
+
     }
     private void LineDraw()
     {
@@ -137,7 +170,7 @@ public class GameController : MonoBehaviour {
 
         if (cam.transform.position.y > player.transform.position.y + 1.5f)
         {
-            cam.transform.position = new Vector3(cam.transform.position.x, cam.transform.position.y + maxSpeed * 0.6f * Time.deltaTime, cam.transform.position.z);
+            cam.transform.position = new Vector3(cam.transform.position.x, cam.transform.position.y + maxSpeed * camSpeed * Time.deltaTime, cam.transform.position.z);
         }
         else
         {
