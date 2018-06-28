@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
     public GameObject linePrefab;
@@ -17,11 +18,13 @@ public class GameController : MonoBehaviour {
     private float camSpeed;
     private bool doOnce50, doOnce100;
 
-    private Text currentHeightTxt, topHeightTxt;
+    private Text currentHeightTxt, topHeightTxt, currentHeightTxtEndRun, topHeightTxtEndRun;
     private float currentHeight, topHeight;
 
     private float spikeSpawnCounter;
     private float sideBarrierSpawnCounter;
+
+    public GameObject mainCanvas, endRunCanvas;
 
     void Start()
     {
@@ -177,9 +180,38 @@ public class GameController : MonoBehaviour {
             cam.transform.position = new Vector3(cam.transform.position.x, player.transform.position.y + 1.5f, cam.transform.position.z);
         }
     }
-    public void SetPlayerAlive(bool alive)
+    public void EndGame()
     {
-        playerAlive = alive;
+        playerAlive = false;
+        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("IceBlock"))
+        {
+            Destroy(gameObj);
+        }
+        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("SideBarrier"))
+        {
+            Destroy(gameObj);
+        }
+        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("Line"))
+        {
+            Destroy(gameObj);
+        }
+        mainCanvas.SetActive(false);
+        endRunCanvas.SetActive(true);
+        currentHeightTxtEndRun = GameObject.Find("CurrentHeightEndRun").GetComponent<Text>();
+        currentHeightTxtEndRun.text = currentHeight.ToString("0");
+        topHeightTxtEndRun = GameObject.Find("TopHeightEndRun").GetComponent<Text>();
+        topHeightTxtEndRun.text = topHeight.ToString("0");
+    }
+    public void EndRunButton(int aux)
+    {
+        if (aux == 1)
+        {
+            SceneManager.LoadScene("GameScene");
+        }
+        else
+        {
+            SceneManager.LoadScene("MenuScene");
+        }
     }
 
 }

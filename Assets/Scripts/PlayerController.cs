@@ -32,6 +32,6 @@ public class PlayerController : MonoBehaviour
     private void EndGame()
     {
         Destroy(gameObject);
-        GameObject.Find("Main Camera").GetComponent<GameController>().SetPlayerAlive(false);
+        GameObject.Find("Main Camera").GetComponent<GameController>().EndGame();
     }
 }
