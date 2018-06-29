@@ -21,10 +21,13 @@ public class GameController : MonoBehaviour {
     private Text currentHeightTxt, topHeightTxt, currentHeightTxtEndRun, topHeightTxtEndRun;
     private float currentHeight, topHeight;
 
-    private float spikeSpawnCounter;
+    private float setSpawnCounter, missesCounter;
     private float sideBarrierSpawnCounter;
 
     public GameObject mainCanvas, endRunCanvas;
+
+    private int coinsCount, totalCoins;
+    private Text coinTxt, coinEndRunTxt;
 
     void Start()
     {
@@ -55,10 +58,12 @@ public class GameController : MonoBehaviour {
         cam = GameObject.Find("Main Camera");
         currentHeightTxt = GameObject.Find("CurrentHeight").GetComponent<Text>();
         topHeightTxt = GameObject.Find("TopHeight").GetComponent<Text>();
+        coinTxt = GameObject.Find("CoinCount").GetComponent<Text>();
     }
     private void GetPlayerPrefs()
     {
         topHeight = PlayerPrefs.GetFloat("TopHeight", 0);
+        totalCoins = PlayerPrefs.GetInt("TotalCoins", 0);
     }
     private void Inicialization()
     {
@@ -67,7 +72,12 @@ public class GameController : MonoBehaviour {
         camSpeed = 0.6f;
 
         currentHeight = 0;
-        topHeightTxt.text = topHeight.ToString();
+        topHeightTxt.text = topHeight.ToString("0");
+        coinsCount = 0;
+        coinTxt.text = coinsCount.ToString();
+        setSpawnCounter = 0;
+        sideBarrierSpawnCounter = 0;
+        missesCounter = 0;
 
         playerAlive = true;
 
@@ -90,25 +100,82 @@ public class GameController : MonoBehaviour {
     }
     private void SpawnObjects()
     {
-        spikeSpawnCounter += Time.deltaTime;
-        if(spikeSpawnCounter > 3)
+        setSpawnCounter += Time.deltaTime;
+        if(setSpawnCounter > 3.5f)
         {
             float rand = Random.Range(0, 10);
-            if(rand > 3)
+            if(missesCounter >= 3)
             {
-                GameObject spike = Instantiate(Resources.Load("IceBlock") as GameObject);
-                spike.transform.position = new Vector3(Random.Range(-2.25f, 2.25f), player.transform.position.y + 12, 0);
-                spike.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-70, 70));
-                  
+                rand = 10;
+                missesCounter = 0;
             }
-            spikeSpawnCounter = 0;
+            if (rand > 2)
+            {
+                int setRand = Random.Range(1, 6);
+                switch (setRand)
+                {
+                    case 1:
+                        GameObject set1 = Instantiate(Resources.Load("Set1") as GameObject);
+                        set1.transform.position = new Vector3(0, player.transform.position.y + 10, 0);
+                        Transform set1Transf = set1.GetComponent<Transform>();
+                        foreach (Transform child in set1Transf) if (child.CompareTag("IceBlock"))
+                            {
+                                child.rotation = Quaternion.Euler(0, 0, Random.Range(-70, 70));
+                            }
+                        break;
+                    case 2:
+                        GameObject set2 = Instantiate(Resources.Load("Set2") as GameObject);
+                        set2.transform.position = new Vector3(0, player.transform.position.y + 10, 0);
+                        Transform set2Transf = set2.GetComponent<Transform>();
+                        foreach (Transform child in set2Transf) if (child.CompareTag("IceBlock"))
+                            {
+                                child.rotation = Quaternion.Euler(0, 0, Random.Range(-70, 70));
+                            }
+                        break;
+                    case 3:
+                        GameObject set3 = Instantiate(Resources.Load("Set3") as GameObject);
+                        set3.transform.position = new Vector3(0, player.transform.position.y + 10, 0);
+                        Transform set3Transf = set3.GetComponent<Transform>();
+                        foreach (Transform child in set3Transf) if (child.CompareTag("IceBlock"))
+                            {
+                                child.rotation = Quaternion.Euler(0, 0, Random.Range(-70, 70));
+                            }
+                        break;
+                    case 4:
+                        GameObject set4 = Instantiate(Resources.Load("Set4") as GameObject);
+                        set4.transform.position = new Vector3(0, player.transform.position.y + 10, 0);
+                        Transform set4Transf = set4.GetComponent<Transform>();
+                        foreach (Transform child in set4Transf) if (child.CompareTag("IceBlock"))
+                            {
+                                child.rotation = Quaternion.Euler(0, 0, Random.Range(-70, 70));
+                            }
+                        break;
+                    case 5:
+                        GameObject set5 = Instantiate(Resources.Load("Set5") as GameObject);
+                        set5.transform.position = new Vector3(0, player.transform.position.y + 10, 0);
+                        Transform set5Transf = set5.GetComponent<Transform>();
+                        foreach (Transform child in set5Transf) if (child.CompareTag("IceBlock"))
+                            {
+                                child.rotation = Quaternion.Euler(0, 0, Random.Range(-70, 70));
+                            }
+                        break;
+                    default:
+                        break;
+                }
+                missesCounter = 0;
+            }
+            else
+            {
+                missesCounter++;
+            }
+            setSpawnCounter = 0;
         }
 
         sideBarrierSpawnCounter += Time.deltaTime;
-        if(sideBarrierSpawnCounter > 1)
+        if (sideBarrierSpawnCounter > 1)
         {
             float rand = Random.Range(0, 10);
-            if (rand > 0)
+            if (rand > 3)
             {
                 GameObject sideBarrier = Instantiate(Resources.Load("SideBarrier") as GameObject);
                 int side = Random.Range(0, 2);
@@ -195,12 +262,22 @@ public class GameController : MonoBehaviour {
         {
             Destroy(gameObj);
         }
+        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("Coin"))
+        {
+            Destroy(gameObj);
+        }
+
         mainCanvas.SetActive(false);
         endRunCanvas.SetActive(true);
         currentHeightTxtEndRun = GameObject.Find("CurrentHeightEndRun").GetComponent<Text>();
         currentHeightTxtEndRun.text = currentHeight.ToString("0");
         topHeightTxtEndRun = GameObject.Find("TopHeightEndRun").GetComponent<Text>();
         topHeightTxtEndRun.text = topHeight.ToString("0");
+        PlayerPrefs.SetFloat("TopHeight", topHeight);
+        coinEndRunTxt = GameObject.Find("CoinCountEndRun").GetComponent<Text>();
+        coinEndRunTxt.text = coinsCount.ToString();
+        totalCoins += coinsCount;
+        PlayerPrefs.SetInt("TotalCoins", totalCoins);
     }
     public void EndRunButton(int aux)
     {
@@ -212,6 +289,11 @@ public class GameController : MonoBehaviour {
         {
             SceneManager.LoadScene("MenuScene");
         }
+    }
+    public void AddCoin()
+    {
+        coinsCount++;
+        coinTxt.text = coinsCount.ToString();
     }
 
 }

@@ -9,7 +9,26 @@ public class Line : MonoBehaviour {
 
     private List<Vector2> points;
 
-        public void UpdateLine(Vector2 mousePos)
+    private bool outVision;
+    private float counter;
+
+    private void Start()
+    {
+        outVision = false;
+        counter = 0;
+    }
+    private void Update()
+    {
+        if(outVision)
+        {
+            counter += Time.deltaTime;
+            if(counter >= 2)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+    public void UpdateLine(Vector2 mousePos)
     {
         if (points == null)
         {
@@ -40,6 +59,6 @@ public class Line : MonoBehaviour {
 
     void OnBecameInvisible()
     {
-        Destroy(gameObject);
+        outVision = true;
     }
 }
