@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour {
     public GameObject mainCanvas, shopCanvas, settingsCanvas;
+    private Text totalCoinsTxt;
+    private float totalCoins;
 
     // Use this for initialization
     void Start() {
         GameObjectFind();
+        GetPlayerPrefs();
+        Inicialization();
     }
 
     // Update is called once per frame
@@ -18,8 +23,18 @@ public class MenuController : MonoBehaviour {
 
     private void GameObjectFind()
     {
-
+        totalCoinsTxt = GameObject.Find("TotalCoins").GetComponent<Text>();
     }
+    private void GetPlayerPrefs()
+    {
+        totalCoins = PlayerPrefs.GetInt("TotalCoins");
+    }
+    private void Inicialization()
+    {
+        totalCoinsTxt.text = totalCoins.ToString();
+    }
+
+  
 
     public void ChangeCanvas(int aux)
     {
