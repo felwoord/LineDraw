@@ -45,7 +45,6 @@ public class MenuController : MonoBehaviour {
     private void GetPlayerPrefs()
     {
         totalCoins = PlayerPrefs.GetInt("TotalCoins", 0);
-        totalCoins = 200;
         currentSkin = PlayerPrefs.GetInt("CurrentSkin", 0);
         for (int i = 0; i < skinsCount; i++)
         {
