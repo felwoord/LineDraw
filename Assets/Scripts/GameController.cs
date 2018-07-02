@@ -24,15 +24,22 @@ public class GameController : MonoBehaviour {
     private float setSpawnCounter, missesCounter;
     private float sideBarrierSpawnCounter;
 
-    public GameObject mainCanvas, endRunCanvas;
+    public GameObject mainCanvas, endRunCanvas, continueCanvas;
 
     private int coinsCount, totalCoins;
     private Text coinTxt, coinEndRunTxt;
 
     private int currentSkin;
 
+    private AdController adCont;
+
+    private bool continueAvlb;
+
     void Start()
     {
+        adCont = GameObject.Find("AdControl").GetComponent<AdController>();
+        adCont.ShowInterstitial();
+
         currentSkin = PlayerPrefs.GetInt("CurrentSkin", 0);
         player = Instantiate(Resources.Load("Skin" + currentSkin) as GameObject);
 
@@ -87,6 +94,8 @@ public class GameController : MonoBehaviour {
 
         doOnce50 = false;
         doOnce100 = false;
+
+        continueAvlb = true;
         
     }
     private void Score()
@@ -271,17 +280,25 @@ public class GameController : MonoBehaviour {
             Destroy(gameObj);
         }
 
-        mainCanvas.SetActive(false);
-        endRunCanvas.SetActive(true);
-        currentHeightTxtEndRun = GameObject.Find("CurrentHeightEndRun").GetComponent<Text>();
-        currentHeightTxtEndRun.text = currentHeight.ToString("0");
-        topHeightTxtEndRun = GameObject.Find("TopHeightEndRun").GetComponent<Text>();
-        topHeightTxtEndRun.text = topHeight.ToString("0");
-        PlayerPrefs.SetFloat("TopHeight", topHeight);
-        coinEndRunTxt = GameObject.Find("CoinCountEndRun").GetComponent<Text>();
-        coinEndRunTxt.text = coinsCount.ToString();
-        totalCoins += coinsCount;
-        PlayerPrefs.SetInt("TotalCoins", totalCoins);
+        mainCanvas.SetActive (false);
+
+        if (continueAvlb)
+        {
+            continueCanvas.SetActive(true);
+        }
+        else
+        {
+            endRunCanvas.SetActive(true);
+            currentHeightTxtEndRun = GameObject.Find("CurrentHeightEndRun").GetComponent<Text>();
+            currentHeightTxtEndRun.text = currentHeight.ToString("0");
+            topHeightTxtEndRun = GameObject.Find("TopHeightEndRun").GetComponent<Text>();
+            topHeightTxtEndRun.text = topHeight.ToString("0");
+            PlayerPrefs.SetFloat("TopHeight", topHeight);
+            coinEndRunTxt = GameObject.Find("CoinCountEndRun").GetComponent<Text>();
+            coinEndRunTxt.text = coinsCount.ToString();
+            totalCoins += coinsCount;
+            PlayerPrefs.SetInt("TotalCoins", totalCoins);
+        }
     }
     public void EndRunButton(int aux)
     {

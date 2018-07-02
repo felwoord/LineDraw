@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,7 +16,19 @@ public class MenuController : MonoBehaviour {
     private int skinsCount;
     private int currentSkin;
 
+    public GameObject linePrefab;
+    private Line activeLine;
 
+    private AdController adCont;
+
+    private void Awake()
+    {
+      if(GameObject.FindGameObjectsWithTag("AdCont").Length == 0)
+        {
+            GameObject adContGO = Instantiate(Resources.Load("AdControl") as GameObject);
+            adContGO.name = "AdControl";
+        }
+    }
     void Start() {
         skinsCount = skinsGO.Length;
         skins = new int[skinsCount];
@@ -35,7 +48,7 @@ public class MenuController : MonoBehaviour {
     }
 
     void Update() {
-
+        LineDraw();
     }
 
     private void GameObjectFind()
@@ -71,6 +84,24 @@ public class MenuController : MonoBehaviour {
     private void Inicialization()
     {
         totalCoinsTxt.text = totalCoins.ToString();
+    }
+    private void LineDraw()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameObject lineGO = Instantiate(linePrefab);
+            activeLine = lineGO.GetComponent<Line>();
+
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            activeLine = null;
+        }
+        if (activeLine != null)
+        {
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            activeLine.UpdateLine(mousePos);
+        }
     }
     public void ChangeCanvas(int aux)
     {
@@ -129,7 +160,16 @@ public class MenuController : MonoBehaviour {
             PlayerPrefs.SetInt("CurrentSkin", currentSkin);
             PlayerPrefs.Save();
         }
-    
-
+    }
+    public void CleanScreen()
+    {
+        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("Line"))
+        {
+            Destroy(gameObj);
+        }
+    }
+    public void WatchAdd()
+    {
+        adCont.ShowRewardedVideo(0);
     }
 }
