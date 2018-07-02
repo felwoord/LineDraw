@@ -29,8 +29,13 @@ public class GameController : MonoBehaviour {
     private int coinsCount, totalCoins;
     private Text coinTxt, coinEndRunTxt;
 
+    private int currentSkin;
+
     void Start()
     {
+        currentSkin = PlayerPrefs.GetInt("CurrentSkin", 0);
+        player = Instantiate(Resources.Load("Skin" + currentSkin) as GameObject);
+
         GameObjectFind();
         GetPlayerPrefs();
         Inicialization();
@@ -53,7 +58,6 @@ public class GameController : MonoBehaviour {
     }
     private void GameObjectFind()
     {
-        player = GameObject.Find("Player");
         playerRB = player.GetComponent<Rigidbody2D>();
         cam = GameObject.Find("Main Camera");
         currentHeightTxt = GameObject.Find("CurrentHeight").GetComponent<Text>();
