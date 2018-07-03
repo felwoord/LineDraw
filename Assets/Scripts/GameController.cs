@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour {
     private float setSpawnCounter, missesCounter;
     private float sideBarrierSpawnCounter;
 
-    public GameObject mainCanvas, endRunCanvas, continueCanvas;
+    public GameObject mainCanvas, endRunCanvas;
 
     private int coinsCount, totalCoins;
     private Text coinTxt, coinEndRunTxt;
@@ -33,7 +33,12 @@ public class GameController : MonoBehaviour {
 
     private AdController adCont;
 
+    private int continueQtd;
     private bool continueAvlb;
+
+    private bool doubleCoinAnimat;
+    private int doubleCoinQtd;
+    private GameObject doubleCoinGO;
 
     void Start()
     {
@@ -60,8 +65,11 @@ public class GameController : MonoBehaviour {
             SpawnObjects();
         }
         Progress();
-        
 
+        if (doubleCoinAnimat)
+        {
+            DoubleCoinAnimation();
+        }
     }
     private void GameObjectFind()
     {
@@ -75,6 +83,7 @@ public class GameController : MonoBehaviour {
     {
         topHeight = PlayerPrefs.GetFloat("TopHeight", 0);
         totalCoins = PlayerPrefs.GetInt("TotalCoins", 0);
+        continueQtd = PlayerPrefs.GetInt("ContinueQtd", 0);
     }
     private void Inicialization()
     {
@@ -95,7 +104,11 @@ public class GameController : MonoBehaviour {
         doOnce50 = false;
         doOnce100 = false;
 
-        continueAvlb = true;
+        doubleCoinAnimat = false;
+        doubleCoinQtd = 0;
+
+        if (continueQtd > 0)
+            continueAvlb = true;
         
     }
     private void Score()
@@ -204,6 +217,14 @@ public class GameController : MonoBehaviour {
             sideBarrierSpawnCounter = 0;
         }
     }
+    private void DoubleCoinAnimation()
+    {
+        if(coinsCount < doubleCoinQtd)
+        {
+            AddCoin();
+            coinEndRunTxt.text = coinsCount.ToString();
+        }
+    }
     private void Progress()
     {
         maxSpeed = 2 + Mathf.Sqrt(currentHeight)/10.0f;
@@ -284,7 +305,7 @@ public class GameController : MonoBehaviour {
 
         if (continueAvlb)
         {
-            continueCanvas.SetActive(true);
+          // LIDAR COM OPCAO DE CONTINUE   
         }
         else
         {
@@ -296,12 +317,23 @@ public class GameController : MonoBehaviour {
             PlayerPrefs.SetFloat("TopHeight", topHeight);
             coinEndRunTxt = GameObject.Find("CoinCountEndRun").GetComponent<Text>();
             coinEndRunTxt.text = coinsCount.ToString();
-            totalCoins += coinsCount;
-            PlayerPrefs.SetInt("TotalCoins", totalCoins);
+            doubleCoinGO = GameObject.Find("WatchAdButton"); 
         }
+    }
+    public void WatchAd()
+    {
+        adCont.ShowRewardedVideo(1);
+    }
+    public void AdCompleted()
+    {
+        doubleCoinAnimat = true;
+        doubleCoinQtd = coinsCount * 2;
+        doubleCoinGO.SetActive(false);
     }
     public void EndRunButton(int aux)
     {
+        totalCoins += coinsCount;
+        PlayerPrefs.SetInt("TotalCoins", totalCoins);
         if (aux == 1)
         {
             SceneManager.LoadScene("GameScene");

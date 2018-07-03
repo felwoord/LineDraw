@@ -168,8 +168,12 @@ public class MenuController : MonoBehaviour {
             Destroy(gameObj);
         }
     }
-    public void WatchAdd()
+    public void WatchAd()
     {
         adCont.ShowRewardedVideo(0);
+    }
+    public void AdCompleted()
+    {
+        //Adicionar Reward pelo Ad
     }
 }

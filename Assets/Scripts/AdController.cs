@@ -28,7 +28,6 @@ public class AdController : MonoBehaviour {
 
     void Start() {
         adTimer = 0;
-        Debug.Log(Advertisement.isInitialized);
     }
 
     void Update() {
@@ -75,11 +74,11 @@ public class AdController : MonoBehaviour {
     {
         if (type == 0)
         {
-
+            //GameObject.Find("Main Camera").GetComponent<>()
         }
         else if (type == 1)
         {
-
+            GameObject.Find("Main Camera").GetComponent<GameController>().AdCompleted();
         }
 }
     
