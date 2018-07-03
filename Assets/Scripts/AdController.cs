@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-public class AdController : MonoBehaviour {
+public class AdController : MonoBehaviour
+{
     private float adTimer;
 
     private string iosGameID = "2656056";
@@ -26,11 +27,13 @@ public class AdController : MonoBehaviour {
 
     }
 
-    void Start() {
+    void Start()
+    {
         adTimer = 0;
     }
 
-    void Update() {
+    void Update()
+    {
         adTimer += Time.deltaTime;
     }
     public void ShowInterstitial()
@@ -74,32 +77,11 @@ public class AdController : MonoBehaviour {
     {
         if (type == 0)
         {
-            //GameObject.Find("Main Camera").GetComponent<>()
+            GameObject.Find("Main Camera").GetComponent<MenuController>().AdCompleted();
         }
         else if (type == 1)
         {
             GameObject.Find("Main Camera").GetComponent<GameController>().AdCompleted();
         }
-}
-    
-    /*public void HandleShowResult(ShowResult result)
-    {
-        if (result == ShowResult.Finished)
-        {
-            int diamond = PlayerPrefs.GetInt("Diamond", 0);
-            diamond++;
-            PlayerPrefs.SetInt("Diamond", diamond);
-            PlayerPrefs.Save();
-        }
-        else if (result == ShowResult.Skipped)
-        {
-            Debug.LogWarning("Pulo o video e nao assistiu inteiro! Shame on you!");
-
-        }
-        else if (result == ShowResult.Failed)
-        {
-            Debug.LogError("Falha ao carregar o video.");
-        }
-        CallEndGameMenu();
-    }*/
+    }
 }

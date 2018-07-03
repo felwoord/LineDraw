@@ -21,6 +21,9 @@ public class MenuController : MonoBehaviour {
 
     private AdController adCont;
 
+    private int diamondQtd;
+    private Text diamondQtdTxt;
+
     private void Awake()
     {
       if(GameObject.FindGameObjectsWithTag("AdCont").Length == 0)
@@ -54,6 +57,8 @@ public class MenuController : MonoBehaviour {
     private void GameObjectFind()
     {
         totalCoinsTxt = GameObject.Find("TotalCoins").GetComponent<Text>();
+        diamondQtdTxt = GameObject.Find("DiamondQtd").GetComponent<Text>();
+        adCont = GameObject.Find("AdControl").GetComponent<AdController>();
     }
     private void GetPlayerPrefs()
     {
@@ -80,10 +85,13 @@ public class MenuController : MonoBehaviour {
                 skinsGO[i].transform.Find("Price").transform.Find("Image").GetComponent<Image>().enabled = false;
             }
         }
+        diamondQtd = PlayerPrefs.GetInt("DiamondQtd", 0);
     }
     private void Inicialization()
     {
         totalCoinsTxt.text = totalCoins.ToString();
+        diamondQtdTxt.text = diamondQtd.ToString();
+
     }
     private void LineDraw()
     {
@@ -174,6 +182,8 @@ public class MenuController : MonoBehaviour {
     }
     public void AdCompleted()
     {
-        //Adicionar Reward pelo Ad
+        diamondQtd++;
+        diamondQtdTxt.text = diamondQtd.ToString();
+        PlayerPrefs.SetInt("DiamondQtd", diamondQtd);
     }
 }

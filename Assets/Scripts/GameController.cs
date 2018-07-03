@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour {
     private float setSpawnCounter, missesCounter;
     private float sideBarrierSpawnCounter;
 
-    public GameObject mainCanvas, endRunCanvas;
+    public GameObject mainCanvas, endRunCanvas, pauseCanvas;
 
     private int coinsCount, totalCoins;
     private Text coinTxt, coinEndRunTxt;
@@ -33,12 +33,16 @@ public class GameController : MonoBehaviour {
 
     private AdController adCont;
 
-    private int continueQtd;
+    private int diamondQtd;
     private bool continueAvlb;
+    private Text diamondQtdTxt;
+    private GameObject continueButtonGO;
 
     private bool doubleCoinAnimat;
     private int doubleCoinQtd;
     private GameObject doubleCoinGO;
+
+    private bool paused;
 
     void Start()
     {
@@ -55,7 +59,10 @@ public class GameController : MonoBehaviour {
 
     void Update()
     {
-        LineDraw();
+        if (!paused)
+        {
+            LineDraw();
+        }
         if (playerAlive)
         {
             CameraPlayerMov();
@@ -83,7 +90,7 @@ public class GameController : MonoBehaviour {
     {
         topHeight = PlayerPrefs.GetFloat("TopHeight", 0);
         totalCoins = PlayerPrefs.GetInt("TotalCoins", 0);
-        continueQtd = PlayerPrefs.GetInt("ContinueQtd", 0);
+        diamondQtd = PlayerPrefs.GetInt("DiamondQtd", 0);
     }
     private void Inicialization()
     {
@@ -107,9 +114,15 @@ public class GameController : MonoBehaviour {
         doubleCoinAnimat = false;
         doubleCoinQtd = 0;
 
-        if (continueQtd > 0)
+        if (diamondQtd > 0)
+        {
             continueAvlb = true;
-        
+        }
+        else
+        {
+            continueAvlb = false;
+        }
+        paused = false;
     }
     private void Score()
     {
@@ -301,24 +314,25 @@ public class GameController : MonoBehaviour {
             Destroy(gameObj);
         }
 
-        mainCanvas.SetActive (false);
+        mainCanvas.SetActive(false);
+        endRunCanvas.SetActive(true);
+        currentHeightTxtEndRun = GameObject.Find("CurrentHeightEndRun").GetComponent<Text>();
+        currentHeightTxtEndRun.text = currentHeight.ToString("0");
+        topHeightTxtEndRun = GameObject.Find("TopHeightEndRun").GetComponent<Text>();
+        topHeightTxtEndRun.text = topHeight.ToString("0");
+        PlayerPrefs.SetFloat("TopHeight", topHeight);
+        coinEndRunTxt = GameObject.Find("CoinCountEndRun").GetComponent<Text>();
+        coinEndRunTxt.text = coinsCount.ToString();
+        doubleCoinGO = GameObject.Find("WatchAdButton");
+        diamondQtdTxt = GameObject.Find("DiamondQtd").GetComponent<Text>();
+        diamondQtdTxt.text = diamondQtd.ToString();
+        continueButtonGO = GameObject.Find("ContinueButton");
+        if (!continueAvlb)
+        {
+            continueButtonGO.SetActive(false);
+        }
 
-        if (continueAvlb)
-        {
-          // LIDAR COM OPCAO DE CONTINUE   
-        }
-        else
-        {
-            endRunCanvas.SetActive(true);
-            currentHeightTxtEndRun = GameObject.Find("CurrentHeightEndRun").GetComponent<Text>();
-            currentHeightTxtEndRun.text = currentHeight.ToString("0");
-            topHeightTxtEndRun = GameObject.Find("TopHeightEndRun").GetComponent<Text>();
-            topHeightTxtEndRun.text = topHeight.ToString("0");
-            PlayerPrefs.SetFloat("TopHeight", topHeight);
-            coinEndRunTxt = GameObject.Find("CoinCountEndRun").GetComponent<Text>();
-            coinEndRunTxt.text = coinsCount.ToString();
-            doubleCoinGO = GameObject.Find("WatchAdButton"); 
-        }
+
     }
     public void WatchAd()
     {
@@ -348,5 +362,34 @@ public class GameController : MonoBehaviour {
         coinsCount++;
         coinTxt.text = coinsCount.ToString();
     }
+    public void ContinueButton()
+    {
+        continueAvlb = false;
+        diamondQtd--;
+        PlayerPrefs.SetInt("DiamondQtd", diamondQtd);
+        player = Instantiate(Resources.Load("Skin" + currentSkin) as GameObject);
+        player.transform.position = new Vector3(0, currentHeight, 0);
+        playerRB = player.GetComponent<Rigidbody2D>();
+        playerAlive = true;
+        mainCanvas.SetActive(true);
+        endRunCanvas.SetActive(false);
 
+    }
+    public void PauseButton()
+    {
+        if (!paused)
+        {
+            mainCanvas.SetActive(false);
+            pauseCanvas.SetActive(true);
+            Time.timeScale = 0;
+            paused = true;
+        }
+        else
+        {
+            mainCanvas.SetActive(true);
+            pauseCanvas.SetActive(false);
+            Time.timeScale = 1;
+            paused = false;
+        }
+    }
 }
