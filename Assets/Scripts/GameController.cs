@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour {
     private Text currentHeightTxt, topHeightTxt, currentHeightTxtEndRun, topHeightTxtEndRun;
     private float currentHeight, topHeight;
 
-    private float setSpawnCounter, missesCounter;
+    private float setSpawnCounter, missesCounter, lastSetHeight;
     private float sideBarrierSpawnCounter;
 
     public GameObject mainCanvas, endRunCanvas, pauseCanvas;
@@ -105,6 +105,7 @@ public class GameController : MonoBehaviour {
         setSpawnCounter = 0;
         sideBarrierSpawnCounter = 0;
         missesCounter = 0;
+        lastSetHeight = 0;
 
         playerAlive = true;
 
@@ -150,12 +151,17 @@ public class GameController : MonoBehaviour {
             }
             if (rand > 2)
             {
+                if(lastSetHeight < player.transform.position.y)
+                {
+                    lastSetHeight = player.transform.position.y;
+                }
                 int setRand = Random.Range(1, 6);
                 switch (setRand)
                 {
                     case 1:
                         GameObject set1 = Instantiate(Resources.Load("Set1") as GameObject);
-                        set1.transform.position = new Vector3(0, player.transform.position.y + 10, 0);
+                        set1.transform.position = new Vector3(0, lastSetHeight + 10, 0);
+                        lastSetHeight = set1.transform.Find("Height").position.y;
                         Transform set1Transf = set1.GetComponent<Transform>();
                         foreach (Transform child in set1Transf) if (child.CompareTag("IceBlock"))
                             {
@@ -164,7 +170,8 @@ public class GameController : MonoBehaviour {
                         break;
                     case 2:
                         GameObject set2 = Instantiate(Resources.Load("Set2") as GameObject);
-                        set2.transform.position = new Vector3(0, player.transform.position.y + 10, 0);
+                        set2.transform.position = new Vector3(0, lastSetHeight + 10, 0);
+                        lastSetHeight = set2.transform.Find("Height").position.y;
                         Transform set2Transf = set2.GetComponent<Transform>();
                         foreach (Transform child in set2Transf) if (child.CompareTag("IceBlock"))
                             {
@@ -173,7 +180,8 @@ public class GameController : MonoBehaviour {
                         break;
                     case 3:
                         GameObject set3 = Instantiate(Resources.Load("Set3") as GameObject);
-                        set3.transform.position = new Vector3(0, player.transform.position.y + 10, 0);
+                        set3.transform.position = new Vector3(0, lastSetHeight + 10, 0);
+                        lastSetHeight = set3.transform.Find("Height").position.y;
                         Transform set3Transf = set3.GetComponent<Transform>();
                         foreach (Transform child in set3Transf) if (child.CompareTag("IceBlock"))
                             {
@@ -182,7 +190,8 @@ public class GameController : MonoBehaviour {
                         break;
                     case 4:
                         GameObject set4 = Instantiate(Resources.Load("Set4") as GameObject);
-                        set4.transform.position = new Vector3(0, player.transform.position.y + 10, 0);
+                        set4.transform.position = new Vector3(0, lastSetHeight + 10, 0);
+                        lastSetHeight = set4.transform.Find("Height").position.y;
                         Transform set4Transf = set4.GetComponent<Transform>();
                         foreach (Transform child in set4Transf) if (child.CompareTag("IceBlock"))
                             {
@@ -191,7 +200,8 @@ public class GameController : MonoBehaviour {
                         break;
                     case 5:
                         GameObject set5 = Instantiate(Resources.Load("Set5") as GameObject);
-                        set5.transform.position = new Vector3(0, player.transform.position.y + 10, 0);
+                        set5.transform.position = new Vector3(0, lastSetHeight + 10, 0);
+                        lastSetHeight = set5.transform.Find("Height").position.y;
                         Transform set5Transf = set5.GetComponent<Transform>();
                         foreach (Transform child in set5Transf) if (child.CompareTag("IceBlock"))
                             {
