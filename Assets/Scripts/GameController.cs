@@ -5,8 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
-    public GameObject linePrefab;
-
+    private GameObject linePrefab;
+    private int currentLine;
+    public GameObject[] linesPrefabs;
     private Line activeLine;
     private Rigidbody2D playerRB;
     private GameObject player;
@@ -26,7 +27,7 @@ public class GameController : MonoBehaviour {
 
     public GameObject mainCanvas, endRunCanvas, pauseCanvas;
 
-    private int coinsCount, totalCoins;
+    private int coinsCount, totalCoins, coinsCountAnimation;
     private Text coinTxt, coinEndRunTxt;
 
     private int currentSkin;
@@ -91,10 +92,11 @@ public class GameController : MonoBehaviour {
         topHeight = PlayerPrefs.GetFloat("TopHeight", 0);
         totalCoins = PlayerPrefs.GetInt("TotalCoins", 0);
         diamondQtd = PlayerPrefs.GetInt("DiamondQtd", 0);
+        currentLine = PlayerPrefs.GetInt("CurrentLine", 0);
     }
     private void Inicialization()
     {
-        maxSpeed = 2;
+        maxSpeed = 3.5f;
         upForce = new Vector2(0, 10);
         camSpeed = 0.6f;
 
@@ -124,6 +126,7 @@ public class GameController : MonoBehaviour {
             continueAvlb = false;
         }
         paused = false;
+        linePrefab = linesPrefabs[currentLine];
     }
     private void Score()
     {
@@ -144,12 +147,12 @@ public class GameController : MonoBehaviour {
         if(setSpawnCounter > 3.5f)
         {
             float rand = Random.Range(0, 10);
-            if(missesCounter >= 3)
+            if(missesCounter >= 2)
             {
                 rand = 10;
                 missesCounter = 0;
             }
-            if (rand > 2)
+            if (rand > 1)
             {
                 if(lastSetHeight < player.transform.position.y)
                 {
@@ -160,7 +163,7 @@ public class GameController : MonoBehaviour {
                 {
                     case 1:
                         GameObject set1 = Instantiate(Resources.Load("Set1") as GameObject);
-                        set1.transform.position = new Vector3(0, lastSetHeight + 10, 0);
+                        set1.transform.position = new Vector3(0, lastSetHeight + 8, 0);
                         lastSetHeight = set1.transform.Find("Height").position.y;
                         Transform set1Transf = set1.GetComponent<Transform>();
                         foreach (Transform child in set1Transf) if (child.CompareTag("IceBlock"))
@@ -170,7 +173,7 @@ public class GameController : MonoBehaviour {
                         break;
                     case 2:
                         GameObject set2 = Instantiate(Resources.Load("Set2") as GameObject);
-                        set2.transform.position = new Vector3(0, lastSetHeight + 10, 0);
+                        set2.transform.position = new Vector3(0, lastSetHeight + 8, 0);
                         lastSetHeight = set2.transform.Find("Height").position.y;
                         Transform set2Transf = set2.GetComponent<Transform>();
                         foreach (Transform child in set2Transf) if (child.CompareTag("IceBlock"))
@@ -180,7 +183,7 @@ public class GameController : MonoBehaviour {
                         break;
                     case 3:
                         GameObject set3 = Instantiate(Resources.Load("Set3") as GameObject);
-                        set3.transform.position = new Vector3(0, lastSetHeight + 10, 0);
+                        set3.transform.position = new Vector3(0, lastSetHeight + 8, 0);
                         lastSetHeight = set3.transform.Find("Height").position.y;
                         Transform set3Transf = set3.GetComponent<Transform>();
                         foreach (Transform child in set3Transf) if (child.CompareTag("IceBlock"))
@@ -190,7 +193,7 @@ public class GameController : MonoBehaviour {
                         break;
                     case 4:
                         GameObject set4 = Instantiate(Resources.Load("Set4") as GameObject);
-                        set4.transform.position = new Vector3(0, lastSetHeight + 10, 0);
+                        set4.transform.position = new Vector3(0, lastSetHeight + 8, 0);
                         lastSetHeight = set4.transform.Find("Height").position.y;
                         Transform set4Transf = set4.GetComponent<Transform>();
                         foreach (Transform child in set4Transf) if (child.CompareTag("IceBlock"))
@@ -200,7 +203,7 @@ public class GameController : MonoBehaviour {
                         break;
                     case 5:
                         GameObject set5 = Instantiate(Resources.Load("Set5") as GameObject);
-                        set5.transform.position = new Vector3(0, lastSetHeight + 10, 0);
+                        set5.transform.position = new Vector3(0, lastSetHeight + 8, 0);
                         lastSetHeight = set5.transform.Find("Height").position.y;
                         Transform set5Transf = set5.GetComponent<Transform>();
                         foreach (Transform child in set5Transf) if (child.CompareTag("IceBlock"))
@@ -224,7 +227,7 @@ public class GameController : MonoBehaviour {
         if (sideBarrierSpawnCounter > 1)
         {
             float rand = Random.Range(0, 10);
-            if (rand > 3)
+            if (rand > 2)
             {
                 GameObject sideBarrier = Instantiate(Resources.Load("SideBarrier") as GameObject);
                 int side = Random.Range(0, 2);
@@ -242,10 +245,10 @@ public class GameController : MonoBehaviour {
     }
     private void DoubleCoinAnimation()
     {
-        if(coinsCount < doubleCoinQtd)
+        if(coinsCountAnimation < doubleCoinQtd)
         {
-            AddCoin();
-            coinEndRunTxt.text = coinsCount.ToString();
+            coinsCountAnimation++;
+            coinEndRunTxt.text = coinsCountAnimation.ToString();
         }
     }
     private void Progress()
@@ -290,12 +293,12 @@ public class GameController : MonoBehaviour {
     }
     private void CameraPlayerMov()
     {
-        if (playerRB.velocity.y < maxSpeed)
+        if (playerRB.velocity.y <= maxSpeed)
         {
             playerRB.AddForce(upForce, ForceMode2D.Force);
         }
 
-        if (cam.transform.position.y > player.transform.position.y + 1.5f)
+        if (cam.transform.position.y >= player.transform.position.y + 1.5f)
         {
             cam.transform.position = new Vector3(cam.transform.position.x, cam.transform.position.y + maxSpeed * camSpeed * Time.deltaTime, cam.transform.position.z);
         }
@@ -352,6 +355,8 @@ public class GameController : MonoBehaviour {
     {
         doubleCoinAnimat = true;
         doubleCoinQtd = coinsCount * 2;
+        coinsCountAnimation = coinsCount;
+        coinsCount = doubleCoinQtd;
         doubleCoinGO.SetActive(false);
     }
     public void EndRunButton(int aux)

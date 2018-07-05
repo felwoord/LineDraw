@@ -12,11 +12,18 @@ public class MenuController : MonoBehaviour {
 
     public GameObject[] skinsGO;
     private int[] skins;
-    private int[] price;
+    public int[] skinPrice;
     private int skinsCount;
     private int currentSkin;
+    public GameObject[] linesGO;
+    private int[] lines;
+    public int[] linePrice;
+    public GameObject[] linesPrefabs;
+    private int linesCount;
+    private int currentLine;
 
-    public GameObject linePrefab;
+
+    private GameObject linePrefab;
     private Line activeLine;
 
     private AdController adCont;
@@ -35,15 +42,11 @@ public class MenuController : MonoBehaviour {
     void Start() {
         skinsCount = skinsGO.Length;
         skins = new int[skinsCount];
-        price = new int[skinsCount];
-
-        price[0] = 100;
-        price[1] = 200;
-        price[2] = 300;
-        price[3] = 999999999;
-        price[4] = 999999999;
+        linesCount = linesGO.Length;
+        lines = new int[linesCount];
 
         PlayerPrefs.SetInt("Skin0", 1);
+        PlayerPrefs.SetInt("Line0", 1);
 
         GameObjectFind();
         GetPlayerPrefs();
@@ -64,12 +67,13 @@ public class MenuController : MonoBehaviour {
     {
         totalCoins = PlayerPrefs.GetInt("TotalCoins", 0);
         currentSkin = PlayerPrefs.GetInt("CurrentSkin", 0);
+        currentLine = PlayerPrefs.GetInt("CurrentLine", 0);
         for (int i = 0; i < skinsCount; i++)
         {
             skins[i] = PlayerPrefs.GetInt("Skin" + i, 0);
             if (skins[i] == 0)
             {
-                skinsGO[i].transform.Find("Price").GetComponent<Text>().text = price[i].ToString();
+                skinsGO[i].transform.Find("Price").GetComponent<Text>().text = skinPrice[i].ToString();
             }
             else
             {
@@ -85,12 +89,35 @@ public class MenuController : MonoBehaviour {
                 skinsGO[i].transform.Find("Price").transform.Find("Image").GetComponent<Image>().enabled = false;
             }
         }
+        currentLine = PlayerPrefs.GetInt("CurrentLine", 0);
+        for (int i = 0; i < linesCount; i++)
+        {
+            lines[i] = PlayerPrefs.GetInt("Line" + i, 0);
+            if (lines[i] == 0)
+            {
+                linesGO[i].transform.Find("Price").GetComponent<Text>().text = linePrice[i].ToString();
+            }
+            else
+            {
+                if (currentLine == i)
+                {
+                    linesGO[i].transform.Find("Price").GetComponent<Text>().text = "Selected";
+                }
+                else
+                {
+                    linesGO[i].transform.Find("Price").GetComponent<Text>().text = "Select";
+                }
+
+                linesGO[i].transform.Find("Price").transform.Find("Image").GetComponent<Image>().enabled = false;
+            }
+        }
         diamondQtd = PlayerPrefs.GetInt("DiamondQtd", 0);
     }
     private void Inicialization()
     {
         totalCoinsTxt.text = totalCoins.ToString();
         diamondQtdTxt.text = diamondQtd.ToString();
+        linePrefab = linesPrefabs[currentLine];
 
     }
     private void LineDraw()
@@ -143,9 +170,9 @@ public class MenuController : MonoBehaviour {
     {
         if (skins[skinNum] == 0) //se nao tiver a skin
         {
-            if (totalCoins >= price[skinNum])
+            if (totalCoins >= skinPrice[skinNum])
             {
-                totalCoins -= price[skinNum];
+                totalCoins -= skinPrice[skinNum];
                 totalCoinsTxt.text = totalCoins.ToString();
                 PlayerPrefs.SetInt("TotalCoins", totalCoins);
                 skins[skinNum] = 1;
@@ -166,6 +193,37 @@ public class MenuController : MonoBehaviour {
             skinsGO[currentSkin].transform.Find("Price").GetComponent<Text>().text = "Selected";
 
             PlayerPrefs.SetInt("CurrentSkin", currentSkin);
+            PlayerPrefs.Save();
+        }
+    }
+    public void BuySelectLine(int lineNum)
+    {
+        if (lines[lineNum] == 0) //se nao tiver a Line
+        {
+            if (totalCoins >= linePrice[lineNum])
+            {
+                totalCoins -= linePrice[lineNum];
+                totalCoinsTxt.text = totalCoins.ToString();
+                PlayerPrefs.SetInt("TotalCoins", totalCoins);
+                lines[lineNum] = 1;
+                PlayerPrefs.SetInt("Line" + lineNum, 1);
+                linesGO[lineNum].transform.Find("Price").transform.Find("Image").GetComponent<Image>().enabled = false;
+                linesGO[currentLine].transform.Find("Price").GetComponent<Text>().text = "Select";
+                currentLine = lineNum;
+                linesGO[currentLine].transform.Find("Price").GetComponent<Text>().text = "Selected";
+                linePrefab = linesPrefabs[currentLine];
+                PlayerPrefs.SetInt("CurrentLine", currentLine);
+                PlayerPrefs.Save();
+            }
+        }
+        else
+        {
+            linesGO[currentLine].transform.Find("Price").GetComponent<Text>().text = "Select";
+            currentLine = lineNum;
+            linesGO[currentLine].transform.Find("Price").GetComponent<Text>().text = "Selected";
+            linePrefab = linesPrefabs[currentLine];
+
+            PlayerPrefs.SetInt("CurrentLine", currentLine);
             PlayerPrefs.Save();
         }
     }
