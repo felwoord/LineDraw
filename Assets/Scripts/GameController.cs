@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour {
     private Text currentHeightTxt, topHeightTxt, currentHeightTxtEndRun, topHeightTxtEndRun;
     private float currentHeight, topHeight;
 
-    private float setSpawnCounter, missesCounter, lastSetHeight;
+    private float setSpawnCounter, missesCounter, lastSetHeight, lastSetPosition;
     private float sideBarrierSpawnCounter;
 
     public GameObject mainCanvas, endRunCanvas, pauseCanvas;
@@ -39,9 +39,10 @@ public class GameController : MonoBehaviour {
     private Text diamondQtdTxt;
     private GameObject continueButtonGO;
 
+    private bool doubleCoinAvlb;
     private bool doubleCoinAnimat;
     private int doubleCoinQtd;
-    private GameObject doubleCoinGO;
+    public GameObject doubleCoinGO;
 
     private bool paused;
 
@@ -52,6 +53,7 @@ public class GameController : MonoBehaviour {
 
         currentSkin = PlayerPrefs.GetInt("CurrentSkin", 0);
         player = Instantiate(Resources.Load("Skin" + currentSkin) as GameObject);
+        player.name = "Player";
 
         GameObjectFind();
         GetPlayerPrefs();
@@ -108,12 +110,14 @@ public class GameController : MonoBehaviour {
         sideBarrierSpawnCounter = 0;
         missesCounter = 0;
         lastSetHeight = 0;
+        lastSetPosition = 10;
 
         playerAlive = true;
 
         doOnce50 = false;
         doOnce100 = false;
 
+        doubleCoinAvlb = true;
         doubleCoinAnimat = false;
         doubleCoinQtd = 0;
 
@@ -154,17 +158,18 @@ public class GameController : MonoBehaviour {
             }
             if (rand > 1)
             {
-                if(lastSetHeight < player.transform.position.y)
+                if(lastSetPosition < player.transform.position.y)
                 {
-                    lastSetHeight = player.transform.position.y;
+                    lastSetPosition = player.transform.position.y;
                 }
                 int setRand = Random.Range(1, 6);
                 switch (setRand)
                 {
                     case 1:
                         GameObject set1 = Instantiate(Resources.Load("Set1") as GameObject);
-                        set1.transform.position = new Vector3(0, lastSetHeight + 8, 0);
-                        lastSetHeight = set1.transform.Find("Height").position.y;
+                        set1.transform.position = new Vector3(0, lastSetPosition + lastSetHeight + 3, 0);
+                        lastSetHeight = set1.transform.Find("Height").localPosition.y;
+                        lastSetPosition = set1.transform.position.y;
                         Transform set1Transf = set1.GetComponent<Transform>();
                         foreach (Transform child in set1Transf) if (child.CompareTag("IceBlock"))
                             {
@@ -173,8 +178,9 @@ public class GameController : MonoBehaviour {
                         break;
                     case 2:
                         GameObject set2 = Instantiate(Resources.Load("Set2") as GameObject);
-                        set2.transform.position = new Vector3(0, lastSetHeight + 8, 0);
-                        lastSetHeight = set2.transform.Find("Height").position.y;
+                        set2.transform.position = new Vector3(0, lastSetPosition + lastSetHeight + 3, 0);
+                        lastSetHeight = set2.transform.Find("Height").localPosition.y;
+                        lastSetPosition = set2.transform.position.y;
                         Transform set2Transf = set2.GetComponent<Transform>();
                         foreach (Transform child in set2Transf) if (child.CompareTag("IceBlock"))
                             {
@@ -183,8 +189,9 @@ public class GameController : MonoBehaviour {
                         break;
                     case 3:
                         GameObject set3 = Instantiate(Resources.Load("Set3") as GameObject);
-                        set3.transform.position = new Vector3(0, lastSetHeight + 8, 0);
-                        lastSetHeight = set3.transform.Find("Height").position.y;
+                        set3.transform.position = new Vector3(0, lastSetPosition + lastSetHeight + 3, 0);
+                        lastSetHeight = set3.transform.Find("Height").localPosition.y;
+                        lastSetPosition = set3.transform.position.y;
                         Transform set3Transf = set3.GetComponent<Transform>();
                         foreach (Transform child in set3Transf) if (child.CompareTag("IceBlock"))
                             {
@@ -193,8 +200,9 @@ public class GameController : MonoBehaviour {
                         break;
                     case 4:
                         GameObject set4 = Instantiate(Resources.Load("Set4") as GameObject);
-                        set4.transform.position = new Vector3(0, lastSetHeight + 8, 0);
-                        lastSetHeight = set4.transform.Find("Height").position.y;
+                        set4.transform.position = new Vector3(0, lastSetPosition + lastSetHeight + 3, 0);
+                        lastSetHeight = set4.transform.Find("Height").localPosition.y;
+                        lastSetPosition = set4.transform.position.y;
                         Transform set4Transf = set4.GetComponent<Transform>();
                         foreach (Transform child in set4Transf) if (child.CompareTag("IceBlock"))
                             {
@@ -203,8 +211,9 @@ public class GameController : MonoBehaviour {
                         break;
                     case 5:
                         GameObject set5 = Instantiate(Resources.Load("Set5") as GameObject);
-                        set5.transform.position = new Vector3(0, lastSetHeight + 8, 0);
-                        lastSetHeight = set5.transform.Find("Height").position.y;
+                        set5.transform.position = new Vector3(0, lastSetPosition + lastSetHeight + 3, 0);
+                        lastSetHeight = set5.transform.Find("Height").localPosition.y;
+                        lastSetPosition = set5.transform.position.y;
                         Transform set5Transf = set5.GetComponent<Transform>();
                         foreach (Transform child in set5Transf) if (child.CompareTag("IceBlock"))
                             {
@@ -326,6 +335,10 @@ public class GameController : MonoBehaviour {
         {
             Destroy(gameObj);
         }
+        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("Set"))
+        {
+            Destroy(gameObj);
+        }
 
         mainCanvas.SetActive(false);
         endRunCanvas.SetActive(true);
@@ -336,7 +349,14 @@ public class GameController : MonoBehaviour {
         PlayerPrefs.SetFloat("TopHeight", topHeight);
         coinEndRunTxt = GameObject.Find("CoinCountEndRun").GetComponent<Text>();
         coinEndRunTxt.text = coinsCount.ToString();
-        doubleCoinGO = GameObject.Find("WatchAdButton");
+        if (doubleCoinAvlb)
+        {
+            doubleCoinGO.SetActive(true);
+        }
+        else
+        {
+            doubleCoinGO.SetActive(false);
+        }
         diamondQtdTxt = GameObject.Find("DiamondQtd").GetComponent<Text>();
         diamondQtdTxt.text = diamondQtd.ToString();
         continueButtonGO = GameObject.Find("ContinueButton");
@@ -358,6 +378,7 @@ public class GameController : MonoBehaviour {
         coinsCountAnimation = coinsCount;
         coinsCount = doubleCoinQtd;
         doubleCoinGO.SetActive(false);
+        doubleCoinAvlb = false;
     }
     public void EndRunButton(int aux)
     {
@@ -384,8 +405,10 @@ public class GameController : MonoBehaviour {
         PlayerPrefs.SetInt("DiamondQtd", diamondQtd);
         player = Instantiate(Resources.Load("Skin" + currentSkin) as GameObject);
         player.transform.position = new Vector3(0, currentHeight, 0);
+        player.name = "Player";
         playerRB = player.GetComponent<Rigidbody2D>();
         playerAlive = true;
+        doubleCoinAvlb = true;
         mainCanvas.SetActive(true);
         endRunCanvas.SetActive(false);
 
