@@ -339,6 +339,10 @@ public class GameController : MonoBehaviour {
         {
             Destroy(gameObj);
         }
+        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("HighBounceBarrier"))
+        {
+            Destroy(gameObj);
+        }
 
         mainCanvas.SetActive(false);
         endRunCanvas.SetActive(true);
