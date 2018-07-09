@@ -5,8 +5,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuController : MonoBehaviour {
-    public GameObject mainCanvas, shopCanvas, settingsCanvas;
+public class MenuController : MonoBehaviour
+{
+    public GameObject mainCanvas, shopCanvas, settingsCanvas, cashShopCanvas;
     private Text totalCoinsTxt;
     private int totalCoins;
 
@@ -30,16 +31,19 @@ public class MenuController : MonoBehaviour {
 
     private int diamondQtd;
     private Text diamondQtdTxt;
+    private GameObject removeAdsGO;
+    private int removeAds;
 
     private void Awake()
     {
-      if(GameObject.FindGameObjectsWithTag("AdCont").Length == 0)
+        if (GameObject.FindGameObjectsWithTag("AdCont").Length == 0)
         {
             GameObject adContGO = Instantiate(Resources.Load("AdControl") as GameObject);
             adContGO.name = "AdControl";
         }
     }
-    void Start() {
+    void Start()
+    {
         skinsCount = skinsGO.Length;
         skins = new int[skinsCount];
         linesCount = linesGO.Length;
@@ -52,8 +56,8 @@ public class MenuController : MonoBehaviour {
         GetPlayerPrefs();
         Inicialization();
     }
-
-    void Update() {
+    void Update()
+    {
         LineDraw();
     }
 
@@ -62,6 +66,7 @@ public class MenuController : MonoBehaviour {
         totalCoinsTxt = GameObject.Find("TotalCoins").GetComponent<Text>();
         diamondQtdTxt = GameObject.Find("DiamondQtd").GetComponent<Text>();
         adCont = GameObject.Find("AdControl").GetComponent<AdController>();
+        removeAdsGO = GameObject.Find("RemoveAds");
     }
     private void GetPlayerPrefs()
     {
@@ -77,7 +82,7 @@ public class MenuController : MonoBehaviour {
             }
             else
             {
-                if(currentSkin == i)
+                if (currentSkin == i)
                 {
                     skinsGO[i].transform.Find("Price").GetComponent<Text>().text = "Selected";
                 }
@@ -112,13 +117,17 @@ public class MenuController : MonoBehaviour {
             }
         }
         diamondQtd = PlayerPrefs.GetInt("DiamondQtd", 0);
+        removeAds = PlayerPrefs.GetInt("RemoveAds", 0);
     }
     private void Inicialization()
     {
         totalCoinsTxt.text = totalCoins.ToString();
         diamondQtdTxt.text = diamondQtd.ToString();
         linePrefab = linesPrefabs[currentLine];
-
+        if(removeAds == 1)
+        {
+            removeAdsGO.SetActive(false);
+        }
     }
     private void LineDraw()
     {
@@ -157,6 +166,12 @@ public class MenuController : MonoBehaviour {
             case 4:                            //settings -> main
                 settingsCanvas.SetActive(false);
                 mainCanvas.SetActive(true);
+                break;
+            case 5:
+                cashShopCanvas.SetActive(true);
+                break;
+            case 6:
+                cashShopCanvas.SetActive(false);
                 break;
             default:
                 break;
@@ -243,5 +258,16 @@ public class MenuController : MonoBehaviour {
         diamondQtd++;
         diamondQtdTxt.text = diamondQtd.ToString();
         PlayerPrefs.SetInt("DiamondQtd", diamondQtd);
+    }
+    public void BuyDiamond(int qtd)
+    {
+        diamondQtd += qtd;
+        diamondQtdTxt.text = diamondQtd.ToString();
+        PlayerPrefs.SetInt("DiamondQtd", diamondQtd);
+    }
+    public void BuyRemoveAds()
+    {
+        adCont.RemoveAdsBought();
+        SceneManager.LoadScene("MenuScene");
     }
 }

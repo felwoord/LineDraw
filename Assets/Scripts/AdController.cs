@@ -10,7 +10,7 @@ public class AdController : MonoBehaviour
     private string iosGameID = "2656056";
     private string androidGameID = "2656055";
     private string gameID = null;
-
+    private int removeAds;
     private int type;
 
     void Awake()
@@ -30,11 +30,20 @@ public class AdController : MonoBehaviour
     void Start()
     {
         adTimer = 0;
+        removeAds = PlayerPrefs.GetInt("RemoveAds", 0);
     }
 
     void Update()
     {
-        adTimer += Time.deltaTime;
+        if (removeAds == 0)
+        {
+            adTimer += Time.deltaTime;
+        }
+    }
+    public void RemoveAdsBought()
+    {
+        removeAds = 1;
+        PlayerPrefs.SetInt("RemoveAds", removeAds);
     }
     public void ShowInterstitial()
     {
