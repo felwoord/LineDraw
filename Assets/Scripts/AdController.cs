@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
+//using GoogleMobileAds.Api;
 
 public class AdController : MonoBehaviour
 {

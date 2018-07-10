@@ -11,14 +11,29 @@ public class PlayerController : MonoBehaviour
 
     private bool bounced;
     private float counter;
+
+    private bool invincible;
+    private float inviCounter;
+    private GameObject inviAura;
+
+    private bool magnet;
+    private float magnetCounter;
+    private GameObject magnetAura;
+
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         gameCont = GameObject.Find("Main Camera").GetComponent<GameController>();
+        inviAura = GameObject.Find("InviAura");
+        inviAura.SetActive(false);
+        magnetAura = GameObject.Find("MagnetAura");
+        magnetAura.SetActive(false);
         endGame = false;
         endGameCount = 0;
         bounced = false;
         counter = 0;
+        invincible = false;
+        inviCounter = 0;
     }
     
     void Update()
@@ -42,25 +57,74 @@ public class PlayerController : MonoBehaviour
                 bounced = false;
             }
         }
+        if(invincible)
+        {
+            inviCounter += Time.deltaTime;
+            if(inviCounter > 15f)
+            {
+                inviCounter = 0;
+                invincible = false;
+                inviAura.SetActive(false);
+            }
+        }
+        if(magnet)
+        {
+            magnetCounter += Time.deltaTime;
+            if(magnetCounter > 20)
+            {
+                magnetCounter = 0;
+                magnet = false;
+                magnetAura.SetActive(false);
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Spike")
+        if (!invincible)
         {
-            endGame = true;
+            if (collision.gameObject.tag == "Spike")
+            {
+                endGame = true;
+            }
+            if (collision.gameObject.tag == "HighBounceBarrier")
+            {
+                bounced = true;
+            }
         }
-        if(collision.gameObject.tag == "HighBounceBarrier")
+        else
         {
-            bounced = true;
+            if (collision.gameObject.tag != "Line")
+            {
+                Destroy(collision.gameObject);
+            }
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Coin")
+        if (collision.tag == "Coin" && !magnet)
         {
             Destroy(collision.gameObject);
             gameCont.AddCoin();
+        }
+        if (collision.tag == "Invincible")
+        {
+            invincible = true;
+            inviAura.SetActive(true);
+            Destroy(collision.gameObject);
+        }
+        if (collision.tag == "Shield")
+        {
+            GameObject shield = Instantiate(Resources.Load("ShieldSet") as GameObject);
+            shield.transform.position = new Vector3(0, transform.position.y + 5, 0);
+            Destroy(collision.gameObject);
+
+        }
+        if (collision.tag == "Magnet")
+        {
+            magnetAura.SetActive(true);
+            magnet = true;
+            Destroy(collision.gameObject);
         }
     }
     void OnBecameInvisible()
