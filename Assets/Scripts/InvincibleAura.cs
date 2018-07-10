@@ -27,7 +27,6 @@ public class InvincibleAura : MonoBehaviour {
 
         rend.color = tmp;
 
-        Debug.Log(rend.color.a);
         if(tmp.a > 0.9f)
         {
             up = false;

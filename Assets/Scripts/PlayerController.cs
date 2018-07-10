@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour
     private float magnetCounter;
     private GameObject magnetAura;
 
+    private bool slowTime;
+    private float slowTimeCounter;
+    private GameObject slowTimeAura;
+
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -28,6 +32,8 @@ public class PlayerController : MonoBehaviour
         inviAura.SetActive(false);
         magnetAura = GameObject.Find("MagnetAura");
         magnetAura.SetActive(false);
+        slowTimeAura = GameObject.Find("SlowAura");
+        slowTimeAura.SetActive(false);
         endGame = false;
         endGameCount = 0;
         bounced = false;
@@ -77,6 +83,17 @@ public class PlayerController : MonoBehaviour
                 magnetAura.SetActive(false);
             }
         }
+        if (slowTime)
+        {
+            slowTimeCounter += Time.deltaTime;
+            if (slowTimeCounter > 10)
+            {
+                slowTimeCounter = 0;
+                slowTime = false;
+                slowTimeAura.SetActive(false);
+                Time.timeScale = 1.0f;
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -124,6 +141,13 @@ public class PlayerController : MonoBehaviour
         {
             magnetAura.SetActive(true);
             magnet = true;
+            Destroy(collision.gameObject);
+        }
+        if (collision.tag == "SlowTime")
+        {
+            slowTimeAura.SetActive(true);
+            slowTime = true;
+            Time.timeScale = 0.5f;
             Destroy(collision.gameObject);
         }
     }

@@ -318,6 +318,7 @@ public class GameController : MonoBehaviour {
     }
     public void EndGame()
     {
+        Time.timeScale = 1;
         playerAlive = false;
         foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("IceBlock"))
         {
