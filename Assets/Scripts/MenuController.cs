@@ -34,6 +34,13 @@ public class MenuController : MonoBehaviour
     private GameObject removeAdsGO;
     private int removeAds;
 
+    private AudioSource musicAS;
+    public Slider musicSlider;
+    private float musicVolume;
+    private AudioSource effectAS;
+    public Slider effectSlider;
+    private float effectVolume;
+
     private void Awake()
     {
         if (GameObject.FindGameObjectsWithTag("AdCont").Length == 0)
@@ -67,6 +74,8 @@ public class MenuController : MonoBehaviour
         diamondQtdTxt = GameObject.Find("DiamondQtd").GetComponent<Text>();
         adCont = GameObject.Find("AdControl").GetComponent<AdController>();
         removeAdsGO = GameObject.Find("RemoveAds");
+        musicAS = GameObject.Find("MusicSource").GetComponent<AudioSource>();
+        effectAS = GameObject.Find("EffectSource").GetComponent<AudioSource>();
     }
     private void GetPlayerPrefs()
     {
@@ -118,6 +127,9 @@ public class MenuController : MonoBehaviour
         }
         diamondQtd = PlayerPrefs.GetInt("DiamondQtd", 0);
         removeAds = PlayerPrefs.GetInt("RemoveAds", 0);
+        musicVolume = PlayerPrefs.GetFloat("MusicVolume", 0);
+        effectVolume = PlayerPrefs.GetFloat("EffectVolume", 0);
+        
     }
     private void Inicialization()
     {
@@ -270,4 +282,20 @@ public class MenuController : MonoBehaviour
         adCont.RemoveAdsBought();
         SceneManager.LoadScene("MenuScene");
     }
+    public void VolumeControl(int aux)
+    {
+        if(aux == 0)
+        {
+            musicVolume = musicSlider.value;
+            musicAS.volume = musicVolume;
+            PlayerPrefs.SetFloat("MusicVolume", musicVolume);
+        }
+        else
+        {
+            effectVolume = effectSlider.value;
+            effectAS.volume = effectVolume;
+            PlayerPrefs.SetFloat("EffectVolume", effectVolume);
+        }
+    }
+
 }
