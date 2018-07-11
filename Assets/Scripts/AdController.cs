@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using GoogleMobileAds.Api;
+using GoogleMobileAds;
 using System;
 
 public class AdController : MonoBehaviour
@@ -28,10 +29,10 @@ public class AdController : MonoBehaviour
 
 #if UNITY_ANDROID
         gameID = androidGameIDUnityAds;
-            appID = androidGameIDAdmob;
+        appID = androidGameIDAdmob;
 #elif UNITY_IOS
         gameID = iosGameIDUnityAds;
-        appID = iosGameIDAdMob;
+        appID = iosGameIDAdmob;
 #endif
 
         Advertisement.Initialize(gameID);
@@ -41,12 +42,7 @@ public class AdController : MonoBehaviour
     void Start()
     {
         adTimer = 0;
-        removeAds = PlayerPrefs.GetInt("RemoveAds", 0);
-        if(removeAds == 0)
-        {
-            RequestBanner();
-        }
-        RequestInterstitial();
+        removeAds = PlayerPrefs.GetInt("RemoveAds", 0);        
     }
 
     void Update()
@@ -61,48 +57,6 @@ public class AdController : MonoBehaviour
         removeAds = 1;
         PlayerPrefs.SetInt("RemoveAds", removeAds);
     }
-    public void RequestBanner()
-    {
-#if UNITY_ANDROID
-        string adUnitId = "ca-app-pub-3940256099942544/6300978111";
-#elif UNITY_IPHONE
-        string adUnitId = "ca-app-pub-3940256099942544/2934735716";
-#else
-        string adUnitId = "unexpected_platform";
-#endif
-
-        // Create a 320x50 banner at the top of the screen.
-        bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Top);
-
-        // Create an empty ad request.
-        AdRequest request = new AdRequest.Builder().Build();
-
-        // Load the banner with the request.
-        bannerView.LoadAd(request);
-        bannerView.Show();
-
-    }
-    private void RequestInterstitial()
-    {
-#if UNITY_ANDROID
-        string adUnitId = "ca-app-pub-3940256099942544/1033173712";
-#elif UNITY_IPHONE
-        string adUnitId = "ca-app-pub-3940256099942544/4411468910";
-#else
-        string adUnitId = "unexpected_platform";
-#endif
-
-        // Initialize an InterstitialAd.
-        InterstitialAd interstitial = new InterstitialAd(adUnitId);
-        // Create an empty ad request.
-        AdRequest request = new AdRequest.Builder().Build();
-        // Load the interstitial with the request.
-        interstitial.LoadAd(request);
-        if (interstitial.IsLoaded())
-        {
-            interstitial.Show();
-        }
-    }
     public void ShowInterstitial()
     {
         if (adTimer > 180)
@@ -111,7 +65,6 @@ public class AdController : MonoBehaviour
             adTimer = 0;
         }
     }
-
     public void ShowRewardedVideo(int aux)
     {
         type = aux;
@@ -151,4 +104,49 @@ public class AdController : MonoBehaviour
             GameObject.Find("Main Camera").GetComponent<GameController>().AdCompleted();
         }
     }
+
+
+
+ /*   public void RequestBanner()
+    {
+#if UNITY_ANDROID
+        string adUnitId = "ca-app-pub-3940256099942544/6300978111";
+#elif UNITY_IPHONE
+        string adUnitId = "ca-app-pub-3940256099942544/2934735716";
+#else
+        string adUnitId = "unexpected_platform";
+#endif
+
+        // Create a 320x50 banner at the top of the screen.
+        bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Bottom);
+
+        // Create an empty ad request.
+        AdRequest request = new AdRequest.Builder().Build();
+
+        // Load the banner with the request.
+        bannerView.LoadAd(request);
+        bannerView.Show();
+
+    }
+    public void RequestInterstitial()
+    {
+#if UNITY_ANDROID
+        string adUnitId = "ca-app-pub-3940256099942544/1033173712";
+#elif UNITY_IPHONE
+        string adUnitId = "ca-app-pub-3940256099942544/4411468910";
+#else
+        string adUnitId = "unexpected_platform";
+#endif
+
+        // Initialize an InterstitialAd.
+        InterstitialAd interstitial = new InterstitialAd(adUnitId);
+        // Create an empty ad request.
+        AdRequest request = new AdRequest.Builder().Build();
+        // Load the interstitial with the request.
+        interstitial.LoadAd(request);
+        if (interstitial.IsLoaded())
+        {
+            interstitial.Show();
+        }
+    }*/
 }

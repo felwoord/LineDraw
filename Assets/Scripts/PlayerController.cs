@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
         magnetAura = GameObject.Find("MagnetAura");
         magnetAura.SetActive(false);
         slowTimeAura = GameObject.Find("SlowAura");
-        slowTimeAura.SetActive(false);
+        //slowTimeAura.SetActive(false);
         endGame = false;
         endGameCount = 0;
         bounced = false;
@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
             {
                 slowTimeCounter = 0;
                 slowTime = false;
-                slowTimeAura.SetActive(false);
+                //slowTimeAura.SetActive(false);
                 Time.timeScale = 1.0f;
             }
         }
@@ -145,7 +145,7 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.tag == "SlowTime")
         {
-            slowTimeAura.SetActive(true);
+            //slowTimeAura.SetActive(true);
             slowTime = true;
             Time.timeScale = 0.5f;
             Destroy(collision.gameObject);

@@ -54,6 +54,7 @@ public class GameController : MonoBehaviour {
         currentSkin = PlayerPrefs.GetInt("CurrentSkin", 0);
         player = Instantiate(Resources.Load("Skin" + currentSkin) as GameObject);
         player.name = "Player";
+        player.transform.position = new Vector2(0, 0);
 
         GameObjectFind();
         GetPlayerPrefs();
@@ -148,17 +149,17 @@ public class GameController : MonoBehaviour {
     private void SpawnObjects()
     {
         setSpawnCounter += Time.deltaTime;
-        if(setSpawnCounter > 3.5f)
+        if (setSpawnCounter > 3.5f)
         {
             float rand = Random.Range(0, 10);
-            if(missesCounter >= 2)
+            if (missesCounter >= 2)
             {
                 rand = 10;
                 missesCounter = 0;
             }
             if (rand > 1)
             {
-                if(lastSetPosition < player.transform.position.y)
+                if (lastSetPosition < player.transform.position.y)
                 {
                     lastSetPosition = player.transform.position.y;
                 }
@@ -254,7 +255,7 @@ public class GameController : MonoBehaviour {
     }
     private void DoubleCoinAnimation()
     {
-        if(coinsCountAnimation < doubleCoinQtd)
+        if (coinsCountAnimation < doubleCoinQtd)
         {
             coinsCountAnimation++;
             coinEndRunTxt.text = coinsCountAnimation.ToString();
@@ -262,7 +263,7 @@ public class GameController : MonoBehaviour {
     }
     private void Progress()
     {
-        maxSpeed = 2 + Mathf.Sqrt(currentHeight)/10.0f;
+        maxSpeed = 2 + Mathf.Sqrt(currentHeight) / 10.0f;
         upForce = new Vector2(0, 10 + Mathf.Sqrt(currentHeight) / 10.0f);
         camSpeed = 0.6f + Mathf.Sqrt(currentHeight) / 100;
 
@@ -344,6 +345,22 @@ public class GameController : MonoBehaviour {
         {
             Destroy(gameObj);
         }
+        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("Magnet"))
+        {
+            Destroy(gameObj);
+        }
+        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("Shield"))
+        {
+            Destroy(gameObj);
+        }
+        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("Invincible"))
+        {
+            Destroy(gameObj);
+        }
+        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("SlowTime"))
+        {
+            Destroy(gameObj);
+        }
 
         mainCanvas.SetActive(false);
         endRunCanvas.SetActive(true);
@@ -416,6 +433,7 @@ public class GameController : MonoBehaviour {
         doubleCoinAvlb = true;
         mainCanvas.SetActive(true);
         endRunCanvas.SetActive(false);
+        cam.transform.position = new Vector3(0, player.transform.position.y, cam.transform.position.z);
 
     }
     public void PauseButton()
