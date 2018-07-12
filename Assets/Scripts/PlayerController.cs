@@ -41,42 +41,42 @@ public class PlayerController : MonoBehaviour
         invincible = false;
         inviCounter = 0;
     }
-    
+
     void Update()
     {
-        if(endGame)
+        if (endGame)
         {
             endGameCount += Time.deltaTime;
-            if(endGameCount > 0.05f)
+            if (endGameCount > 0.05f)
             {
                 Destroy(gameObject);
                 gameCont.EndGame();
             }
         }
-        if(bounced)
+        if (bounced)
         {
             counter += Time.deltaTime;
-            if(counter >= 0.02)
+            if (counter >= 0.02)
             {
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y) * 2;
                 counter = 0;
                 bounced = false;
             }
         }
-        if(invincible)
+        if (invincible)
         {
             inviCounter += Time.deltaTime;
-            if(inviCounter > 15f)
+            if (inviCounter > 15f)
             {
                 inviCounter = 0;
                 invincible = false;
                 inviAura.SetActive(false);
             }
         }
-        if(magnet)
+        if (magnet)
         {
             magnetCounter += Time.deltaTime;
-            if(magnetCounter > 20)
+            if (magnetCounter > 20)
             {
                 magnetCounter = 0;
                 magnet = false;
@@ -121,35 +121,63 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.tag == "Coin" && !magnet)
         {
-            Destroy(collision.gameObject);
-            gameCont.AddCoin();
+            GotIt(1, collision);
         }
-        if (collision.tag == "Invincible")
+        if (collision.tag == "SuperCoin" && !magnet)
         {
-            invincible = true;
-            inviAura.SetActive(true);
-            Destroy(collision.gameObject);
+            GotIt(2, collision);
         }
-        if (collision.tag == "Shield")
+        if (collision.tag == "Invincible" && !magnet)
         {
-            GameObject shield = Instantiate(Resources.Load("ShieldSet") as GameObject);
-            shield.transform.position = new Vector3(0, transform.position.y + 5, 0);
-            Destroy(collision.gameObject);
-
+            GotIt(3, collision);
         }
-        if (collision.tag == "Magnet")
+        if (collision.tag == "Shield" && !magnet)
         {
-            magnetAura.SetActive(true);
-            magnet = true;
-            Destroy(collision.gameObject);
+            GotIt(4, collision);
         }
-        if (collision.tag == "SlowTime")
+        if (collision.tag == "Magnet" && !magnet)
         {
-            //slowTimeAura.SetActive(true);
-            slowTime = true;
-            Time.timeScale = 0.5f;
-            Destroy(collision.gameObject);
+            GotIt(5, collision);
         }
+        if (collision.tag == "SlowTime" && !magnet)
+        {
+            GotIt(6, collision);
+        }
+    }
+    public void GotIt(int aux, Collider2D collision)
+    {
+        switch (aux)
+        {
+            case 1:
+                gameCont.AddCoin();
+                break;
+            case 2:
+                for (int i = 0; i < 50; i++)
+                {
+                    gameCont.AddCoin();
+                }
+                break;
+            case 3:
+                invincible = true;
+                inviAura.SetActive(true);
+                break;
+            case 4:
+                GameObject shield = Instantiate(Resources.Load("ShieldSet") as GameObject);
+                shield.transform.position = new Vector3(0, transform.position.y + 5, 0);
+                break;
+            case 5:
+                magnetAura.SetActive(true);
+                magnet = true;
+                break;
+            case 6:
+                //slowTimeAura.SetActive(true);
+                slowTime = true;
+                Time.timeScale = 0.5f;
+                break;
+            default:
+                break;
+        }
+        Destroy(collision.gameObject);
     }
     void OnBecameInvisible()
     {
