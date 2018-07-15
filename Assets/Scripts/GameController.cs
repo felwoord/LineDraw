@@ -149,7 +149,7 @@ public class GameController : MonoBehaviour {
     private void SpawnObjects()
     {
         setSpawnCounter += Time.deltaTime;
-        if (setSpawnCounter > 3.5f)
+        if (setSpawnCounter > 1f)
         {
             float rand = Random.Range(0, 10);
             if (missesCounter >= 2)

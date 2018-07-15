@@ -42,7 +42,9 @@ public class AdController : MonoBehaviour
     void Start()
     {
         adTimer = 0;
-        removeAds = PlayerPrefs.GetInt("RemoveAds", 0);        
+        removeAds = PlayerPrefs.GetInt("RemoveAds", 0);
+        RequestBanner();
+        RequestInterstitial();
     }
 
     void Update()
@@ -107,7 +109,7 @@ public class AdController : MonoBehaviour
 
 
 
- /*   public void RequestBanner()
+    public void RequestBanner()
     {
 #if UNITY_ANDROID
         string adUnitId = "ca-app-pub-3940256099942544/6300978111";
@@ -148,5 +150,5 @@ public class AdController : MonoBehaviour
         {
             interstitial.Show();
         }
-    }*/
+    }
 }
