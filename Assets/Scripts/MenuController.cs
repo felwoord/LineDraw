@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class MenuController : MonoBehaviour
 {
     public GameObject mainCanvas, shopCanvas, settingsCanvas, cashShopCanvas;
+    private bool draw;
     private Text totalCoinsTxt;
     private int totalCoins;
 
@@ -65,7 +66,10 @@ public class MenuController : MonoBehaviour
     }
     void Update()
     {
-        LineDraw();
+        if (draw)
+        {
+            LineDraw();
+        }
     }
 
     private void GameObjectFind()
@@ -140,6 +144,7 @@ public class MenuController : MonoBehaviour
         {
             removeAdsGO.SetActive(false);
         }
+        draw = true;
     }
     private void LineDraw()
     {
@@ -166,24 +171,30 @@ public class MenuController : MonoBehaviour
             case 1:                            //main -> shop
                 mainCanvas.SetActive(false);
                 shopCanvas.SetActive(true);
+                draw = false;
                 break;
             case 2:                            //main -> settings
                 mainCanvas.SetActive(false);
                 settingsCanvas.SetActive(true);
+                draw = false;
                 break;
             case 3:                            //shop -> main
                 shopCanvas.SetActive(false);
                 mainCanvas.SetActive(true);
+                draw = true;
                 break;
             case 4:                            //settings -> main
                 settingsCanvas.SetActive(false);
                 mainCanvas.SetActive(true);
+                draw = true;
                 break;
             case 5:
                 cashShopCanvas.SetActive(true);
+                draw = false;
                 break;
             case 6:
                 cashShopCanvas.SetActive(false);
+                draw = true;
                 break;
             default:
                 break;
