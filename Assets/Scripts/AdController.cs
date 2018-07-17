@@ -44,7 +44,6 @@ public class AdController : MonoBehaviour
         adTimer = 0;
         removeAds = PlayerPrefs.GetInt("RemoveAds", 0);
         RequestBanner();
-        RequestInterstitial();
     }
 
     void Update()
