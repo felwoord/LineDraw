@@ -138,15 +138,6 @@ public class GameController : MonoBehaviour {
         paused = false;
         linePrefab = linesPrefabs[currentLine];
 
-        SpawnObjects();
-        setsPos[0] = lastSetPosition;
-        SpawnObjects();
-        setsPos[1] = lastSetPosition;
-        SpawnObjects();
-        setsPos[2] = lastSetPosition;
-        SpawnObjects();
-        setsPos[3] = lastSetPosition;
-        Debug.Log(setsPos[0]);
     }
     private void Score()
     {
