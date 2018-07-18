@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private bool bounced;
     private float counter;
 
-    private bool invincible;
+    public bool invincible;
     private float inviCounter;
     private GameObject inviAura;
 
@@ -109,13 +109,13 @@ public class PlayerController : MonoBehaviour
                 bounced = true;
             }
         }
-        else
+       /* else
         {
             if (collision.gameObject.tag != "Line")
             {
                 Destroy(collision.gameObject);
             }
-        }
+        }*/
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
