@@ -21,7 +21,7 @@ public class AdController : MonoBehaviour
     private int removeAds;
     private int type;
 
-    private BannerView bannerView;
+    public BannerView bannerView;
 
     void Awake()
     {
@@ -43,7 +43,6 @@ public class AdController : MonoBehaviour
     {
         adTimer = 0;
         removeAds = PlayerPrefs.GetInt("RemoveAds", 0);
-        RequestBanner();
     }
 
     void Update()
@@ -58,12 +57,62 @@ public class AdController : MonoBehaviour
         removeAds = 1;
         PlayerPrefs.SetInt("RemoveAds", removeAds);
     }
+    public void RequestBanner()
+    {
+        if (removeAds == 0)
+        {
+#if UNITY_ANDROID
+            string adUnitId = "ca-app-pub-3940256099942544/6300978111";
+#elif UNITY_IPHONE
+             string adUnitId = "ca-app-pub-3940256099942544/2934735716";
+#else
+             string adUnitId = "unexpected_platform";
+#endif
+
+            // Create a banner at the bottom of the screen.
+            bannerView = new BannerView(adUnitId, AdSize.SmartBanner, AdPosition.Bottom);
+
+            // Create an empty ad request.
+            AdRequest request = new AdRequest.Builder().Build();
+
+            // Load the banner with the request.
+            bannerView.LoadAd(request);
+
+            // Show Banner
+            bannerView.Show();
+        }
+    }
     public void ShowInterstitial()
     {
-        if (adTimer > 180)
+        if (adTimer > 120)
         {
-            Advertisement.Show();
-            adTimer = 0;
+            if (Advertisement.IsReady())
+            {
+                Advertisement.Show();
+                adTimer = 0;
+            }
+            else
+            {
+#if UNITY_ANDROID
+                string adUnitId = "ca-app-pub-3940256099942544/1033173712";
+#elif UNITY_IPHONE
+        string adUnitId = "ca-app-pub-3940256099942544/4411468910";
+#else
+        string adUnitId = "unexpected_platform";
+#endif
+
+                // Initialize an InterstitialAd.
+                InterstitialAd interstitial = new InterstitialAd(adUnitId);
+                // Create an empty ad request.
+                AdRequest request = new AdRequest.Builder().Build();
+                // Load the interstitial with the request.
+                interstitial.LoadAd(request);
+                // If successfully Loaded, show Interstitial
+                if (interstitial.IsLoaded())
+                {
+                    interstitial.Show();
+                }
+            }
         }
     }
     public void ShowRewardedVideo(int aux)
@@ -103,51 +152,6 @@ public class AdController : MonoBehaviour
         else if (type == 1)
         {
             GameObject.Find("Main Camera").GetComponent<GameController>().AdCompleted();
-        }
-    }
-
-
-
-    public void RequestBanner()
-    {
-#if UNITY_ANDROID
-        string adUnitId = "ca-app-pub-3940256099942544/6300978111";
-#elif UNITY_IPHONE
-        string adUnitId = "ca-app-pub-3940256099942544/2934735716";
-#else
-        string adUnitId = "unexpected_platform";
-#endif
-
-        // Create a 320x50 banner at the top of the screen.
-        bannerView = new BannerView(adUnitId, AdSize.Banner, AdPosition.Bottom);
-
-        // Create an empty ad request.
-        AdRequest request = new AdRequest.Builder().Build();
-
-        // Load the banner with the request.
-        bannerView.LoadAd(request);
-        bannerView.Show();
-
-    }
-    public void RequestInterstitial()
-    {
-#if UNITY_ANDROID
-        string adUnitId = "ca-app-pub-3940256099942544/1033173712";
-#elif UNITY_IPHONE
-        string adUnitId = "ca-app-pub-3940256099942544/4411468910";
-#else
-        string adUnitId = "unexpected_platform";
-#endif
-
-        // Initialize an InterstitialAd.
-        InterstitialAd interstitial = new InterstitialAd(adUnitId);
-        // Create an empty ad request.
-        AdRequest request = new AdRequest.Builder().Build();
-        // Load the interstitial with the request.
-        interstitial.LoadAd(request);
-        if (interstitial.IsLoaded())
-        {
-            interstitial.Show();
         }
     }
 }

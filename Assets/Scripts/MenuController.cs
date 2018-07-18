@@ -145,6 +145,7 @@ public class MenuController : MonoBehaviour
             removeAdsGO.SetActive(false);
         }
         draw = true;
+        adCont.RequestBanner();
     }
     private void LineDraw()
     {
@@ -202,6 +203,7 @@ public class MenuController : MonoBehaviour
     }
     public void PlayButton()
     {
+        adCont.bannerView.Hide();
         SceneManager.LoadScene("GameScene");
     }
     public void BuySelectSkin(int skinNum)

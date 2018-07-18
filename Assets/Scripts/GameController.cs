@@ -514,50 +514,7 @@ public class GameController : MonoBehaviour {
     {
         Time.timeScale = 1;
         playerAlive = false;
-        /*foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("IceBlock"))
-        {
-            Destroy(gameObj);
-        }
-        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("SideBarrier"))
-        {
-            Destroy(gameObj);
-        }
-        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("Line"))
-        {
-            Destroy(gameObj);
-        }
-        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("Coin"))
-        {
-            Destroy(gameObj);
-        }
-        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("Set"))
-        {
-            Destroy(gameObj);
-        }
-        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("HighBounceBarrier"))
-        {
-            Destroy(gameObj);
-        }
-        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("Magnet"))
-        {
-            Destroy(gameObj);
-        }
-        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("Shield"))
-        {
-            Destroy(gameObj);
-        }
-        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("Invincible"))
-        {
-            Destroy(gameObj);
-        }
-        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("SlowTime"))
-        {
-            Destroy(gameObj);
-        }
-        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("SuperCoin"))
-        {
-            Destroy(gameObj);
-        }*/
+
         foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("Set"))
         {
             Destroy(gameObj);
@@ -573,6 +530,7 @@ public class GameController : MonoBehaviour {
 
         mainCanvas.SetActive(false);
         endRunCanvas.SetActive(true);
+        adCont.bannerView.Show();
         currentHeightTxtEndRun = GameObject.Find("CurrentHeightEndRun").GetComponent<Text>();
         currentHeightTxtEndRun.text = currentHeight.ToString("0");
         topHeightTxtEndRun = GameObject.Find("TopHeightEndRun").GetComponent<Text>();
@@ -617,10 +575,12 @@ public class GameController : MonoBehaviour {
         PlayerPrefs.SetInt("TotalCoins", totalCoins);
         if (aux == 1)
         {
+            adCont.bannerView.Hide();
             SceneManager.LoadScene("GameScene");
         }
         else
         {
+            adCont.bannerView.Destroy();
             SceneManager.LoadScene("MenuScene");
         }
     }
@@ -640,6 +600,7 @@ public class GameController : MonoBehaviour {
         playerRB = player.GetComponent<Rigidbody2D>();
         playerAlive = true;
         doubleCoinAvlb = true;
+        adCont.bannerView.Hide();
         mainCanvas.SetActive(true);
         endRunCanvas.SetActive(false);
         cam.transform.position = new Vector3(0, player.transform.position.y, cam.transform.position.z);
@@ -653,11 +614,13 @@ public class GameController : MonoBehaviour {
             pauseCanvas.SetActive(true);
             Time.timeScale = 0;
             paused = true;
+            adCont.bannerView.Show();
         }
         else
         {
             mainCanvas.SetActive(true);
             pauseCanvas.SetActive(false);
+            adCont.bannerView.Hide();
             Time.timeScale = 1;
             paused = false;
         }
