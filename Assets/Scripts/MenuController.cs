@@ -42,6 +42,8 @@ public class MenuController : MonoBehaviour
     public Slider effectSlider;
     private float effectVolume;
 
+    public GameObject restorePurchaseButton;
+
     private void Awake()
     {
         if (GameObject.FindGameObjectsWithTag("AdCont").Length == 0)
@@ -71,7 +73,6 @@ public class MenuController : MonoBehaviour
             LineDraw();
         }
     }
-
     private void GameObjectFind()
     {
         totalCoinsTxt = GameObject.Find("TotalCoins").GetComponent<Text>();
@@ -309,6 +310,12 @@ public class MenuController : MonoBehaviour
             effectAS.volume = effectVolume;
             PlayerPrefs.SetFloat("EffectVolume", effectVolume);
         }
+    }
+    public void DeleteGameData()
+    {
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+        SceneManager.LoadScene("MenuScene");
     }
 
 }

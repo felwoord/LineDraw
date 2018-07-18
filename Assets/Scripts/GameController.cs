@@ -23,7 +23,7 @@ public class GameController : MonoBehaviour {
     private float currentHeight, topHeight;
 
     private float[] setsPos = new float[4]; 
-    private float setSpawnCounter, missesCounter, lastSetHeight, lastSetPosition;
+    private float lastSetHeight, lastSetPosition;
     private float powerUpsCDCounter;
     private bool powerUpsCD;
     private float sideBarrierSpawnCounter;
@@ -110,9 +110,7 @@ public class GameController : MonoBehaviour {
         topHeightTxt.text = topHeight.ToString("0");
         coinsCount = 0;
         coinTxt.text = coinsCount.ToString();
-        setSpawnCounter = 0;
         sideBarrierSpawnCounter = 0;
-        missesCounter = 0;
         lastSetHeight = 0;
         powerUpsCDCounter = 0;
         powerUpsCD = false;

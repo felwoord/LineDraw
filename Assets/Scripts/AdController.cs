@@ -124,7 +124,6 @@ public class AdController : MonoBehaviour
 
         Advertisement.Show("rewardedVideo", options);
     }
-
     void HandleShowResult(ShowResult result)
     {
 

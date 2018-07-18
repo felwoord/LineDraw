@@ -6,16 +6,15 @@ public class MagnetAura : MonoBehaviour
 {
     private GameObject player;
     private PlayerController playerCont;
-    private GameController gameCont;
+    //private GameController gameCont;
 
     void Start()
     {
         player = GameObject.Find("Player");
         playerCont = player.GetComponent<PlayerController>();
-        gameCont = GameObject.Find("Main Camera").GetComponent<GameController>();
+        //gameCont = GameObject.Find("Main Camera").GetComponent<GameController>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         transform.localScale = new Vector3(transform.localScale.x - 0.75f * Time.deltaTime, transform.localScale.y - 0.75f * Time.deltaTime, transform.localScale.z - 0.75f * Time.deltaTime);
