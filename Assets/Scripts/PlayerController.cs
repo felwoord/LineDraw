@@ -71,6 +71,10 @@ public class PlayerController : MonoBehaviour
                 inviCounter = 0;
                 invincible = false;
                 inviAura.SetActive(false);
+                SpriteRenderer rendPlayer = GetComponent<SpriteRenderer>();
+                Color tmpPlayer = rendPlayer.color;
+                tmpPlayer.a = 1;
+                rendPlayer.color = tmpPlayer;
             }
         }
         if (magnet)
@@ -98,8 +102,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!invincible)
-        {
+       // if (!invincible)
+        //{
             if (collision.gameObject.tag == "Spike")
             {
                 endGame = true;
@@ -108,14 +112,7 @@ public class PlayerController : MonoBehaviour
             {
                 bounced = true;
             }
-        }
-       /* else
-        {
-            if (collision.gameObject.tag != "Line")
-            {
-                Destroy(collision.gameObject);
-            }
-        }*/
+        //}
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -160,6 +157,7 @@ public class PlayerController : MonoBehaviour
             case 3:
                 invincible = true;
                 inviAura.SetActive(true);
+                inviAura.GetComponent<InvincibleAura>().Start();
                 break;
             case 4:
                 GameObject shield = Instantiate(Resources.Load("ShieldSet") as GameObject);

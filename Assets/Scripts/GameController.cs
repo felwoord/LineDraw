@@ -455,7 +455,7 @@ public class GameController : MonoBehaviour {
     private void Progress()
     {
         maxSpeed = 2 + Mathf.Sqrt(currentHeight) / 10.0f;
-        upForce = new Vector2(0, 10 + Mathf.Sqrt(currentHeight) / 10.0f);
+        upForce = new Vector2(0, 20 + Mathf.Sqrt(currentHeight) / 10.0f);
         camSpeed = 0.6f + Mathf.Sqrt(currentHeight) / 100;
 
         if (!doOnce50 && currentHeight > 500)
