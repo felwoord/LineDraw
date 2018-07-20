@@ -525,6 +525,10 @@ public class GameController : MonoBehaviour {
         {
             Destroy(gameObj);
         }
+        foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("ExtraCoins"))
+        {
+            Destroy(gameObj);
+        }
 
         mainCanvas.SetActive(false);
         endRunCanvas.SetActive(true);
