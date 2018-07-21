@@ -601,6 +601,7 @@ public class GameController : MonoBehaviour {
         player.name = "Player";
         playerRB = player.GetComponent<Rigidbody2D>();
         playerAlive = true;
+        lastSetPosition = player.transform.position.y + 5;
         doubleCoinAvlb = true;
         adCont.bannerView.Hide();
         mainCanvas.SetActive(true);
