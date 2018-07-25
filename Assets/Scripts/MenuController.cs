@@ -147,6 +147,11 @@ public class MenuController : MonoBehaviour
         }
         draw = true;
         adCont.RequestBanner();
+#if UNITY_IOS
+        restorePurchaseButton.SetActive(true);
+#else
+        restorePurchaseButton.SetActive(false);
+#endif
     }
     private void LineDraw()
     {
