@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
-    public GameObject mainCanvas, shopCanvas, settingsCanvas, cashShopCanvas, helpCanvas;
+    public GameObject mainCanvas, shopCanvas, settingsCanvas, cashShopCanvas, helpCanvas, achvCanvas;
     private bool draw;
     private Text totalCoinsTxt;
     private int totalCoins;
@@ -207,11 +207,11 @@ public class MenuController : MonoBehaviour
                 mainCanvas.SetActive(true);
                 draw = true;
                 break;
-            case 5:                            //Open Cash Shop
+            case 5:                            //open cash shop
                 cashShopCanvas.SetActive(true);
                 draw = false;
                 break;  
-            case 6:                            //Close Cash Shop
+            case 6:                            //close cash shop
                 cashShopCanvas.SetActive(false);
                 draw = true;
                 break;
@@ -229,6 +229,16 @@ public class MenuController : MonoBehaviour
             case 8:                            //help -> settings
                 helpCanvas.SetActive(false);
                 settingsCanvas.SetActive(true);
+                break;
+            case 9:                            //main -> achievements
+                mainCanvas.SetActive(false);
+                achvCanvas.SetActive(true);
+                draw = false;
+                break;
+            case 10:                           //achievements -> main
+                achvCanvas.SetActive(false);
+                mainCanvas.SetActive(true);
+                draw = true;
                 break;
             default:
                 break;
