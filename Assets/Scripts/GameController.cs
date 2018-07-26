@@ -102,7 +102,7 @@ public class GameController : MonoBehaviour {
     }
     private void Inicialization()
     {
-        maxSpeed = 3.5f;
+        maxSpeed = 2.5f;
         upForce = new Vector2(0, 10);
         camSpeed = 0.6f;
 

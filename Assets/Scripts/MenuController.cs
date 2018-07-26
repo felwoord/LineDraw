@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
-    public GameObject mainCanvas, shopCanvas, settingsCanvas, cashShopCanvas;
+    public GameObject mainCanvas, shopCanvas, settingsCanvas, cashShopCanvas, helpCanvas;
     private bool draw;
     private Text totalCoinsTxt;
     private int totalCoins;
@@ -43,6 +43,11 @@ public class MenuController : MonoBehaviour
     private float effectVolume;
 
     public GameObject restorePurchaseButton;
+
+    private int currentHint;
+    public GameObject[] hint;
+    private int hintseen;
+    public GameObject[] hintNot = new GameObject[2];
 
     private void Awake()
     {
@@ -134,6 +139,7 @@ public class MenuController : MonoBehaviour
         removeAds = PlayerPrefs.GetInt("RemoveAds", 0);
         musicVolume = PlayerPrefs.GetFloat("MusicVolume", 0);
         effectVolume = PlayerPrefs.GetFloat("EffectVolume", 0);
+        hintseen = PlayerPrefs.GetInt("HintSeen", 0);
         
     }
     private void Inicialization()
@@ -146,7 +152,13 @@ public class MenuController : MonoBehaviour
             removeAdsGO.SetActive(false);
         }
         draw = true;
+        currentHint = 0;
         adCont.RequestBanner();
+        if(hintseen == 1)
+        {
+            hintNot[0].SetActive(false);
+            hintNot[1].SetActive(false);
+        }
 #if UNITY_IOS
         restorePurchaseButton.SetActive(true);
 #else
@@ -195,13 +207,28 @@ public class MenuController : MonoBehaviour
                 mainCanvas.SetActive(true);
                 draw = true;
                 break;
-            case 5:
+            case 5:                            //Open Cash Shop
                 cashShopCanvas.SetActive(true);
                 draw = false;
-                break;
-            case 6:
+                break;  
+            case 6:                            //Close Cash Shop
                 cashShopCanvas.SetActive(false);
                 draw = true;
+                break;
+            case 7:                            //settings -> help
+                settingsCanvas.SetActive(false);
+                helpCanvas.SetActive(true);
+                if(hintseen == 0)
+                {
+                    hintseen = 1;
+                    hintNot[0].SetActive(false);
+                    hintNot[1].SetActive(false);
+                    PlayerPrefs.SetInt("HintSeen", 1);
+                }
+                break;
+            case 8:                            //help -> settings
+                helpCanvas.SetActive(false);
+                settingsCanvas.SetActive(true);
                 break;
             default:
                 break;
@@ -322,5 +349,16 @@ public class MenuController : MonoBehaviour
         PlayerPrefs.Save();
         SceneManager.LoadScene("MenuScene");
     }
+    public void ChangeHint(int aux)
+    {
+        hint[currentHint].SetActive(false);
+        currentHint += aux;
+        if (currentHint < 0)
+            currentHint = 6;
 
+        if (currentHint > 6)
+            currentHint = 0;
+
+        hint[currentHint].SetActive(true);
+    }
 }
