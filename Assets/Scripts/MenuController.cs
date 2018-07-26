@@ -49,6 +49,8 @@ public class MenuController : MonoBehaviour
     private int hintseen;
     public GameObject[] hintNot = new GameObject[2];
 
+    public GameObject skinScroll, lineScroll;
+
     private void Awake()
     {
         if (GameObject.FindGameObjectsWithTag("AdCont").Length == 0)
@@ -364,11 +366,28 @@ public class MenuController : MonoBehaviour
         hint[currentHint].SetActive(false);
         currentHint += aux;
         if (currentHint < 0)
-            currentHint = 6;
+            currentHint = 10;
 
-        if (currentHint > 6)
+        if (currentHint > 10)
             currentHint = 0;
 
         hint[currentHint].SetActive(true);
+    }
+    public void ChangeScrollView(int aux)
+    {
+        switch (aux)
+        {
+            case 0:
+                skinScroll.SetActive(true);
+                lineScroll.SetActive(false);
+                break;
+            case 1:
+                skinScroll.SetActive(false);
+                lineScroll.SetActive(true);
+                break;
+            default:
+                break;
+        }
+        
     }
 }
