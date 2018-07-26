@@ -165,7 +165,7 @@ public class GameController : MonoBehaviour {
             int setRand = 0;
             if (powerUpsCD)
             {
-                setRand = Random.Range(1, 18);
+                setRand = Random.Range(1, 20);
                 powerUpsCDCounter += Time.deltaTime;
                 if (powerUpsCDCounter > 15)
                 {
@@ -174,7 +174,7 @@ public class GameController : MonoBehaviour {
             }
             else
             {
-                setRand = Random.Range(1, 22);
+                setRand = Random.Range(1, 24);
             }
             switch (setRand)
             {
@@ -391,17 +391,25 @@ public class GameController : MonoBehaviour {
                     break;
                 case 18:
                     GameObject set18 = Instantiate(Resources.Load("Set18") as GameObject);
-                    set18.transform.position = new Vector3(Random.Range(-2, 2), lastSetPosition + lastSetHeight + 4, 0);
+                    set18.transform.position = new Vector3(0, lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set18.transform.Find("Height").localPosition.y;
                     lastSetPosition = set18.transform.position.y;
-                    powerUpsCD = true;
+                    Transform set18Transf = set18.GetComponent<Transform>();
+                    foreach (Transform child in set18Transf) if (child.CompareTag("IceBlock"))
+                        {
+                            child.rotation = Quaternion.Euler(0, 0, Random.Range(-70, 70));
+                        }
                     break;
                 case 19:
                     GameObject set19 = Instantiate(Resources.Load("Set19") as GameObject);
-                    set19.transform.position = new Vector3(Random.Range(-2, 2), lastSetPosition + lastSetHeight + 4, 0);
+                    set19.transform.position = new Vector3(0, lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set19.transform.Find("Height").localPosition.y;
                     lastSetPosition = set19.transform.position.y;
-                    powerUpsCD = true;
+                    Transform set19Transf = set19.GetComponent<Transform>();
+                    foreach (Transform child in set19Transf) if (child.CompareTag("IceBlock"))
+                        {
+                            child.rotation = Quaternion.Euler(0, 0, Random.Range(-70, 70));
+                        }
                     break;
                 case 20:
                     GameObject set20 = Instantiate(Resources.Load("Set20") as GameObject);
@@ -415,6 +423,20 @@ public class GameController : MonoBehaviour {
                     set21.transform.position = new Vector3(Random.Range(-2, 2), lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set21.transform.Find("Height").localPosition.y;
                     lastSetPosition = set21.transform.position.y;
+                    powerUpsCD = true;
+                    break;
+                case 22:
+                    GameObject set22 = Instantiate(Resources.Load("Set22") as GameObject);
+                    set22.transform.position = new Vector3(Random.Range(-2, 2), lastSetPosition + lastSetHeight + 4, 0);
+                    lastSetHeight = set22.transform.Find("Height").localPosition.y;
+                    lastSetPosition = set22.transform.position.y;
+                    powerUpsCD = true;
+                    break;
+                case 23:
+                    GameObject set23 = Instantiate(Resources.Load("Set23") as GameObject);
+                    set23.transform.position = new Vector3(Random.Range(-2, 2), lastSetPosition + lastSetHeight + 4, 0);
+                    lastSetHeight = set23.transform.Find("Height").localPosition.y;
+                    lastSetPosition = set23.transform.position.y;
                     powerUpsCD = true;
                     break;
                 default:
