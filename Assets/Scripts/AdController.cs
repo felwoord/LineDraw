@@ -35,7 +35,7 @@ public class AdController : MonoBehaviour
         appID = iosGameIDAdmob;
 #endif
 
-        Advertisement.Initialize(gameID);
+        Advertisement.Initialize(gameID, true);
         MobileAds.Initialize(appID);
     }
 
