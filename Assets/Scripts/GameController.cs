@@ -14,9 +14,9 @@ public class GameController : MonoBehaviour {
     private GameObject cam;
     public bool playerAlive;
 
-    private float maxSpeed;
-    private Vector2 upForce;
-    private float camSpeed;
+    private float maxSpeed, inicialMaxSpeed;
+    private Vector2 upForce, inicialUpForce;
+    private float camSpeed, totalCamSpeed;
     private bool doOnce50, doOnce100;
 
     private Text currentHeightTxt, topHeightTxt, currentHeightTxtEndRun, topHeightTxtEndRun;
@@ -102,8 +102,8 @@ public class GameController : MonoBehaviour {
     }
     private void Inicialization()
     {
-        maxSpeed = 2.5f;
-        upForce = new Vector2(0, 10);
+        inicialMaxSpeed = 7.5f; //2.5
+        inicialUpForce = new Vector2(0, 30);  //10
         camSpeed = 0.6f;
 
         currentHeight = 0;
@@ -476,8 +476,14 @@ public class GameController : MonoBehaviour {
     }
     private void Progress()
     {
-        maxSpeed = 2 + Mathf.Sqrt(currentHeight) / 10.0f;
-        upForce = new Vector2(0, 20 + Mathf.Sqrt(currentHeight) / 10.0f);
+        if (maxSpeed < 7.5f)
+        {
+            maxSpeed = inicialMaxSpeed + Mathf.Sqrt(currentHeight) / 10.0f;
+        }
+        if (upForce.y < 40)
+        {
+            upForce = new Vector2(0, inicialUpForce.y + Mathf.Sqrt(currentHeight) / 10.0f);
+        }
         camSpeed = 0.6f + Mathf.Sqrt(currentHeight) / 100;
 
         if (!doOnce50 && currentHeight > 500)
@@ -494,6 +500,13 @@ public class GameController : MonoBehaviour {
             upForce = new Vector2(0, upForce.y + 3);
             camSpeed += 0.3f;
             doOnce100 = true;
+        }
+
+        
+        totalCamSpeed = camSpeed * maxSpeed;
+        if(totalCamSpeed > 4)
+        {
+            totalCamSpeed = 4;
         }
     }
     private void LineDraw()
@@ -523,7 +536,7 @@ public class GameController : MonoBehaviour {
 
         if (cam.transform.position.y >= player.transform.position.y + 1.5f)
         {
-            cam.transform.position = new Vector3(cam.transform.position.x, cam.transform.position.y + maxSpeed * camSpeed * Time.deltaTime, cam.transform.position.z);
+            cam.transform.position = new Vector3(cam.transform.position.x, cam.transform.position.y + totalCamSpeed * Time.deltaTime, cam.transform.position.z);
         }
         else
         {
