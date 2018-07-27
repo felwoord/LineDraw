@@ -14,10 +14,10 @@ public class GameController : MonoBehaviour {
     private GameObject cam;
     public bool playerAlive;
 
-    private float maxSpeed, inicialMaxSpeed;
-    private Vector2 upForce, inicialUpForce;
+    private float maxSpeed;
+    private Vector2 upForce;
     private float camSpeed, totalCamSpeed;
-    private bool doOnce50, doOnce100;
+    private bool doOnce50, doOnce75, doOnce100, doOnce125, doOnce150, doOnce175, doOnce200, doOnce250, doOnce300, doOnce350;
 
     private Text currentHeightTxt, topHeightTxt, currentHeightTxtEndRun, topHeightTxtEndRun;
     private float currentHeight, topHeight;
@@ -101,10 +101,10 @@ public class GameController : MonoBehaviour {
         currentLine = PlayerPrefs.GetInt("CurrentLine", 0);
     }
     private void Inicialization()
-    {
-        inicialMaxSpeed = 7.5f; //2.5
-        inicialUpForce = new Vector2(0, 30);  //10
-        camSpeed = 0.6f;
+    {///começa em 2(maxSpeed), e 10(upForce) e 0.6f (camSpeed);    max de 7.5 (maxSpeed) e 30(upForce).... total camSpeed max de 4
+        maxSpeed = 2f;
+        upForce = new Vector2(0, 10);
+        camSpeed = 0.4f;
 
         currentHeight = 0;
         topHeightTxt.text = topHeight.ToString("0");
@@ -119,7 +119,17 @@ public class GameController : MonoBehaviour {
         playerAlive = true;
 
         doOnce50 = false;
+        doOnce75 = false;
         doOnce100 = false;
+        doOnce125 = false;
+        doOnce150 = false;
+        doOnce175 = false;
+        doOnce200 = false;
+        doOnce250 = false;
+        doOnce300 = false;
+        doOnce350 = false;
+
+
 
         doubleCoinAvlb = true;
         doubleCoinAnimat = false;
@@ -476,33 +486,87 @@ public class GameController : MonoBehaviour {
     }
     private void Progress()
     {
-        if (maxSpeed < 7.5f)
+        if (!doOnce50 && currentHeight > 50)
         {
-            maxSpeed = inicialMaxSpeed + Mathf.Sqrt(currentHeight) / 10.0f;
-        }
-        if (upForce.y < 40)
-        {
-            upForce = new Vector2(0, inicialUpForce.y + Mathf.Sqrt(currentHeight) / 10.0f);
-        }
-        camSpeed = 0.6f + Mathf.Sqrt(currentHeight) / 100;
-
-        if (!doOnce50 && currentHeight > 500)
-        {
-            maxSpeed += 2;
-            upForce = new Vector2(0, upForce.y + 2);
-            camSpeed += 0.1f;
+            maxSpeed = 3.0f;
+            upForce = new Vector2(0, 15);
+            camSpeed = 0.5f;
             doOnce50 = true;
+        }
+
+        if (!doOnce75 && currentHeight > 75)
+        {
+            maxSpeed = 3.5f;
+            upForce = new Vector2(0, 17);
+            camSpeed = 0.55f;
+            doOnce75 = true;
         }
 
         if (!doOnce100 && currentHeight > 100)
         {
-            maxSpeed += 3;
-            upForce = new Vector2(0, upForce.y + 3);
-            camSpeed += 0.3f;
+            maxSpeed = 4.0f;
+            upForce = new Vector2(0, 20);
+            camSpeed = 0.6f;
             doOnce100 = true;
         }
 
-        
+        if (!doOnce125 && currentHeight > 125)
+        {
+            maxSpeed = 4.5F;
+            upForce = new Vector2(0, 22);
+            camSpeed = 0.65f;
+            doOnce125 = true;
+        }
+
+        if (!doOnce150 && currentHeight > 150)
+        {
+            maxSpeed = 5.0F;
+            upForce = new Vector2(0, 25);
+            camSpeed = 0.7f;
+            doOnce150 = true;
+        }
+
+        if (!doOnce175 && currentHeight > 175)
+        {
+            maxSpeed = 5.5F;
+            upForce = new Vector2(0, 27);
+            camSpeed = 0.75f;
+            doOnce175 = true;
+        }
+
+        if (!doOnce200 && currentHeight > 200)
+        {
+            maxSpeed = 6.0f;
+            upForce = new Vector2(0, 30);
+            camSpeed = 0.80f;
+            doOnce200 = true;
+        }
+
+        if (!doOnce250 && currentHeight > 250)
+        {
+            maxSpeed = 6.5f;
+            upForce = new Vector2(0, 32);
+            camSpeed = 0.85f;
+            doOnce250 = true;
+        }
+
+        if (!doOnce300 && currentHeight > 300)
+        {
+            maxSpeed = 7.0f;
+            upForce = new Vector2(0, 35);
+            camSpeed = 0.9f;
+            doOnce250 = true;
+        }
+
+        if (!doOnce350 && currentHeight > 350)
+        {
+            maxSpeed = 7.5f;
+            upForce = new Vector2(0, 35);
+            camSpeed = 0.95f;
+            doOnce350 = true;
+        }
+
+
         totalCamSpeed = camSpeed * maxSpeed;
         if(totalCamSpeed > 4)
         {
