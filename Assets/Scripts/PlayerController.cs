@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
         }
         if (invincible)
         {
-            inviCounter += Time.deltaTime;
+           // inviCounter += Time.deltaTime;
             if (inviCounter > 15f)
             {
                 inviCounter = 0;

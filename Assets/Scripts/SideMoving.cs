@@ -15,7 +15,7 @@ public class SideMoving : MonoBehaviour {
         if (rand > 5 && player.transform.position.y > 100)
         {
             mov = true;
-            speed = Random.Range(0.5f, 5f);
+            speed = Random.Range(0.5f, 3f);
         }
         else
         {

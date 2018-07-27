@@ -17,7 +17,9 @@ public class GameController : MonoBehaviour {
     private float maxSpeed;
     private Vector2 upForce;
     private float camSpeed, totalCamSpeed;
-    private bool doOnce50, doOnce75, doOnce100, doOnce125, doOnce150, doOnce175, doOnce200, doOnce250, doOnce300, doOnce350;
+    private bool doOnce25, doOnce50, doOnce75, doOnce100, doOnce125, doOnce150, doOnce175, doOnce200, doOnce250, doOnce300, doOnce350;
+    private bool doOnce400, doOnce450, doOnce500, doOnce550, doOnce600, doOnce650, doOnce700, doOnce750, doOnce800, doOnce850, doOnce900, doOnce950, doOnce1000, doOnce1100;
+    private bool doOnce1200, doOnce1300, doOnce2000;
 
     private Text currentHeightTxt, topHeightTxt, currentHeightTxtEndRun, topHeightTxtEndRun;
     private float currentHeight, topHeight;
@@ -118,6 +120,7 @@ public class GameController : MonoBehaviour {
 
         playerAlive = true;
 
+        doOnce25 = false;
         doOnce50 = false;
         doOnce75 = false;
         doOnce100 = false;
@@ -486,9 +489,17 @@ public class GameController : MonoBehaviour {
     }
     private void Progress()
     {
+       if (!doOnce25 && currentHeight > 25)
+        {
+            maxSpeed = 2.20f;
+            upForce = new Vector2(0, 15);
+            camSpeed = 0.5f;
+            doOnce25 = true;
+        }
+
         if (!doOnce50 && currentHeight > 50)
         {
-            maxSpeed = 3.0f;
+            maxSpeed = 2.40f;
             upForce = new Vector2(0, 15);
             camSpeed = 0.5f;
             doOnce50 = true;
@@ -496,7 +507,7 @@ public class GameController : MonoBehaviour {
 
         if (!doOnce75 && currentHeight > 75)
         {
-            maxSpeed = 3.5f;
+            maxSpeed = 2.60f;
             upForce = new Vector2(0, 17);
             camSpeed = 0.55f;
             doOnce75 = true;
@@ -504,7 +515,7 @@ public class GameController : MonoBehaviour {
 
         if (!doOnce100 && currentHeight > 100)
         {
-            maxSpeed = 4.0f;
+            maxSpeed = 2.80f;
             upForce = new Vector2(0, 20);
             camSpeed = 0.6f;
             doOnce100 = true;
@@ -512,7 +523,7 @@ public class GameController : MonoBehaviour {
 
         if (!doOnce125 && currentHeight > 125)
         {
-            maxSpeed = 4.5F;
+            maxSpeed = 3.0F;
             upForce = new Vector2(0, 22);
             camSpeed = 0.65f;
             doOnce125 = true;
@@ -520,15 +531,15 @@ public class GameController : MonoBehaviour {
 
         if (!doOnce150 && currentHeight > 150)
         {
-            maxSpeed = 5.0F;
+            maxSpeed = 3.2f;
             upForce = new Vector2(0, 25);
             camSpeed = 0.7f;
             doOnce150 = true;
         }
 
-        if (!doOnce175 && currentHeight > 175)
+       if (!doOnce175 && currentHeight > 175)
         {
-            maxSpeed = 5.5F;
+            maxSpeed = 3.4f;
             upForce = new Vector2(0, 27);
             camSpeed = 0.75f;
             doOnce175 = true;
@@ -536,35 +547,151 @@ public class GameController : MonoBehaviour {
 
         if (!doOnce200 && currentHeight > 200)
         {
-            maxSpeed = 6.0f;
+            maxSpeed = 3.6f;
             upForce = new Vector2(0, 30);
-            camSpeed = 0.80f;
+            camSpeed = 0.60f;
             doOnce200 = true;
-        }
-
-        if (!doOnce250 && currentHeight > 250)
-        {
-            maxSpeed = 6.5f;
-            upForce = new Vector2(0, 32);
-            camSpeed = 0.85f;
-            doOnce250 = true;
         }
 
         if (!doOnce300 && currentHeight > 300)
         {
-            maxSpeed = 7.0f;
-            upForce = new Vector2(0, 35);
+            maxSpeed = 3.8f;
+            upForce = new Vector2(0, 30);
             camSpeed = 0.9f;
-            doOnce250 = true;
+            doOnce300 = true;
         }
 
         if (!doOnce350 && currentHeight > 350)
         {
-            maxSpeed = 7.5f;
+            maxSpeed = 3.8f;
             upForce = new Vector2(0, 35);
             camSpeed = 0.95f;
             doOnce350 = true;
         }
+        if (!doOnce400 && currentHeight > 400)
+        {
+            maxSpeed = 4.0f;
+            upForce = new Vector2(0, 35);
+            camSpeed = 0.95f;
+            doOnce400 = true;
+        }
+        if (!doOnce450 && currentHeight > 450)
+        {
+            maxSpeed = 4.2f;
+            upForce = new Vector2(0, 35);
+            camSpeed = 0.95f;
+            doOnce450 = true;
+        }
+        if (!doOnce500 && currentHeight > 500)
+        {
+            maxSpeed = 4.4f;
+            upForce = new Vector2(0, 35);
+            camSpeed = 0.95f;
+            doOnce500 = true;
+        }
+        if (!doOnce550 && currentHeight > 550)
+        {
+            maxSpeed = 4.6f;
+            upForce = new Vector2(0, 35);
+            camSpeed = 0.95f;
+            doOnce550 = true;
+        }
+        if (!doOnce600 && currentHeight > 600)
+        {
+            maxSpeed = 4.8f;
+            upForce = new Vector2(0, 35);
+            camSpeed = 0.95f;
+            doOnce600 = true;
+        }
+        if (!doOnce650 && currentHeight > 650)
+        {
+            maxSpeed = 5.0f;
+            upForce = new Vector2(0, 35);
+            camSpeed = 0.95f;
+            doOnce650 = true;
+        }
+        if (!doOnce700 && currentHeight > 700)
+        {
+            maxSpeed = 5.2f;
+            upForce = new Vector2(0, 35);
+            camSpeed = 0.95f;
+            doOnce700 = true;
+        }
+        if (!doOnce750 && currentHeight > 750)
+        {
+            maxSpeed = 5.4f;
+            upForce = new Vector2(0, 35);
+            camSpeed = 0.95f;
+            doOnce750 = true;
+        }
+        if (!doOnce800 && currentHeight > 800)
+        {
+            maxSpeed = 5.6f;
+            upForce = new Vector2(0, 35);
+            camSpeed = 0.95f;
+            doOnce800 = true;
+        }
+        if (!doOnce850 && currentHeight > 850)
+        {
+            maxSpeed = 5.8f;
+            upForce = new Vector2(0, 35);
+            camSpeed = 0.95f;
+            doOnce850 = true;
+        }
+        if (!doOnce900 && currentHeight > 900)
+        {
+            maxSpeed = 6.0f;
+            upForce = new Vector2(0, 35);
+            camSpeed = 0.95f;
+            doOnce900 = true;
+        }
+        if (!doOnce950 && currentHeight > 950)
+        {
+            maxSpeed = 6.2f;
+            upForce = new Vector2(0, 35);
+            camSpeed = 0.95f;
+            doOnce950 = true;
+        }
+        if (!doOnce1000 && currentHeight > 1000)
+        {
+            maxSpeed = 6.4f;
+            upForce = new Vector2(0, 35);
+            camSpeed = 0.95f;
+            doOnce1000 = true;
+        }
+        if (!doOnce1100 && currentHeight > 1100)
+        {
+            maxSpeed = 6.6f;
+            upForce = new Vector2(0, 35);
+            camSpeed = 0.95f;
+            doOnce1100 = true;
+        }
+        if (!doOnce1200 && currentHeight > 1200)
+        {
+            maxSpeed = 6.8f;
+            upForce = new Vector2(0, 35);
+            camSpeed = 0.95f;
+            doOnce1200 = true;
+        }
+        if (!doOnce1300 && currentHeight > 1300)
+        {
+            maxSpeed = 7.0f;
+            upForce = new Vector2(0, 35);
+            camSpeed = 0.95f;
+            doOnce1300 = true;
+        }
+
+
+
+
+        if (!doOnce2000 && currentHeight > 2000)             ////////////////Hardcore
+        {
+            maxSpeed = 8.0f;
+            upForce = new Vector2(0, 35);
+            camSpeed = 0.95f;
+            doOnce2000 = true;
+        }
+
 
 
         totalCamSpeed = camSpeed * maxSpeed;
@@ -572,6 +699,7 @@ public class GameController : MonoBehaviour {
         {
             totalCamSpeed = 4;
         }
+
     }
     private void LineDraw()
     {
@@ -692,8 +820,8 @@ public class GameController : MonoBehaviour {
     }
     public void ContinueButton()
     {
-        continueAvlb = false;
-        diamondQtd--;
+        //continueAvlb = false;
+        //diamondQtd--;
         PlayerPrefs.SetInt("DiamondQtd", diamondQtd);
         player = Instantiate(Resources.Load("Skin" + currentSkin) as GameObject);
         player.transform.position = new Vector3(0, currentHeight, 0);
