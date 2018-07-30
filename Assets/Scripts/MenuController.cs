@@ -235,6 +235,7 @@ public class MenuController : MonoBehaviour
             case 9:                            //main -> achievements
                 mainCanvas.SetActive(false);
                 achvCanvas.SetActive(true);
+                gameObject.GetComponent<AchiviementsController>().Start();
                 draw = false;
                 break;
             case 10:                           //achievements -> main
@@ -258,6 +259,8 @@ public class MenuController : MonoBehaviour
             if (totalCoins >= skinPrice[skinNum])
             {
                 totalCoins -= skinPrice[skinNum];
+                int coinsUsed = PlayerPrefs.GetInt("CoinsUsed", 0);
+                PlayerPrefs.SetInt("CoinsUsed", coinsUsed + skinPrice[skinNum]);
                 totalCoinsTxt.text = totalCoins.ToString();
                 PlayerPrefs.SetInt("TotalCoins", totalCoins);
                 skins[skinNum] = 1;
@@ -288,6 +291,8 @@ public class MenuController : MonoBehaviour
             if (totalCoins >= linePrice[lineNum])
             {
                 totalCoins -= linePrice[lineNum];
+                int coinsUsed = PlayerPrefs.GetInt("CoinsUsed", 0);
+                PlayerPrefs.SetInt("CoinsUsed", coinsUsed + linePrice[lineNum]);
                 totalCoinsTxt.text = totalCoins.ToString();
                 PlayerPrefs.SetInt("TotalCoins", totalCoins);
                 lines[lineNum] = 1;
@@ -325,7 +330,7 @@ public class MenuController : MonoBehaviour
     }
     public void AdCompleted()
     {
-        diamondQtd++;
+        diamondQtd += 2;
         diamondQtdTxt.text = diamondQtd.ToString();
         PlayerPrefs.SetInt("DiamondQtd", diamondQtd);
     }
@@ -390,4 +395,5 @@ public class MenuController : MonoBehaviour
         }
         
     }
+
 }

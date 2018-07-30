@@ -40,6 +40,8 @@ public class ExtraCoinSet : MonoBehaviour {
                 {
                     gameCont.AddCoin();
                 }
+                int bonusCoinCounter = PlayerPrefs.GetInt("BonusCoinCounter", 0);
+                PlayerPrefs.SetInt("BonusCoinCounter", bonusCoinCounter + 1);
                 spawn = true;
             }
             else

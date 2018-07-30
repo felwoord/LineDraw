@@ -103,7 +103,7 @@ public class GameController : MonoBehaviour {
         currentLine = PlayerPrefs.GetInt("CurrentLine", 0);
     }
     private void Inicialization()
-    {///começa em 2(maxSpeed), e 10(upForce) e 0.6f (camSpeed);    max de 7.5 (maxSpeed) e 30(upForce).... total camSpeed max de 4
+    {
         maxSpeed = 2f;
         upForce = new Vector2(0, 10);
         camSpeed = 0.4f;
@@ -138,7 +138,7 @@ public class GameController : MonoBehaviour {
         doubleCoinAnimat = false;
         doubleCoinQtd = 0;
 
-        if (diamondQtd > 0)
+        if (diamondQtd >= 3)
         {
             continueAvlb = true;
         }
@@ -760,8 +760,12 @@ public class GameController : MonoBehaviour {
         mainCanvas.SetActive(false);
         endRunCanvas.SetActive(true);
         adCont.bannerView.Show();
+        int deathCounter = PlayerPrefs.GetInt("DeathCounter", 0);
+        PlayerPrefs.SetInt("DeathCounter", deathCounter + 1);
         currentHeightTxtEndRun = GameObject.Find("CurrentHeightEndRun").GetComponent<Text>();
         currentHeightTxtEndRun.text = currentHeight.ToString("0");
+        float totalDistance = PlayerPrefs.GetFloat("TotalDistance", 0);
+        PlayerPrefs.SetFloat("TotalDistance", totalDistance + currentHeight);
         topHeightTxtEndRun = GameObject.Find("TopHeightEndRun").GetComponent<Text>();
         topHeightTxtEndRun.text = topHeight.ToString("0");
         PlayerPrefs.SetFloat("TopHeight", topHeight);
@@ -782,7 +786,6 @@ public class GameController : MonoBehaviour {
         {
             continueButtonGO.SetActive(false);
         }
-
 
     }
     public void WatchAd()
@@ -820,9 +823,13 @@ public class GameController : MonoBehaviour {
     }
     public void ContinueButton()
     {
-        //continueAvlb = false;
-        //diamondQtd--;
+        continueAvlb = false;
+        diamondQtd -= 3;
+        int diamondsUsed = PlayerPrefs.GetInt("DiamondsUsed", 0);
+        PlayerPrefs.SetInt("DiamondsUsed", diamondsUsed + 3);
         PlayerPrefs.SetInt("DiamondQtd", diamondQtd);
+        int continueCounter = PlayerPrefs.GetInt("ContinueCounter", 0);
+        PlayerPrefs.SetInt("ContinueCounter", continueCounter + 1);
         player = Instantiate(Resources.Load("Skin" + currentSkin) as GameObject);
         player.transform.position = new Vector3(0, currentHeight, 0);
         player.name = "Player";
