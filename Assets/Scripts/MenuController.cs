@@ -34,6 +34,8 @@ public class MenuController : MonoBehaviour
     private Text diamondQtdTxt;
     private GameObject removeAdsGO;
     private int removeAds;
+    public GameObject receivedUI;
+    public Text receivedQtd;
 
     private AudioSource musicAS;
     public Slider musicSlider;
@@ -333,12 +335,14 @@ public class MenuController : MonoBehaviour
         diamondQtd += 2;
         diamondQtdTxt.text = diamondQtd.ToString();
         PlayerPrefs.SetInt("DiamondQtd", diamondQtd);
+        OpenReceivedUI(2);
     }
     public void BuyDiamond(int qtd)
     {
         diamondQtd += qtd;
         diamondQtdTxt.text = diamondQtd.ToString();
         PlayerPrefs.SetInt("DiamondQtd", diamondQtd);
+        OpenReceivedUI(qtd);
     }
     public void BuyRemoveAds()
     {
@@ -394,6 +398,15 @@ public class MenuController : MonoBehaviour
                 break;
         }
         
+    }
+    public void OpenReceivedUI(int qtd)
+    {
+        receivedUI.SetActive(true);
+        receivedQtd.text = qtd.ToString();
+    }
+    public void CloseReceivedUI()
+    {
+        receivedUI.SetActive(false);
     }
 
 }
