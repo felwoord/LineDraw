@@ -217,7 +217,10 @@ public class MenuController : MonoBehaviour
                 break;  
             case 6:                            //close cash shop
                 cashShopCanvas.SetActive(false);
-                draw = true;
+                if (mainCanvas.activeSelf)
+                {
+                    draw = true;
+                }
                 break;
             case 7:                            //settings -> help
                 settingsCanvas.SetActive(false);

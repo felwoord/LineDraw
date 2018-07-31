@@ -167,7 +167,7 @@ public class GameController : MonoBehaviour {
     {
         if (player.transform.position.y > setsPos[0])
         {
-            for(int i = 0; i<3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 setsPos[i] = setsPos[i + 1];
             }
@@ -176,7 +176,7 @@ public class GameController : MonoBehaviour {
                 lastSetPosition = player.transform.position.y;
             }
             int setRand = 0;
-            if (powerUpsCD)
+            if (powerUpsCD || player.transform.position.y < 50)
             {
                 setRand = Random.Range(1, 20);
                 powerUpsCDCounter += Time.deltaTime;
