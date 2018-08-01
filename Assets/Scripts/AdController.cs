@@ -84,7 +84,7 @@ public class AdController : MonoBehaviour
     }
     public void ShowInterstitial()
     {
-        if (adTimer > 120)
+        if (adTimer > 180)
         {
             if (Advertisement.IsReady())
             {

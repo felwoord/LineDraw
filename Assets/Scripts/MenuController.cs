@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
-    public GameObject mainCanvas, shopCanvas, settingsCanvas, cashShopCanvas, helpCanvas, achvCanvas;
+    public GameObject mainCanvas, shopCanvas, settingsCanvas, cashShopCanvas, helpCanvas, achvCanvas, coinDisplayCanvas;
     private bool draw;
     private Text totalCoinsTxt;
     private int totalCoins;
@@ -44,7 +44,7 @@ public class MenuController : MonoBehaviour
     public Slider effectSlider;
     private float effectVolume;
 
-    public GameObject restorePurchaseButton;
+    public GameObject restorePurchaseButton, deleteGameConf;
 
     private int currentHint;
     public GameObject[] hint;
@@ -144,21 +144,21 @@ public class MenuController : MonoBehaviour
         musicVolume = PlayerPrefs.GetFloat("MusicVolume", 0);
         effectVolume = PlayerPrefs.GetFloat("EffectVolume", 0);
         hintseen = PlayerPrefs.GetInt("HintSeen", 0);
-        
+
     }
     private void Inicialization()
     {
         totalCoinsTxt.text = totalCoins.ToString();
         diamondQtdTxt.text = diamondQtd.ToString();
         linePrefab = linesPrefabs[currentLine];
-        if(removeAds == 1)
+        if (removeAds == 1)
         {
             removeAdsGO.SetActive(false);
         }
         draw = true;
         currentHint = 0;
         adCont.RequestBanner();
-        if(hintseen == 1)
+        if (hintseen == 1)
         {
             hintNot[0].SetActive(false);
             hintNot[1].SetActive(false);
@@ -214,7 +214,7 @@ public class MenuController : MonoBehaviour
             case 5:                            //open cash shop
                 cashShopCanvas.SetActive(true);
                 draw = false;
-                break;  
+                break;
             case 6:                            //close cash shop
                 cashShopCanvas.SetActive(false);
                 if (mainCanvas.activeSelf)
@@ -225,7 +225,7 @@ public class MenuController : MonoBehaviour
             case 7:                            //settings -> help
                 settingsCanvas.SetActive(false);
                 helpCanvas.SetActive(true);
-                if(hintseen == 0)
+                if (hintseen == 0)
                 {
                     hintseen = 1;
                     hintNot[0].SetActive(false);
@@ -354,7 +354,7 @@ public class MenuController : MonoBehaviour
     }
     public void VolumeControl(int aux)
     {
-        if(aux == 0)
+        if (aux == 0)
         {
             musicVolume = musicSlider.value;
             musicAS.volume = musicVolume;
@@ -372,6 +372,22 @@ public class MenuController : MonoBehaviour
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
         SceneManager.LoadScene("MenuScene");
+    }
+    public void OpenCloseDeleteGameConf(int aux)
+    {
+        if (aux == 0)
+        {
+            deleteGameConf.SetActive(true);
+        }
+        if (aux == 1)
+        {
+            deleteGameConf.SetActive(false);
+        }
+        if (aux == 2)
+        {
+            deleteGameConf.SetActive(false);
+            DeleteGameData();
+        }
     }
     public void ChangeHint(int aux)
     {
@@ -406,10 +422,12 @@ public class MenuController : MonoBehaviour
     {
         receivedUI.SetActive(true);
         receivedQtd.text = qtd.ToString();
+        coinDisplayCanvas.GetComponent<Canvas>().sortingOrder = 5;
     }
     public void CloseReceivedUI()
     {
         receivedUI.SetActive(false);
+        coinDisplayCanvas.GetComponent<Canvas>().sortingOrder = 0;
     }
 
 }
