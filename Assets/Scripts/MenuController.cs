@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class MenuController : MonoBehaviour
 {
@@ -37,13 +38,6 @@ public class MenuController : MonoBehaviour
     public GameObject receivedUI;
     public Text receivedQtd;
 
-    private AudioSource musicAS;
-    public Slider musicSlider;
-    private float musicVolume;
-    private AudioSource effectAS;
-    public Slider effectSlider;
-    private float effectVolume;
-
     public GameObject restorePurchaseButton, deleteGameConf;
 
     private int currentHint;
@@ -52,6 +46,13 @@ public class MenuController : MonoBehaviour
     public GameObject[] hintNot = new GameObject[2];
 
     public GameObject skinScroll, lineScroll;
+
+    private AudioSource effectAS;
+    public Slider effectSlider;
+    private float effectVolume;
+    public AudioClip buttonPressedAudio, storeScrolledAudio, drawAudio;
+    private bool shopAudioCD;
+    private float shopAudioCounterCD;
 
     private void Awake()
     {
@@ -81,6 +82,15 @@ public class MenuController : MonoBehaviour
         {
             LineDraw();
         }
+
+        if (shopAudioCD)
+            shopAudioCounterCD += Time.deltaTime;
+
+        if (shopAudioCounterCD >= 0.5f)
+        {
+            shopAudioCD = false;
+            shopAudioCounterCD = 0;
+        }
     }
     private void GameObjectFind()
     {
@@ -88,7 +98,6 @@ public class MenuController : MonoBehaviour
         diamondQtdTxt = GameObject.Find("DiamondQtd").GetComponent<Text>();
         adCont = GameObject.Find("AdControl").GetComponent<AdController>();
         removeAdsGO = GameObject.Find("RemoveAds");
-        musicAS = GameObject.Find("MusicSource").GetComponent<AudioSource>();
         effectAS = GameObject.Find("EffectSource").GetComponent<AudioSource>();
     }
     private void GetPlayerPrefs()
@@ -141,7 +150,6 @@ public class MenuController : MonoBehaviour
         }
         diamondQtd = PlayerPrefs.GetInt("DiamondQtd", 0);
         removeAds = PlayerPrefs.GetInt("RemoveAds", 0);
-        musicVolume = PlayerPrefs.GetFloat("MusicVolume", 0);
         effectVolume = PlayerPrefs.GetFloat("EffectVolume", 0);
         hintseen = PlayerPrefs.GetInt("HintSeen", 0);
 
@@ -151,6 +159,8 @@ public class MenuController : MonoBehaviour
         totalCoinsTxt.text = totalCoins.ToString();
         diamondQtdTxt.text = diamondQtd.ToString();
         linePrefab = linesPrefabs[currentLine];
+        shopAudioCounterCD = 0;
+        shopAudioCD = false;
         if (removeAds == 1)
         {
             removeAdsGO.SetActive(false);
@@ -185,6 +195,8 @@ public class MenuController : MonoBehaviour
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             activeLine.UpdateLine(mousePos);
+            effectAS.clip = drawAudio;
+            effectAS.Play();
         }
     }
     public void ChangeCanvas(int aux)
@@ -352,20 +364,11 @@ public class MenuController : MonoBehaviour
         adCont.RemoveAdsBought();
         SceneManager.LoadScene("MenuScene");
     }
-    public void VolumeControl(int aux)
+    public void VolumeControl()
     {
-        if (aux == 0)
-        {
-            musicVolume = musicSlider.value;
-            musicAS.volume = musicVolume;
-            PlayerPrefs.SetFloat("MusicVolume", musicVolume);
-        }
-        else
-        {
-            effectVolume = effectSlider.value;
-            effectAS.volume = effectVolume;
-            PlayerPrefs.SetFloat("EffectVolume", effectVolume);
-        }
+        effectVolume = effectSlider.value;
+        effectAS.volume = effectVolume;
+        PlayerPrefs.SetFloat("EffectVolume", effectVolume);
     }
     public void DeleteGameData()
     {
@@ -429,5 +432,24 @@ public class MenuController : MonoBehaviour
         receivedUI.SetActive(false);
         coinDisplayCanvas.GetComponent<Canvas>().sortingOrder = 0;
     }
-
+    public void PlayAudio(int aux)
+    {
+        switch (aux)
+        {
+            case 0:
+                effectAS.clip = buttonPressedAudio;
+                effectAS.Play();
+                break;
+            case 1:
+                effectAS.clip = storeScrolledAudio;
+                if (!shopAudioCD)
+                {
+                    effectAS.Play();
+                    shopAudioCD = true;
+                }
+                break;
+            default:
+                break;
+        }
+    }
 }
