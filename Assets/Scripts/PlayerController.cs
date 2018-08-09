@@ -102,16 +102,21 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-       // if (!invincible)
+        // if (!invincible)
         //{
-            if (collision.gameObject.tag == "Spike")
-            {
-                endGame = true;
-            }
-            if (collision.gameObject.tag == "HighBounceBarrier")
-            {
-                bounced = true;
-            }
+        if (collision.gameObject.tag == "Spike")
+        {
+            endGame = true;
+        }
+        if (collision.gameObject.tag == "HighBounceBarrier")
+        {
+            bounced = true;
+            gameCont.PlayAudio(4);
+        }
+       /* if (collision.gameObject.tag == "SideBarrier")
+        {
+            gameCont.PlayAudio(4);
+        }*/
         //}
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -158,19 +163,23 @@ public class PlayerController : MonoBehaviour
                 invincible = true;
                 inviAura.SetActive(true);
                 inviAura.GetComponent<InvincibleAura>().Start();
+                gameCont.PlayAudio(1);
                 break;
             case 4:
                 GameObject shield = Instantiate(Resources.Load("ShieldSet") as GameObject);
                 shield.transform.position = new Vector3(0, transform.position.y + 5, 0);
+                gameCont.PlayAudio(1);
                 break;
             case 5:
                 magnetAura.SetActive(true);
                 magnet = true;
+                gameCont.PlayAudio(1);
                 break;
             case 6:
                 //slowTimeAura.SetActive(true);
                 slowTime = true;
                 Time.timeScale = 0.5f;
+                gameCont.PlayAudio(1);
                 break;
             default:
                 break;

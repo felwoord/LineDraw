@@ -51,8 +51,9 @@ public class MenuController : MonoBehaviour
     public Slider effectSlider;
     private float effectVolume;
     public AudioClip buttonPressedAudio, storeScrolledAudio, drawAudio;
-    private bool shopAudioCD;
-    private float shopAudioCounterCD;
+    private bool shopAudioCD, drawAudioCD;
+    private float shopAudioCounterCD, drawAudioCounterCD;
+    private float drawCounter;
 
     private void Awake()
     {
@@ -90,6 +91,15 @@ public class MenuController : MonoBehaviour
         {
             shopAudioCD = false;
             shopAudioCounterCD = 0;
+        }
+
+        if (drawAudioCD)
+            drawAudioCounterCD += Time.deltaTime;
+
+        if (drawAudioCounterCD >= 0.5f)
+        {
+            drawAudioCD = false;
+            drawAudioCounterCD = 0;
         }
     }
     private void GameObjectFind()
@@ -150,7 +160,7 @@ public class MenuController : MonoBehaviour
         }
         diamondQtd = PlayerPrefs.GetInt("DiamondQtd", 0);
         removeAds = PlayerPrefs.GetInt("RemoveAds", 0);
-        effectVolume = PlayerPrefs.GetFloat("EffectVolume", 0);
+        effectVolume = PlayerPrefs.GetFloat("EffectVolume", 1);
         hintseen = PlayerPrefs.GetInt("HintSeen", 0);
 
     }
@@ -161,6 +171,9 @@ public class MenuController : MonoBehaviour
         linePrefab = linesPrefabs[currentLine];
         shopAudioCounterCD = 0;
         shopAudioCD = false;
+        drawAudioCounterCD = 0;
+        drawAudioCD = false;
+        drawCounter = 0;
         if (removeAds == 1)
         {
             removeAdsGO.SetActive(false);
@@ -190,13 +203,18 @@ public class MenuController : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             activeLine = null;
+            drawCounter = 0;
         }
         if (activeLine != null)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             activeLine.UpdateLine(mousePos);
-            effectAS.clip = drawAudio;
-            effectAS.Play();
+
+            drawCounter += Time.deltaTime;
+            if (!drawAudioCD && drawCounter > 0.075f)
+            {
+                PlayAudio(2);
+            }
         }
     }
     public void ChangeCanvas(int aux)
@@ -447,6 +465,11 @@ public class MenuController : MonoBehaviour
                     effectAS.Play();
                     shopAudioCD = true;
                 }
+                break;
+            case 2:
+                effectAS.clip = drawAudio;
+                effectAS.Play();
+                drawAudioCD = true;
                 break;
             default:
                 break;

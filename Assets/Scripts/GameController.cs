@@ -51,6 +51,12 @@ public class GameController : MonoBehaviour {
 
     private bool paused;
 
+    public AudioSource[] effectAS;
+    private float effectVolume;
+    private bool drawAudioCD;
+    private float drawAudioCounterCD;
+    private float drawCounter;
+
     void Start()
     {
         adCont = GameObject.Find("AdControl").GetComponent<AdController>();
@@ -86,6 +92,16 @@ public class GameController : MonoBehaviour {
         {
             DoubleCoinAnimation();
         }
+
+
+        if (drawAudioCD)
+            drawAudioCounterCD += Time.deltaTime;
+
+        if (drawAudioCounterCD >= 0.5f)
+        {
+            drawAudioCD = false;
+            drawAudioCounterCD = 0;
+        }
     }
     private void GameObjectFind()
     {
@@ -101,6 +117,7 @@ public class GameController : MonoBehaviour {
         totalCoins = PlayerPrefs.GetInt("TotalCoins", 0);
         diamondQtd = PlayerPrefs.GetInt("DiamondQtd", 0);
         currentLine = PlayerPrefs.GetInt("CurrentLine", 0);
+        effectVolume = PlayerPrefs.GetFloat("EffectVolume", 1);
     }
     private void Inicialization()
     {
@@ -117,6 +134,11 @@ public class GameController : MonoBehaviour {
         powerUpsCDCounter = 0;
         powerUpsCD = false;
         lastSetPosition = 10;
+
+        foreach(AudioSource audioS in effectAS)
+        {
+            audioS.volume = effectVolume;
+        }
 
         playerAlive = true;
 
@@ -712,11 +734,18 @@ public class GameController : MonoBehaviour {
         if (Input.GetMouseButtonUp(0))
         {
             activeLine = null;
+            drawCounter = 0;
         }
         if (activeLine != null)
         {
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             activeLine.UpdateLine(mousePos);
+
+            drawCounter += Time.deltaTime;
+            if (!drawAudioCD && drawCounter > 0.075f)
+            {
+                PlayAudio(2);
+            }
         }
     }
     private void CameraPlayerMov()
@@ -737,6 +766,7 @@ public class GameController : MonoBehaviour {
     }
     public void EndGame()
     {
+        PlayAudio(3);
         Time.timeScale = 1;
         playerAlive = false;
 
@@ -820,6 +850,7 @@ public class GameController : MonoBehaviour {
     {
         coinsCount++;
         coinTxt.text = coinsCount.ToString();
+        PlayAudio(0);
     }
     public void ContinueButton()
     {
@@ -860,6 +891,14 @@ public class GameController : MonoBehaviour {
             adCont.bannerView.Hide();
             Time.timeScale = 1;
             paused = false;
+        }
+    }
+    public void PlayAudio(int aux)
+    {
+        effectAS[aux].Play();
+        if(aux == 2)
+        {
+            drawAudioCD = true;
         }
     }
 }
