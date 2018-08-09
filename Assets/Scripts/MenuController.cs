@@ -51,9 +51,11 @@ public class MenuController : MonoBehaviour
     public Slider effectSlider;
     private float effectVolume;
     public AudioClip buttonPressedAudio, storeScrolledAudio, drawAudio;
-    private bool shopAudioCD, drawAudioCD;
-    private float shopAudioCounterCD, drawAudioCounterCD;
+    private bool drawAudioCD;
+    private float drawAudioCounterCD, storeSkinScrollCounter, lastSkinScrollCounter, storeLineScrollCounter, lastLineScrollCounter;
     private float drawCounter;
+    public Scrollbar skinScrollBar, lineScrollBar;
+
 
     private void Awake()
     {
@@ -82,15 +84,6 @@ public class MenuController : MonoBehaviour
         if (draw)
         {
             LineDraw();
-        }
-
-        if (shopAudioCD)
-            shopAudioCounterCD += Time.deltaTime;
-
-        if (shopAudioCounterCD >= 0.5f)
-        {
-            shopAudioCD = false;
-            shopAudioCounterCD = 0;
         }
 
         if (drawAudioCD)
@@ -169,8 +162,10 @@ public class MenuController : MonoBehaviour
         totalCoinsTxt.text = totalCoins.ToString();
         diamondQtdTxt.text = diamondQtd.ToString();
         linePrefab = linesPrefabs[currentLine];
-        shopAudioCounterCD = 0;
-        shopAudioCD = false;
+        storeSkinScrollCounter = 0;
+        lastSkinScrollCounter = 0;
+        storeLineScrollCounter = 0;
+        lastLineScrollCounter = 0;
         drawAudioCounterCD = 0;
         drawAudioCD = false;
         drawCounter = 0;
@@ -460,11 +455,7 @@ public class MenuController : MonoBehaviour
                 break;
             case 1:
                 effectAS.clip = storeScrolledAudio;
-                if (!shopAudioCD)
-                {
-                    effectAS.Play();
-                    shopAudioCD = true;
-                }
+                effectAS.Play();
                 break;
             case 2:
                 effectAS.clip = drawAudio;
@@ -473,6 +464,29 @@ public class MenuController : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+    public void StoreScroll (float aux)
+    {
+        if (aux == 0)
+        {
+            storeSkinScrollCounter += Mathf.Abs(lastSkinScrollCounter - skinScrollBar.value);
+            lastSkinScrollCounter = skinScrollBar.value;
+            if (storeSkinScrollCounter > 0.15f)
+            {
+                PlayAudio(1);
+                storeSkinScrollCounter = 0;
+            }
+        }
+        if (aux == 1)
+        {
+            storeLineScrollCounter += Mathf.Abs(lastLineScrollCounter - lineScrollBar.value);
+            lastLineScrollCounter = lineScrollBar.value;
+            if (storeLineScrollCounter > 0.15f)
+            {
+                PlayAudio(1);
+                storeLineScrollCounter = 0;
+            }
         }
     }
 }
