@@ -8,7 +8,10 @@ using UnityEngine.Audio;
 
 public class MenuController : MonoBehaviour
 {
-    public GameObject mainCanvas, shopCanvas, settingsCanvas, cashShopCanvas, helpCanvas, achvCanvas, coinDisplayCanvas;
+    public GameObject mainCanvas, shopCanvas, cashShopCanvas, helpCanvas, achvCanvas, coinDisplayCanvas;
+    private float settingsBarPosX;
+    private RectTransform settingsBar;
+    private bool openSettings;
     private bool draw;
     private Text totalCoinsTxt;
     private int totalCoins;
@@ -48,6 +51,8 @@ public class MenuController : MonoBehaviour
     public GameObject skinScroll, lineScroll;
 
     private AudioSource effectAS;
+    public Image volumeImg;
+    public Sprite volumeOn, volumeOff;
     public Slider effectSlider;
     private float effectVolume;
     public AudioClip buttonPressedAudio, storeScrolledAudio, drawAudio;
@@ -94,6 +99,7 @@ public class MenuController : MonoBehaviour
             drawAudioCD = false;
             drawAudioCounterCD = 0;
         }
+        OpenCloseSettingsBar();
     }
     private void GameObjectFind()
     {
@@ -102,6 +108,7 @@ public class MenuController : MonoBehaviour
         adCont = GameObject.Find("AdControl").GetComponent<AdController>();
         removeAdsGO = GameObject.Find("RemoveAds");
         effectAS = GameObject.Find("EffectSource").GetComponent<AudioSource>();
+        settingsBar = GameObject.Find("SettingsBar").GetComponent<RectTransform>();
     }
     private void GetPlayerPrefs()
     {
@@ -159,6 +166,8 @@ public class MenuController : MonoBehaviour
     }
     private void Inicialization()
     {
+        settingsBarPosX = settingsBar.anchoredPosition.x;
+        openSettings = false;
         totalCoinsTxt.text = totalCoins.ToString();
         diamondQtdTxt.text = diamondQtd.ToString();
         linePrefab = linesPrefabs[currentLine];
@@ -186,6 +195,17 @@ public class MenuController : MonoBehaviour
 #else
         restorePurchaseButton.SetActive(false);
 #endif
+
+        if (effectVolume == 1)
+        {
+            effectAS.volume = 1;
+            volumeImg.sprite = volumeOn;
+        }
+        else
+        {
+            effectAS.volume = 0;
+            volumeImg.sprite = volumeOff;
+        }
     }
     private void LineDraw()
     {
@@ -212,6 +232,14 @@ public class MenuController : MonoBehaviour
             }
         }
     }
+    private void OpenCloseSettingsBar()
+    {
+        if (openSettings)
+            settingsBar.anchoredPosition = Vector2.Lerp(settingsBar.anchoredPosition, new Vector2(0, settingsBar.anchoredPosition.y), 0.5f);
+        else
+            settingsBar.anchoredPosition = Vector2.Lerp(settingsBar.anchoredPosition, new Vector2(settingsBarPosX, settingsBar.anchoredPosition.y), 0.5f);
+
+    }
     public void ChangeCanvas(int aux)
     {
         switch (aux)
@@ -221,20 +249,15 @@ public class MenuController : MonoBehaviour
                 shopCanvas.SetActive(true);
                 draw = false;
                 break;
-            case 2:                            //main -> settings
-                mainCanvas.SetActive(false);
-                settingsCanvas.SetActive(true);
-                draw = false;
+            case 2:                            //open settings bar
+                openSettings = !openSettings;
                 break;
             case 3:                            //shop -> main
                 shopCanvas.SetActive(false);
                 mainCanvas.SetActive(true);
                 draw = true;
                 break;
-            case 4:                            //settings -> main
-                settingsCanvas.SetActive(false);
-                mainCanvas.SetActive(true);
-                draw = true;
+            case 4:
                 break;
             case 5:                            //open cash shop
                 cashShopCanvas.SetActive(true);
@@ -247,9 +270,10 @@ public class MenuController : MonoBehaviour
                     draw = true;
                 }
                 break;
-            case 7:                            //settings -> help
-                settingsCanvas.SetActive(false);
+            case 7:                            //main -> help
+                mainCanvas.SetActive(false);
                 helpCanvas.SetActive(true);
+                draw = false;
                 if (hintseen == 0)
                 {
                     hintseen = 1;
@@ -258,9 +282,10 @@ public class MenuController : MonoBehaviour
                     PlayerPrefs.SetInt("HintSeen", 1);
                 }
                 break;
-            case 8:                            //help -> settings
+            case 8:                            //help -> main
                 helpCanvas.SetActive(false);
-                settingsCanvas.SetActive(true);
+                mainCanvas.SetActive(true);
+                draw = true;
                 break;
             case 9:                            //main -> achievements
                 mainCanvas.SetActive(false);
@@ -379,31 +404,18 @@ public class MenuController : MonoBehaviour
     }
     public void VolumeControl()
     {
-        effectVolume = effectSlider.value;
-        effectAS.volume = effectVolume;
+        if(effectAS.volume == 1)
+        {
+            effectAS.volume = 0;
+            volumeImg.sprite = volumeOff;
+        }
+        else
+        {
+            effectAS.volume = 1;
+            volumeImg.sprite = volumeOn;
+        }
+        effectVolume = effectAS.volume; 
         PlayerPrefs.SetFloat("EffectVolume", effectVolume);
-    }
-    public void DeleteGameData()
-    {
-        PlayerPrefs.DeleteAll();
-        PlayerPrefs.Save();
-        SceneManager.LoadScene("MenuScene");
-    }
-    public void OpenCloseDeleteGameConf(int aux)
-    {
-        if (aux == 0)
-        {
-            deleteGameConf.SetActive(true);
-        }
-        if (aux == 1)
-        {
-            deleteGameConf.SetActive(false);
-        }
-        if (aux == 2)
-        {
-            deleteGameConf.SetActive(false);
-            DeleteGameData();
-        }
     }
     public void ChangeHint(int aux)
     {

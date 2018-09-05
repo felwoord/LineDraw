@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour {
     private float maxSpeed;
     private Vector2 upForce;
     private float camSpeed, totalCamSpeed;
-    private bool doOnce25, doOnce50, doOnce75, doOnce100, doOnce125, doOnce150, doOnce175, doOnce200, doOnce250, doOnce300, doOnce350;
+    private bool doOnce25, doOnce50, doOnce75, doOnce100, doOnce125, doOnce150, doOnce175, doOnce200, doOnce300, doOnce350;
     private bool doOnce400, doOnce450, doOnce500, doOnce550, doOnce600, doOnce650, doOnce700, doOnce750, doOnce800, doOnce850, doOnce900, doOnce950, doOnce1000, doOnce1100;
     private bool doOnce1200, doOnce1300, doOnce2000;
 
@@ -137,7 +137,14 @@ public class GameController : MonoBehaviour {
 
         foreach(AudioSource audioS in effectAS)
         {
-            audioS.volume = effectVolume;
+            Debug.Log(audioS.name);
+            Debug.Log(effectVolume);
+            if (effectVolume == 0)
+            {
+                Debug.Log(audioS.name);
+                Debug.Log(effectVolume);
+                audioS.enabled = false;
+            }
         }
 
         playerAlive = true;
@@ -150,7 +157,6 @@ public class GameController : MonoBehaviour {
         doOnce150 = false;
         doOnce175 = false;
         doOnce200 = false;
-        doOnce250 = false;
         doOnce300 = false;
         doOnce350 = false;
 
@@ -895,10 +901,13 @@ public class GameController : MonoBehaviour {
     }
     public void PlayAudio(int aux)
     {
-        effectAS[aux].Play();
-        if(aux == 2)
+        if (effectVolume != 0)
         {
-            drawAudioCD = true;
+            effectAS[aux].Play();
+            if (aux == 2)
+            {
+                drawAudioCD = true;
+            }
         }
     }
 }
