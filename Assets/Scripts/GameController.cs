@@ -30,7 +30,7 @@ public class GameController : MonoBehaviour {
     private bool powerUpsCD;
     private float sideBarrierSpawnCounter;
 
-    public GameObject mainCanvas, endRunCanvas, pauseCanvas;
+    public GameObject mainCanvas, endRunCanvas, pauseCanvas, continueCanvas;
 
     private int coinsCount, totalCoins, coinsCountAnimation;
     private Text coinTxt, coinEndRunTxt;
@@ -43,6 +43,9 @@ public class GameController : MonoBehaviour {
     private bool continueAvlb;
     private Text diamondQtdTxt;
     private GameObject continueButtonGO;
+    private float countdown;
+    private Text countdownText;
+    private bool continueCanvasOpen;
 
     private bool doubleCoinAvlb;
     private bool doubleCoinAnimat;
@@ -102,6 +105,22 @@ public class GameController : MonoBehaviour {
             drawAudioCD = false;
             drawAudioCounterCD = 0;
         }
+
+        if (continueCanvasOpen)
+        {
+            if(countdown > 0)
+            {
+                countdown -= Time.deltaTime;
+                countdownText.text = countdown.ToString("0");
+            }
+            else
+            {
+                continueCanvasOpen = false;
+                EndGame();
+            }
+           
+        }
+
     }
     private void GameObjectFind()
     {
@@ -137,12 +156,8 @@ public class GameController : MonoBehaviour {
 
         foreach(AudioSource audioS in effectAS)
         {
-            Debug.Log(audioS.name);
-            Debug.Log(effectVolume);
             if (effectVolume == 0)
             {
-                Debug.Log(audioS.name);
-                Debug.Log(effectVolume);
                 audioS.enabled = false;
             }
         }
@@ -770,11 +785,26 @@ public class GameController : MonoBehaviour {
             cam.transform.position = new Vector3(cam.transform.position.x, player.transform.position.y + 1.5f, cam.transform.position.z);
         }
     }
-    public void EndGame()
+    public void ContinueCanvas()
     {
-        PlayAudio(3);
         Time.timeScale = 1;
         playerAlive = false;
+
+        PlayAudio(3);
+        mainCanvas.SetActive(false);
+        continueCanvas.SetActive(true);
+        continueCanvasOpen = true;
+        countdownText = GameObject.Find("Countdown").GetComponent<Text>();
+        if (continueAvlb)
+        {
+            countdown = 5;
+        }
+        else
+        {
+            countdown = 0;
+        }
+        countdownText.text = countdown.ToString();
+
 
         foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("Set"))
         {
@@ -793,11 +823,18 @@ public class GameController : MonoBehaviour {
             Destroy(gameObj);
         }
 
-        mainCanvas.SetActive(false);
-        endRunCanvas.SetActive(true);
-        adCont.bannerView.Show();
         int deathCounter = PlayerPrefs.GetInt("DeathCounter", 0);
         PlayerPrefs.SetInt("DeathCounter", deathCounter + 1);
+        diamondQtdTxt = GameObject.Find("DiamondQtd").GetComponent<Text>();
+        diamondQtdTxt.text = diamondQtd.ToString();
+        continueButtonGO = GameObject.Find("ContinueButton");
+    }
+    public void EndGame()
+    {
+        continueCanvas.SetActive(false);
+        endRunCanvas.SetActive(true);
+        adCont.bannerView.Show();
+  
         currentHeightTxtEndRun = GameObject.Find("CurrentHeightEndRun").GetComponent<Text>();
         currentHeightTxtEndRun.text = currentHeight.ToString("0");
         float totalDistance = PlayerPrefs.GetFloat("TotalDistance", 0);
@@ -814,13 +851,6 @@ public class GameController : MonoBehaviour {
         else
         {
             doubleCoinGO.SetActive(false);
-        }
-        diamondQtdTxt = GameObject.Find("DiamondQtd").GetComponent<Text>();
-        diamondQtdTxt.text = diamondQtd.ToString();
-        continueButtonGO = GameObject.Find("ContinueButton");
-        if (!continueAvlb)
-        {
-            continueButtonGO.SetActive(false);
         }
 
     }
@@ -876,7 +906,8 @@ public class GameController : MonoBehaviour {
         doubleCoinAvlb = true;
         adCont.bannerView.Hide();
         mainCanvas.SetActive(true);
-        endRunCanvas.SetActive(false);
+        continueCanvas.SetActive(false);
+        continueCanvasOpen = false;
         cam.transform.position = new Vector3(0, player.transform.position.y, cam.transform.position.z);
 
     }

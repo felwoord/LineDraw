@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
             if (endGameCount > 0.05f)
             {
                 Destroy(gameObject);
-                gameCont.EndGame();
+                gameCont.ContinueCanvas();
             }
         }
         if (bounced)
