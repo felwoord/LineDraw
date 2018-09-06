@@ -42,11 +42,10 @@ public class GameController : MonoBehaviour {
     private int diamondQtd;
     private bool continueAvlb;
     private Text diamondQtdTxt;
-    private GameObject continueButtonGO;
     private float countdown;
     private Text countdownText;
     private bool continueCanvasOpen;
-
+    private bool endAnimation;
     private bool doubleCoinAvlb;
     private bool doubleCoinAnimat;
     private int doubleCoinQtd;
@@ -121,6 +120,12 @@ public class GameController : MonoBehaviour {
            
         }
 
+        if (endAnimation)
+        {
+            EndGameAnimation();
+        }
+
+
     }
     private void GameObjectFind()
     {
@@ -190,6 +195,7 @@ public class GameController : MonoBehaviour {
             continueAvlb = false;
         }
         paused = false;
+        endAnimation = false;
         linePrefab = linesPrefabs[currentLine];
 
     }
@@ -791,19 +797,23 @@ public class GameController : MonoBehaviour {
         playerAlive = false;
 
         PlayAudio(3);
-        mainCanvas.SetActive(false);
-        continueCanvas.SetActive(true);
+
         continueCanvasOpen = true;
-        countdownText = GameObject.Find("Countdown").GetComponent<Text>();
+
         if (continueAvlb)
         {
+            mainCanvas.SetActive(false);
+            continueCanvas.SetActive(true);
+            countdownText = GameObject.Find("Countdown").GetComponent<Text>();
             countdown = 5;
+            diamondQtdTxt = GameObject.Find("DiamondQtd").GetComponent<Text>();
+            diamondQtdTxt.text = diamondQtd.ToString();
+            countdownText.text = countdown.ToString();
         }
         else
         {
             countdown = 0;
         }
-        countdownText.text = countdown.ToString();
 
 
         foreach (GameObject gameObj in GameObject.FindGameObjectsWithTag("Set"))
@@ -825,9 +835,7 @@ public class GameController : MonoBehaviour {
 
         int deathCounter = PlayerPrefs.GetInt("DeathCounter", 0);
         PlayerPrefs.SetInt("DeathCounter", deathCounter + 1);
-        diamondQtdTxt = GameObject.Find("DiamondQtd").GetComponent<Text>();
-        diamondQtdTxt.text = diamondQtd.ToString();
-        continueButtonGO = GameObject.Find("ContinueButton");
+
     }
     public void EndGame()
     {
@@ -852,6 +860,11 @@ public class GameController : MonoBehaviour {
         {
             doubleCoinGO.SetActive(false);
         }
+        endAnimation = true;
+
+    }
+    private void EndGameAnimation()
+    {
 
     }
     public void WatchAd()
