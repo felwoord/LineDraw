@@ -61,6 +61,8 @@ public class MenuController : MonoBehaviour
     private float drawCounter;
     public Scrollbar skinScrollBar, lineScrollBar;
 
+    private ParticleSystem buyEffect;
+
 
     private void Awake()
     {
@@ -109,6 +111,7 @@ public class MenuController : MonoBehaviour
         removeAdsGO = GameObject.Find("RemoveAds");
         effectAS = GameObject.Find("EffectSource").GetComponent<AudioSource>();
         settingsBar = GameObject.Find("SettingsBar").GetComponent<RectTransform>();
+        buyEffect = GameObject.Find("BuyEffect").GetComponent<ParticleSystem>();
     }
     private void GetPlayerPrefs()
     {
@@ -324,7 +327,7 @@ public class MenuController : MonoBehaviour
                 skinsGO[currentSkin].transform.Find("Price").GetComponent<Text>().text = "Select";
                 currentSkin = skinNum;
                 skinsGO[currentSkin].transform.Find("Price").GetComponent<Text>().text = "Selected";
-
+                buyEffect.Play();
                 PlayerPrefs.SetInt("CurrentSkin", currentSkin);
                 PlayerPrefs.Save();
             }
@@ -357,6 +360,7 @@ public class MenuController : MonoBehaviour
                 currentLine = lineNum;
                 linesGO[currentLine].transform.Find("Price").GetComponent<Text>().text = "Selected";
                 linePrefab = linesPrefabs[currentLine];
+                buyEffect.Play();
                 PlayerPrefs.SetInt("CurrentLine", currentLine);
                 PlayerPrefs.Save();
             }

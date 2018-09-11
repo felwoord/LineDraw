@@ -49,6 +49,8 @@ public class GameController : MonoBehaviour {
     private bool doubleCoinAvlb;
     private bool doubleCoinAnimat;
     private int doubleCoinQtd;
+    private RectTransform heightsRT, coinsRT, watchAdRT;
+    private float heightsPosY, coinsPosX, watchAdPosX;
     public GameObject doubleCoinGO;
 
     private bool paused;
@@ -860,12 +862,24 @@ public class GameController : MonoBehaviour {
         {
             doubleCoinGO.SetActive(false);
         }
+        heightsRT = GameObject.Find("Heights").GetComponent<RectTransform>();
+        heightsPosY = heightsRT.position.y;
+        heightsRT.position = new Vector2(heightsRT.position.x, heightsRT.position.y + 500);
+        coinsRT = GameObject.Find("Coins").GetComponent<RectTransform>();
+        coinsPosX = heightsRT.position.x;
+        coinsRT.position = new Vector2(coinsRT.position.x - 500, coinsRT.position.y);
+        watchAdRT = GameObject.Find("WatchAdButton").GetComponent<RectTransform>();
+        watchAdPosX = watchAdRT.position.x;
+        watchAdRT.position = new Vector2(watchAdRT.position.x + 500, watchAdRT.position.y);
+
         endAnimation = true;
 
     }
     private void EndGameAnimation()
     {
-
+        heightsRT.position = Vector2.Lerp(heightsRT.position, new Vector2(heightsRT.position.x, heightsPosY), 0.15f);
+        coinsRT.position = Vector2.Lerp(coinsRT.position, new Vector2(coinsPosX, coinsRT.position.y), 0.10f);
+        watchAdRT.position = Vector2.Lerp(watchAdRT.position, new Vector2(watchAdPosX, watchAdRT.position.y), 0.05f);
     }
     public void WatchAd()
     {
