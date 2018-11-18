@@ -207,7 +207,7 @@ public class MenuController : MonoBehaviour
         else
         {
             effectAS.volume = 0;
-            //volumeImg.sprite = volumeOff;
+            volumeImg.sprite = volumeOff;
         }
     }
     private void LineDraw()
