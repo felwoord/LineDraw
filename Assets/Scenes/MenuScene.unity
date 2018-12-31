@@ -1585,7 +1585,7 @@ GameObject:
   - component: {fileID: 92559836}
   m_Layer: 5
   m_Name: Skin4
-  m_TagString: Untagged
+  m_TagString: BallSkin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2903,7 +2903,7 @@ GameObject:
   - component: {fileID: 250451494}
   m_Layer: 5
   m_Name: Line0
-  m_TagString: Untagged
+  m_TagString: LineSkin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3451,7 +3451,7 @@ GameObject:
   - component: {fileID: 332992866}
   - component: {fileID: 332992867}
   m_Layer: 5
-  m_Name: Content
+  m_Name: ContentBallSkin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4904,7 +4904,7 @@ GameObject:
   - component: {fileID: 418825357}
   - component: {fileID: 418825356}
   m_Layer: 5
-  m_Name: Content
+  m_Name: ContentLineSkin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5421,7 +5421,7 @@ GameObject:
   - component: {fileID: 464030095}
   m_Layer: 5
   m_Name: Skin2
-  m_TagString: Untagged
+  m_TagString: BallSkin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6022,6 +6022,10 @@ MonoBehaviour:
   drawAudio: {fileID: 8300000, guid: ae02994524ae218478b6f6895fab795d, type: 3}
   skinScrollBar: {fileID: 838400949}
   lineScrollBar: {fileID: 1285132490}
+  skinContent: {fileID: 332992865}
+  skinScrollRect: {fileID: 1452649041}
+  lineContent: {fileID: 418825355}
+  lineScrollRect: {fileID: 982123099}
 --- !u!114 &523259962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6490,7 +6494,7 @@ GameObject:
   - component: {fileID: 563190236}
   m_Layer: 5
   m_Name: Skin1
-  m_TagString: Untagged
+  m_TagString: BallSkin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10152,7 +10156,7 @@ MonoBehaviour:
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: 0.05
+  m_DecelerationRate: 0.0005
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 772071395}
   m_HorizontalScrollbar: {fileID: 1285132490}
@@ -10163,7 +10167,18 @@ MonoBehaviour:
   m_VerticalScrollbarSpacing: -3
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 523259961}
+        m_MethodName: ResetCounterScrollRect
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.ScrollRect+ScrollRectEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &983665834
@@ -12902,7 +12917,7 @@ GameObject:
   - component: {fileID: 1265004796}
   m_Layer: 5
   m_Name: Skin0
-  m_TagString: Untagged
+  m_TagString: BallSkin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13743,7 +13758,7 @@ GameObject:
   - component: {fileID: 1332761606}
   m_Layer: 5
   m_Name: Line2
-  m_TagString: Untagged
+  m_TagString: LineSkin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15022,7 +15037,7 @@ MonoBehaviour:
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
-  m_DecelerationRate: 0.05
+  m_DecelerationRate: 0.0005
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 2126430202}
   m_HorizontalScrollbar: {fileID: 838400949}
@@ -15033,7 +15048,18 @@ MonoBehaviour:
   m_VerticalScrollbarSpacing: -3
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 523259961}
+        m_MethodName: ResetCounterScrollRect
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.ScrollRect+ScrollRectEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &1456888278
@@ -21625,7 +21651,7 @@ GameObject:
   - component: {fileID: 1773147255}
   m_Layer: 5
   m_Name: Line3
-  m_TagString: Untagged
+  m_TagString: LineSkin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23765,7 +23791,7 @@ GameObject:
   - component: {fileID: 2008823343}
   m_Layer: 5
   m_Name: Line1
-  m_TagString: Untagged
+  m_TagString: LineSkin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24140,7 +24166,7 @@ GameObject:
   - component: {fileID: 2034244729}
   m_Layer: 5
   m_Name: Line4
-  m_TagString: Untagged
+  m_TagString: LineSkin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24565,7 +24591,7 @@ GameObject:
   - component: {fileID: 2096992736}
   m_Layer: 5
   m_Name: Skin3
-  m_TagString: Untagged
+  m_TagString: BallSkin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

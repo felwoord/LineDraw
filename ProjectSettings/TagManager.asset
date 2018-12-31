@@ -19,6 +19,8 @@ TagManager:
   - SuperCoin
   - Helix
   - ExtraCoins
+  - BallSkin
+  - LineSkin
   layers:
   - Default
   - TransparentFX

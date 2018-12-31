@@ -63,6 +63,32 @@ public class MenuController : MonoBehaviour
 
     private ParticleSystem buyEffect;
 
+    public Transform skinContent;
+    public ScrollRect skinScrollRect;
+    private float delayCenterSkin;                  //Counter to see how long since the ScrollRect stopped 
+    private bool enableDelayCenterSkin;             //Bool to start delayCenterSkin to increment 
+    private int totalSkinQtt;                       //Total ball skins amount
+    private float shorterDist;                      //Shorter distance between current ScrollRect Pos and one of Centered Pos
+    private bool enableSkinCentering;               //Enable Ball Skin Centering
+    int shorterDistIndex;                           //Index of the shorter distance
+    private bool doOnceCalculateSkinPos;            //Call CalculatePositionSkinScrollRect once
+    private float centeredPos;                      //Centered postion of the contents
+
+    public Transform lineContent;
+    public ScrollRect lineScrollRect;
+    private float delayCenterLine;
+    private bool enableDelayCenterLine;
+    private int totalLineQtt;
+    private float shorterDistLine;
+    private bool enableLineCentering;
+    int shorterDistIndexLine;
+    private bool doOnceCalculateLinePos;
+    private float centeredPosLine;
+
+    //private float centeredSkinPos;
+    //private bool centerSkin;
+
+
 
     private void Awake()
     {
@@ -102,6 +128,36 @@ public class MenuController : MonoBehaviour
             drawAudioCounterCD = 0;
         }
         OpenCloseSettingsBar();
+
+        if (enableDelayCenterSkin && !Input.GetMouseButton(0))
+        {
+            delayCenterSkin += Time.deltaTime;
+            if (delayCenterSkin > 0.025f && doOnceCalculateSkinPos)
+            {
+                doOnceCalculateSkinPos = false;
+                CalculatePositionSkinScrollRect();
+                delayCenterSkin = 0;
+            }
+            if (enableSkinCentering)
+            {
+                SkinCentering();
+            }
+        }
+
+        if (enableDelayCenterLine && !Input.GetMouseButton(0))
+        {
+            delayCenterLine += Time.deltaTime;
+            if (delayCenterLine > 0.025f && doOnceCalculateLinePos)
+            {
+                doOnceCalculateLinePos = false;
+                CalculatePositionLineScrollRect();
+                delayCenterLine = 0;
+            }
+            if (enableLineCentering)
+            {
+                LineCentering();
+            }
+        }
     }
     private void GameObjectFind()
     {
@@ -209,6 +265,18 @@ public class MenuController : MonoBehaviour
             effectAS.volume = 0;
             volumeImg.sprite = volumeOff;
         }
+
+        totalSkinQtt = 0;
+        foreach (Transform child in skinContent) if (child.CompareTag("BallSkin"))
+            {
+                totalSkinQtt++;
+            }
+
+        totalLineQtt = 0;
+        foreach (Transform child in lineContent) if (child.CompareTag("LineSkin"))
+            {
+                totalLineQtt++;
+            }
     }
     private void LineDraw()
     {
@@ -408,7 +476,7 @@ public class MenuController : MonoBehaviour
     }
     public void VolumeControl()
     {
-        if(effectAS.volume == 1)
+        if (effectAS.volume == 1)
         {
             effectAS.volume = 0;
             volumeImg.sprite = volumeOff;
@@ -418,7 +486,7 @@ public class MenuController : MonoBehaviour
             effectAS.volume = 1;
             volumeImg.sprite = volumeOn;
         }
-        effectVolume = effectAS.volume; 
+        effectVolume = effectAS.volume;
         PlayerPrefs.SetFloat("EffectVolume", effectVolume);
     }
     public void ChangeHint(int aux)
@@ -448,7 +516,7 @@ public class MenuController : MonoBehaviour
             default:
                 break;
         }
-        
+
     }
     public void OpenReceivedUI(int qtd)
     {
@@ -482,7 +550,7 @@ public class MenuController : MonoBehaviour
                 break;
         }
     }
-    public void StoreScroll (float aux)
+    public void StoreScroll(float aux)
     {
         if (aux == 0)
         {
@@ -503,6 +571,94 @@ public class MenuController : MonoBehaviour
                 PlayAudio(1);
                 storeLineScrollCounter = 0;
             }
+        }
+    }
+
+    public void ResetCounterScrollRect(int aux)     //Called when store RectScroll stops moving
+    {
+        if (aux == 0)                                //Ball Skins
+        {
+            delayCenterSkin = 0;
+            enableDelayCenterSkin = true;
+            doOnceCalculateSkinPos = true;
+        }
+
+        if (aux == 1)                                //Line Skins
+        {
+            delayCenterLine = 0;
+            enableDelayCenterLine = true;
+            doOnceCalculateLinePos = true;
+        }
+    }
+    private void CalculatePositionSkinScrollRect()  //Calculate what position RectScroll should be
+    {
+        shorterDist = 9999;
+        float currentPos = skinScrollRect.horizontalNormalizedPosition;
+        for (int i = 0; i < totalSkinQtt; i++)
+        {
+            //Formula => CenteredPosition = [1 / (NºTotalSkins - 1) ] * Index
+            float b = totalSkinQtt - 1;
+            float a = 1 / b;
+            float c = a * i;
+            centeredPos = c;
+            float dist = Mathf.Abs(currentPos - centeredPos);
+            if (dist < shorterDist)
+            {
+                shorterDist = dist;
+                shorterDistIndex = i;
+            }
+
+        }
+        enableSkinCentering = true;
+    }
+    private void SkinCentering()
+    {
+        float b = totalSkinQtt - 1;
+        float a = 1 / b;
+        float c = a * shorterDistIndex;
+        centeredPos = c;
+        float currentPos = skinScrollRect.horizontalNormalizedPosition;
+        currentPos = Mathf.Lerp(currentPos, centeredPos, 0.2f);
+        skinScrollRect.horizontalNormalizedPosition = currentPos;
+        if (Mathf.Abs(currentPos - centeredPos) < 0.01f)
+        {
+            enableDelayCenterSkin = false;
+            enableSkinCentering = false;
+        }
+    }
+    private void CalculatePositionLineScrollRect()
+    {
+        shorterDistLine = 9999;
+        float currentPosLine = lineScrollRect.horizontalNormalizedPosition;
+        for (int i = 0; i < totalLineQtt; i++)
+        {
+            float b = totalLineQtt - 1;
+            float a = 1 / b;
+            float c = a * i;
+            centeredPosLine = c;
+            float distLine = Mathf.Abs(currentPosLine - centeredPosLine);
+            if (distLine < shorterDistLine)
+            {
+                shorterDistLine = distLine;
+                shorterDistIndexLine = i;
+            }
+
+        }
+        enableLineCentering = true;
+    }
+    private void LineCentering()
+    {
+        float b = totalLineQtt - 1;
+        float a = 1 / b;
+        float c = a * shorterDistIndexLine;
+        centeredPosLine = c;
+        float currentPosLine = lineScrollRect.horizontalNormalizedPosition;
+        currentPosLine = Mathf.Lerp(currentPosLine, centeredPosLine, 0.2f);
+        lineScrollRect.horizontalNormalizedPosition = currentPosLine;
+        if (Mathf.Abs(currentPosLine - centeredPosLine) < 0.01f)
+        {
+            enableDelayCenterLine = false;
+            enableLineCentering = false;
         }
     }
 }
