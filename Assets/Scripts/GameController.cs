@@ -117,6 +117,7 @@ public class GameController : MonoBehaviour {
             else
             {
                 continueCanvasOpen = false;
+                mainCanvas.SetActive(false);
                 EndGame();
             }
            

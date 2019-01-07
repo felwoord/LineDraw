@@ -132,7 +132,7 @@ public class MenuController : MonoBehaviour
         if (enableDelayCenterSkin && !Input.GetMouseButton(0))
         {
             delayCenterSkin += Time.deltaTime;
-            if (delayCenterSkin > 0.025f && doOnceCalculateSkinPos)
+            if (delayCenterSkin > 0.02f && doOnceCalculateSkinPos)
             {
                 doOnceCalculateSkinPos = false;
                 CalculatePositionSkinScrollRect();
@@ -498,6 +498,11 @@ public class MenuController : MonoBehaviour
 
         if (currentHint > 10)
             currentHint = 0;
+
+        if(currentHint == 10)
+        {
+            PlayerPrefs.SetInt("NerdBoy", 1);
+        }
 
         hint[currentHint].SetActive(true);
     }

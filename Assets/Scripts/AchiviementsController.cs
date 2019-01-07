@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AchiviementsController : MonoBehaviour {
+public class AchiviementsController : MonoBehaviour
+{
     public Text[] achvhName;
     public Text[] achvDescrpt;
     public Button[] getReward;
+    public GameObject[] getRewardGO;
+    public Transform[] achvTransform;
     private int currentLv;
 
     private float totalDistance;
@@ -16,31 +19,35 @@ public class AchiviementsController : MonoBehaviour {
     private int diamondsUsed;
     private int achvCompleted;
     private int coinsUsed;
+    private int nerdBoy;
 
     private MenuController menuCont;
 
     public GameObject achvNot;
 
-	public void Start () {
+    public void Start()
+    {
         menuCont = GameObject.Find("Main Camera").GetComponent<MenuController>();
 
-        totalDistance = PlayerPrefs.GetFloat("TotalDistance", 0);      
-        bonusCoinCounter = PlayerPrefs.GetInt("BonusCoinCounter", 0);  
-        deathCounter = PlayerPrefs.GetInt("DeathCounter", 0);           
-        continueCounter = PlayerPrefs.GetInt("ContinueCounter", 0);     
-        diamondsUsed = PlayerPrefs.GetInt("DiamondsUsed", 0);           
+        totalDistance = PlayerPrefs.GetFloat("TotalDistance", 0);
+        bonusCoinCounter = PlayerPrefs.GetInt("BonusCoinCounter", 0);
+        deathCounter = PlayerPrefs.GetInt("DeathCounter", 0);
+        continueCounter = PlayerPrefs.GetInt("ContinueCounter", 0);
+        diamondsUsed = PlayerPrefs.GetInt("DiamondsUsed", 0);
         achvCompleted = PlayerPrefs.GetInt("AchvCompleted", 0);
-        coinsUsed = PlayerPrefs.GetInt("CoinsUsed", 0);                 
+        coinsUsed = PlayerPrefs.GetInt("CoinsUsed", 0);
+        nerdBoy = PlayerPrefs.GetInt("NerdBoy", 0);
 
         CheckAchv();
 
-	}
+    }
 
 
-	void Update () {
-		
-	}
-    
+    void Update()
+    {
+
+    }
+
     void CheckAchv()
     {
         currentLv = PlayerPrefs.GetInt("Lv0", 1);               //Reach x Height
@@ -48,15 +55,16 @@ public class AchiviementsController : MonoBehaviour {
         {
             case 1:
                 achvhName[0].text = "Climber I";
-                achvDescrpt[0].text = "reach 50 meters height!";
-                if(PlayerPrefs.GetFloat("TopHeight", 0) >= 50){
+                achvDescrpt[0].text = "Reach 50 meters height!";
+                if (PlayerPrefs.GetFloat("TopHeight", 0) >= 50)
+                {
                     getReward[0].interactable = true;
                     achvNot.SetActive(true);
                 }
                 break;
             case 2:
                 achvhName[0].text = "Climber II";
-                achvDescrpt[0].text = "reach 100 meters height!";
+                achvDescrpt[0].text = "Reach 100 meters height!";
                 if (PlayerPrefs.GetFloat("TopHeight", 0) >= 100)
                 {
                     getReward[0].interactable = true;
@@ -65,7 +73,7 @@ public class AchiviementsController : MonoBehaviour {
                 break;
             case 3:
                 achvhName[0].text = "Climber III";
-                achvDescrpt[0].text = "reach 250 meters height!";
+                achvDescrpt[0].text = "Reach 250 meters height!";
                 if (PlayerPrefs.GetFloat("TopHeight", 0) >= 250)
                 {
                     getReward[0].interactable = true;
@@ -74,7 +82,7 @@ public class AchiviementsController : MonoBehaviour {
                 break;
             case 4:
                 achvhName[0].text = "Climber IV";
-                achvDescrpt[0].text = "reach 500 meters height!";
+                achvDescrpt[0].text = "Reach 500 meters height!";
                 if (PlayerPrefs.GetFloat("TopHeight", 0) >= 500)
                 {
                     getReward[0].interactable = true;
@@ -83,7 +91,7 @@ public class AchiviementsController : MonoBehaviour {
                 break;
             case 5:
                 achvhName[0].text = "Climber V";
-                achvDescrpt[0].text = "reach 1.000 meters height!";
+                achvDescrpt[0].text = "Reach 1.000 meters height!";
                 if (PlayerPrefs.GetFloat("TopHeight", 0) >= 1000)
                 {
                     getReward[0].interactable = true;
@@ -92,7 +100,7 @@ public class AchiviementsController : MonoBehaviour {
                 break;
             case 6:
                 achvhName[0].text = "Climber VI";
-                achvDescrpt[0].text = "reach 2.000 meters height!";
+                achvDescrpt[0].text = "Reach 2.000 meters height!";
                 if (PlayerPrefs.GetFloat("TopHeight", 0) >= 2000)
                 {
                     getReward[0].interactable = true;
@@ -101,7 +109,7 @@ public class AchiviementsController : MonoBehaviour {
                 break;
             case 7:
                 achvhName[0].text = "Climber VII";
-                achvDescrpt[0].text = "reach 5.000 meters height!";
+                achvDescrpt[0].text = "Reach 5.000 meters height!";
                 if (PlayerPrefs.GetFloat("TopHeight", 0) >= 5000)
                 {
                     getReward[0].interactable = true;
@@ -109,6 +117,10 @@ public class AchiviementsController : MonoBehaviour {
                 }
                 break;
             default:
+                achvhName[0].text = "Climber";
+                achvDescrpt[0].text = "Completed";
+                achvTransform[0].SetAsLastSibling();
+                getRewardGO[0].SetActive(false);
                 break;
         }
 
@@ -118,7 +130,7 @@ public class AchiviementsController : MonoBehaviour {
             case 1:
                 achvhName[1].text = "Traveler I";
                 achvDescrpt[1].text = "Travel " + totalDistance.ToString("0") + "/1.000 meters!";
-                if(totalDistance >= 1000)
+                if (totalDistance >= 1000)
                 {
                     getReward[1].interactable = true;
                     achvNot.SetActive(true);
@@ -179,6 +191,10 @@ public class AchiviementsController : MonoBehaviour {
                 }
                 break;
             default:
+                achvhName[1].text = "Traveler";
+                achvDescrpt[1].text = "Completed! (Current total: " + totalDistance.ToString("0") + " meters!)";
+                achvTransform[1].SetAsLastSibling();
+                getRewardGO[1].SetActive(false);
                 break;
         }
 
@@ -249,6 +265,10 @@ public class AchiviementsController : MonoBehaviour {
                 }
                 break;
             default:
+                achvhName[2].text = "Collector";
+                achvDescrpt[2].text = "Completed! (Current total: " + bonusCoinCounter + " times!)";
+                achvTransform[2].SetAsLastSibling();
+                getRewardGO[2].SetActive(false);
                 break;
         }
 
@@ -319,6 +339,10 @@ public class AchiviementsController : MonoBehaviour {
                 }
                 break;
             default:
+                achvhName[3].text = "Death is only the beginning";
+                achvDescrpt[3].text = "Completed! (Current total: " + deathCounter + " deaths!)";
+                achvTransform[3].SetAsLastSibling();
+                getRewardGO[3].SetActive(false);
                 break;
         }
 
@@ -389,6 +413,10 @@ public class AchiviementsController : MonoBehaviour {
                 }
                 break;
             default:
+                achvhName[4].text = "One more chance";
+                achvDescrpt[4].text = "Completed! (Current total: " + continueCounter + " continues!)";
+                achvTransform[4].SetAsLastSibling();
+                getRewardGO[4].SetActive(false);
                 break;
         }
 
@@ -459,6 +487,10 @@ public class AchiviementsController : MonoBehaviour {
                 }
                 break;
             default:
+                achvhName[5].text = "Girl's best friend";
+                achvDescrpt[5].text = "Completed! (Current total: " + diamondsUsed + " Diamonds!)";
+                achvTransform[5].SetAsLastSibling();
+                getRewardGO[5].SetActive(false);
                 break;
         }
 
@@ -529,6 +561,10 @@ public class AchiviementsController : MonoBehaviour {
                 }
                 break;
             default:
+                achvhName[6].text = "Go-Getter";
+                achvDescrpt[6].text = "Completed! (Current total: " + achvCompleted + " achievements!)";
+                achvTransform[6].SetAsLastSibling();
+                getRewardGO[6].SetActive(false);
                 break;
         }
 
@@ -599,39 +635,70 @@ public class AchiviementsController : MonoBehaviour {
                 }
                 break;
             default:
+                achvhName[7].text = "Spendthrift";
+                achvDescrpt[7].text = "Completed! (Current total: " + coinsUsed + " coins!)";
+                achvTransform[7].SetAsLastSibling();
+                getRewardGO[7].SetActive(false);
+                break;
+        }
+
+        currentLv = PlayerPrefs.GetInt("Lv8", 1);               //Nerd Boy
+        switch (currentLv)
+        {
+            case 1:
+                achvhName[8].text = "Nerd Boy";
+                achvDescrpt[8].text = "Read Help menu";
+                if (nerdBoy == 1)
+                {
+                    getReward[8].interactable = true;
+                    achvNot.SetActive(true);
+                }
+                break;
+            default:
+                achvhName[8].text = "Nerd Boy";
+                achvDescrpt[8].text = "Completed";
+                achvTransform[8].SetAsLastSibling();
+                getRewardGO[8].SetActive(false);
                 break;
         }
     }
 
     public void GetReward(int currentAchv)
     {
-        currentLv = PlayerPrefs.GetInt("Lv" + currentAchv, 1);
-
-        switch (currentLv)
+        if (currentAchv == 8)
         {
-            case 1:
-                menuCont.BuyDiamond(1);
-                break;
-            case 2:
-                menuCont.BuyDiamond(5);
-                break;
-            case 3:
-                menuCont.BuyDiamond(15);
-                break;
-            case 4:
-                menuCont.BuyDiamond(50);
-                break;
-            case 5:
-                menuCont.BuyDiamond(100);
-                break;
-            case 6:
-                menuCont.BuyDiamond(200);
-                break;
-            case 7:
-                menuCont.BuyDiamond(500);
-                break;
-            default:
-                break;
+            menuCont.BuyDiamond(5);
+        }
+        else
+        {
+            currentLv = PlayerPrefs.GetInt("Lv" + currentAchv, 1);
+
+            switch (currentLv)
+            {
+                case 1:
+                    menuCont.BuyDiamond(1);
+                    break;
+                case 2:
+                    menuCont.BuyDiamond(5);
+                    break;
+                case 3:
+                    menuCont.BuyDiamond(15);
+                    break;
+                case 4:
+                    menuCont.BuyDiamond(50);
+                    break;
+                case 5:
+                    menuCont.BuyDiamond(100);
+                    break;
+                case 6:
+                    menuCont.BuyDiamond(200);
+                    break;
+                case 7:
+                    menuCont.BuyDiamond(500);
+                    break;
+                default:
+                    break;
+            }
         }
         getReward[currentAchv].interactable = false;
         PlayerPrefs.SetInt("Lv" + currentAchv, currentLv + 1);
