@@ -32,6 +32,11 @@ PluginImporter:
       settings:
         STV_MODEL: STANDARD_13
   - first:
+      '': Tizen
+    second:
+      enabled: 1
+      settings: {}
+  - first:
       '': Web
     second:
       enabled: 1
@@ -113,11 +118,6 @@ PluginImporter:
       enabled: 1
       settings:
         CPU: AnyCPU
-  - first:
-      Tizen: Tizen
-    second:
-      enabled: 1
-      settings: {}
   - first:
       WebGL: WebGL
     second:
