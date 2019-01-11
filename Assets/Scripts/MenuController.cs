@@ -333,9 +333,11 @@ public class MenuController : MonoBehaviour
             case 5:                            //open cash shop
                 cashShopCanvas.SetActive(true);
                 draw = false;
+                adCont.bannerView.Hide();
                 break;
             case 6:                            //close cash shop
                 cashShopCanvas.SetActive(false);
+                adCont.bannerView.Show();
                 if (mainCanvas.activeSelf)
                 {
                     draw = true;

@@ -864,23 +864,23 @@ public class GameController : MonoBehaviour {
             doubleCoinGO.SetActive(false);
         }
         heightsRT = GameObject.Find("Heights").GetComponent<RectTransform>();
-        heightsPosY = heightsRT.position.y;
-        heightsRT.position = new Vector2(heightsRT.position.x, heightsRT.position.y + 500);
+        heightsPosY = heightsRT.localPosition.y;
+        heightsRT.localPosition = new Vector2(heightsRT.localPosition.x, heightsRT.localPosition.y + 500);
         coinsRT = GameObject.Find("Coins").GetComponent<RectTransform>();
-        coinsPosX = heightsRT.position.x;
-        coinsRT.position = new Vector2(coinsRT.position.x - 500, coinsRT.position.y);
+        coinsPosX = heightsRT.localPosition.x;
+        coinsRT.localPosition = new Vector2(coinsRT.localPosition.x - 500, coinsRT.localPosition.y);
         watchAdRT = GameObject.Find("WatchAdButton").GetComponent<RectTransform>();
-        watchAdPosX = watchAdRT.position.x;
-        watchAdRT.position = new Vector2(watchAdRT.position.x + 500, watchAdRT.position.y);
+        watchAdPosX = watchAdRT.localPosition.x;
+        watchAdRT.localPosition = new Vector2(watchAdRT.localPosition.x + 500, watchAdRT.localPosition.y);
 
         endAnimation = true;
 
     }
     private void EndGameAnimation()
     {
-        heightsRT.position = Vector2.Lerp(heightsRT.position, new Vector2(heightsRT.position.x, heightsPosY), 0.15f);
-        coinsRT.position = Vector2.Lerp(coinsRT.position, new Vector2(coinsPosX, coinsRT.position.y), 0.10f);
-        watchAdRT.position = Vector2.Lerp(watchAdRT.position, new Vector2(watchAdPosX, watchAdRT.position.y), 0.05f);
+        heightsRT.localPosition = Vector2.Lerp(heightsRT.localPosition, new Vector2(heightsRT.localPosition.x, heightsPosY), 0.15f);
+        coinsRT.localPosition = Vector2.Lerp(coinsRT.localPosition, new Vector2(coinsPosX, coinsRT.localPosition.y), 0.10f);
+        watchAdRT.localPosition = Vector2.Lerp(watchAdRT.localPosition, new Vector2(watchAdPosX, watchAdRT.localPosition.y), 0.05f);
     }
     public void WatchAd()
     {

@@ -7,7 +7,7 @@ public class AchiviementsController : MonoBehaviour
 {
     public Text[] achvhName;
     public Text[] achvDescrpt;
-    public Button[] getReward;
+    //public Button[] getReward;
     public GameObject[] getRewardGO;
     public Transform[] achvTransform;
     private int currentLv;
@@ -58,7 +58,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[0].text = "Reach 50 meters height!";
                 if (PlayerPrefs.GetFloat("TopHeight", 0) >= 50)
                 {
-                    getReward[0].interactable = true;
+                    getRewardGO[0].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -67,7 +67,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[0].text = "Reach 100 meters height!";
                 if (PlayerPrefs.GetFloat("TopHeight", 0) >= 100)
                 {
-                    getReward[0].interactable = true;
+                    getRewardGO[0].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -76,7 +76,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[0].text = "Reach 250 meters height!";
                 if (PlayerPrefs.GetFloat("TopHeight", 0) >= 250)
                 {
-                    getReward[0].interactable = true;
+                    getRewardGO[0].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -85,7 +85,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[0].text = "Reach 500 meters height!";
                 if (PlayerPrefs.GetFloat("TopHeight", 0) >= 500)
                 {
-                    getReward[0].interactable = true;
+                    getRewardGO[0].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -94,7 +94,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[0].text = "Reach 1.000 meters height!";
                 if (PlayerPrefs.GetFloat("TopHeight", 0) >= 1000)
                 {
-                    getReward[0].interactable = true;
+                    getRewardGO[0].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -103,7 +103,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[0].text = "Reach 2.000 meters height!";
                 if (PlayerPrefs.GetFloat("TopHeight", 0) >= 2000)
                 {
-                    getReward[0].interactable = true;
+                    getRewardGO[0].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -112,7 +112,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[0].text = "Reach 5.000 meters height!";
                 if (PlayerPrefs.GetFloat("TopHeight", 0) >= 5000)
                 {
-                    getReward[0].interactable = true;
+                    getRewardGO[0].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -132,7 +132,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[1].text = "Travel " + totalDistance.ToString("0") + "/1.000 meters!";
                 if (totalDistance >= 1000)
                 {
-                    getReward[1].interactable = true;
+                    getRewardGO[1].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -141,7 +141,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[1].text = "Travel " + totalDistance.ToString("0") + "/2.000 meters!";
                 if (totalDistance >= 2000)
                 {
-                    getReward[1].interactable = true;
+                    getRewardGO[1].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -150,7 +150,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[1].text = "Travel " + totalDistance.ToString("0") + "/5.000 meters!";
                 if (totalDistance >= 5000)
                 {
-                    getReward[1].interactable = true;
+                    getRewardGO[1].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -159,7 +159,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[1].text = "Travel " + totalDistance.ToString("0") + "/10.000 meters!";
                 if (totalDistance >= 10000)
                 {
-                    getReward[1].interactable = true;
+                    getRewardGO[1].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -168,7 +168,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[1].text = "Travel " + totalDistance.ToString("0") + "/20.000 meters!";
                 if (totalDistance >= 20000)
                 {
-                    getReward[1].interactable = true;
+                    getRewardGO[1].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -177,7 +177,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[1].text = "Travel " + totalDistance.ToString("0") + "/50.000 meters!";
                 if (totalDistance >= 50000)
                 {
-                    getReward[1].interactable = true;
+                    getRewardGO[1].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -186,7 +186,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[1].text = "Travel " + totalDistance.ToString("0") + "/100.000 meters!";
                 if (totalDistance >= 100000)
                 {
-                    getReward[1].interactable = true;
+                    getRewardGO[1].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -206,7 +206,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[2].text = "Collect all coins from the Set " + bonusCoinCounter + "/10 times!";
                 if (bonusCoinCounter >= 10)
                 {
-                    getReward[2].interactable = true;
+                    getRewardGO[2].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -215,7 +215,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[2].text = "Collect all coins from the Set " + bonusCoinCounter + "/20 times!";
                 if (bonusCoinCounter >= 20)
                 {
-                    getReward[2].interactable = true;
+                    getRewardGO[2].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -224,7 +224,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[2].text = "Collect all coins from the Set " + bonusCoinCounter + "/50 times!";
                 if (bonusCoinCounter >= 50)
                 {
-                    getReward[2].interactable = true;
+                    getRewardGO[2].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -233,7 +233,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[2].text = "Collect all coins from the Set " + bonusCoinCounter + "/100 times!";
                 if (bonusCoinCounter >= 100)
                 {
-                    getReward[2].interactable = true;
+                    getRewardGO[2].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -242,7 +242,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[2].text = "Collect all coins from the Set " + bonusCoinCounter + "/200 times!";
                 if (bonusCoinCounter >= 200)
                 {
-                    getReward[2].interactable = true;
+                    getRewardGO[2].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -251,7 +251,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[2].text = "Collect all coins from the Set " + bonusCoinCounter + "/500 times!";
                 if (bonusCoinCounter >= 500)
                 {
-                    getReward[2].interactable = true;
+                    getRewardGO[2].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -260,7 +260,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[2].text = "Collect all coins from the Set " + bonusCoinCounter + "/1.000 times!";
                 if (bonusCoinCounter >= 1000)
                 {
-                    getReward[2].interactable = true;
+                    getRewardGO[2].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -280,7 +280,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[3].text = "Die " + deathCounter + "/10 times!";
                 if (deathCounter >= 10)
                 {
-                    getReward[3].interactable = true;
+                    getRewardGO[3].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -289,7 +289,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[3].text = "Die " + deathCounter + "/20 times!";
                 if (deathCounter >= 20)
                 {
-                    getReward[3].interactable = true;
+                    getRewardGO[3].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -298,7 +298,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[3].text = "Die " + deathCounter + "/50 times!";
                 if (deathCounter >= 50)
                 {
-                    getReward[3].interactable = true;
+                    getRewardGO[3].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -307,7 +307,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[3].text = "Die " + deathCounter + "/100 times!";
                 if (deathCounter >= 100)
                 {
-                    getReward[3].interactable = true;
+                    getRewardGO[3].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -316,7 +316,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[3].text = "Die " + deathCounter + "/200 times!";
                 if (deathCounter >= 200)
                 {
-                    getReward[3].interactable = true;
+                    getRewardGO[3].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -325,7 +325,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[3].text = "Die " + deathCounter + "/500 times!";
                 if (deathCounter >= 500)
                 {
-                    getReward[3].interactable = true;
+                    getRewardGO[3].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -334,7 +334,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[3].text = "Die " + deathCounter + "/1.000 times!";
                 if (deathCounter >= 1000)
                 {
-                    getReward[3].interactable = true;
+                    getRewardGO[3].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -354,7 +354,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[4].text = "Use " + continueCounter + "/1 continue!";
                 if (continueCounter >= 1)
                 {
-                    getReward[4].interactable = true;
+                    getRewardGO[4].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -363,7 +363,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[4].text = "Use " + continueCounter + "/5 continue!";
                 if (continueCounter >= 5)
                 {
-                    getReward[4].interactable = true;
+                    getRewardGO[4].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -372,7 +372,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[4].text = "Use " + continueCounter + "/20 continue!";
                 if (continueCounter >= 20)
                 {
-                    getReward[4].interactable = true;
+                    getRewardGO[4].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -381,7 +381,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[4].text = "Use " + continueCounter + "/50 continue!";
                 if (continueCounter >= 50)
                 {
-                    getReward[4].interactable = true;
+                    getRewardGO[4].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -390,7 +390,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[4].text = "Use " + continueCounter + "/200 continue!";
                 if (continueCounter >= 200)
                 {
-                    getReward[4].interactable = true;
+                    getRewardGO[4].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -399,7 +399,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[4].text = "Use " + continueCounter + "/500 continue!";
                 if (continueCounter >= 500)
                 {
-                    getReward[4].interactable = true;
+                    getRewardGO[4].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -408,7 +408,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[4].text = "Use " + continueCounter + "/1.000 continue!";
                 if (continueCounter >= 1000)
                 {
-                    getReward[4].interactable = true;
+                    getRewardGO[4].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -428,7 +428,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[5].text = "Use " + diamondsUsed + "/10 Diamonds!";
                 if (diamondsUsed >= 10)
                 {
-                    getReward[5].interactable = true;
+                    getRewardGO[5].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -437,7 +437,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[5].text = "Use " + diamondsUsed + "/50 Diamonds!";
                 if (diamondsUsed >= 50)
                 {
-                    getReward[5].interactable = true;
+                    getRewardGO[5].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -446,7 +446,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[5].text = "Use " + diamondsUsed + "/100 Diamonds!";
                 if (diamondsUsed >= 100)
                 {
-                    getReward[5].interactable = true;
+                    getRewardGO[5].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -455,7 +455,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[5].text = "Use " + diamondsUsed + "/500 Diamonds!";
                 if (diamondsUsed >= 500)
                 {
-                    getReward[5].interactable = true;
+                    getRewardGO[5].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -464,7 +464,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[5].text = "Use " + diamondsUsed + "/1.000 Diamonds!";
                 if (diamondsUsed >= 1000)
                 {
-                    getReward[5].interactable = true;
+                    getRewardGO[5].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -473,7 +473,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[5].text = "Use " + diamondsUsed + "/10.000 Diamonds!";
                 if (diamondsUsed >= 10000)
                 {
-                    getReward[5].interactable = true;
+                    getRewardGO[5].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -482,7 +482,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[5].text = "Use " + diamondsUsed + "/15.000 Diamonds!";
                 if (diamondsUsed >= 15000)
                 {
-                    getReward[5].interactable = true;
+                    getRewardGO[5].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -502,7 +502,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[6].text = "Complete " + achvCompleted + "/1 achievementes!";
                 if (achvCompleted >= 1)
                 {
-                    getReward[6].interactable = true;
+                    getRewardGO[6].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -511,7 +511,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[6].text = "Complete " + achvCompleted + "/5 achievementes!";
                 if (achvCompleted >= 5)
                 {
-                    getReward[6].interactable = true;
+                    getRewardGO[6].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -520,7 +520,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[6].text = "Complete " + achvCompleted + "/10 achievementes!";
                 if (achvCompleted >= 10)
                 {
-                    getReward[6].interactable = true;
+                    getRewardGO[6].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -529,7 +529,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[6].text = "Complete " + achvCompleted + "/15 achievementes!";
                 if (achvCompleted >= 15)
                 {
-                    getReward[6].interactable = true;
+                    getRewardGO[6].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -538,7 +538,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[6].text = "Complete " + achvCompleted + "/20 achievementes!";
                 if (achvCompleted >= 20)
                 {
-                    getReward[6].interactable = true;
+                    getRewardGO[6].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -547,7 +547,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[6].text = "Complete " + achvCompleted + "/25 achievementes!";
                 if (achvCompleted >= 25)
                 {
-                    getReward[6].interactable = true;
+                    getRewardGO[6].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -556,7 +556,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[6].text = "Complete " + achvCompleted + "/35 achievementes!";
                 if (achvCompleted >= 35)
                 {
-                    getReward[6].interactable = true;
+                    getRewardGO[6].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -576,7 +576,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[7].text = "Spend " + coinsUsed + "/500 coins!";
                 if (achvCompleted >= 500)
                 {
-                    getReward[7].interactable = true;
+                    getRewardGO[7].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -585,7 +585,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[7].text = "Spend " + coinsUsed + "/1.000 coins!";
                 if (achvCompleted >= 1000)
                 {
-                    getReward[7].interactable = true;
+                    getRewardGO[7].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -594,7 +594,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[7].text = "Spend " + coinsUsed + "/5.000 coins!";
                 if (achvCompleted >= 5000)
                 {
-                    getReward[7].interactable = true;
+                    getRewardGO[7].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -603,7 +603,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[7].text = "Spend " + coinsUsed + "/15.000 coins!";
                 if (achvCompleted >= 15000)
                 {
-                    getReward[7].interactable = true;
+                    getRewardGO[7].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -612,7 +612,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[7].text = "Spend " + coinsUsed + "/30.000 coins!";
                 if (achvCompleted >= 30000)
                 {
-                    getReward[7].interactable = true;
+                    getRewardGO[7].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -621,7 +621,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[7].text = "Spend " + coinsUsed + "/50.000 coins!";
                 if (achvCompleted >= 50000)
                 {
-                    getReward[7].interactable = true;
+                    getRewardGO[7].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -630,7 +630,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[7].text = "Spend " + coinsUsed + "/100.000 coins!";
                 if (achvCompleted >= 100000)
                 {
-                    getReward[7].interactable = true;
+                    getRewardGO[7].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -650,7 +650,7 @@ public class AchiviementsController : MonoBehaviour
                 achvDescrpt[8].text = "Read Help menu";
                 if (nerdBoy == 1)
                 {
-                    getReward[8].interactable = true;
+                    getRewardGO[8].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
@@ -700,7 +700,7 @@ public class AchiviementsController : MonoBehaviour
                     break;
             }
         }
-        getReward[currentAchv].interactable = false;
+        getRewardGO[currentAchv].SetActive(false);
         PlayerPrefs.SetInt("Lv" + currentAchv, currentLv + 1);
 
         achvCompleted = PlayerPrefs.GetInt("AchvCompleted", 0);
