@@ -20,6 +20,7 @@ public class AchiviementsController : MonoBehaviour
     private int achvCompleted;
     private int coinsUsed;
     private int nerdBoy;
+    private int adsWatched;
 
     private MenuController menuCont;
 
@@ -37,6 +38,7 @@ public class AchiviementsController : MonoBehaviour
         achvCompleted = PlayerPrefs.GetInt("AchvCompleted", 0);
         coinsUsed = PlayerPrefs.GetInt("CoinsUsed", 0);
         nerdBoy = PlayerPrefs.GetInt("NerdBoy", 0);
+        adsWatched = PlayerPrefs.GetInt("AdsWatched", 0);
 
         CheckAchv();
 
@@ -661,6 +663,25 @@ public class AchiviementsController : MonoBehaviour
                 getRewardGO[8].SetActive(false);
                 break;
         }
+        currentLv = PlayerPrefs.GetInt("Lv9", 1);               //Nerd Boy
+        switch (currentLv)
+        {
+            case 1:
+                achvhName[9].text = "Gotta Make a Living";
+                achvDescrpt[9].text = "Choose to watch " + adsWatched + " / 50 ads!";
+                if (adsWatched >= 50)
+                {
+                    getRewardGO[9].SetActive(true);
+                    achvNot.SetActive(true);
+                }
+                break;
+            default:
+                achvhName[9].text = "Gotta Make a Living";
+                achvDescrpt[9].text = "Completed";
+                achvTransform[9].SetAsLastSibling();
+                getRewardGO[9].SetActive(false);
+                break;
+        }
     }
 
     public void GetReward(int currentAchv)
@@ -668,6 +689,10 @@ public class AchiviementsController : MonoBehaviour
         if (currentAchv == 8)
         {
             menuCont.BuyDiamond(5);
+        }
+        else if (currentAchv == 9)
+        {
+            menuCont.OpenReceivedUI(0, 1);
         }
         else
         {

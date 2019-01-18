@@ -67,7 +67,7 @@ public class GameController : MonoBehaviour {
         adCont.ShowInterstitial();
 
         currentSkin = PlayerPrefs.GetInt("CurrentSkin", 0);
-        player = Instantiate(Resources.Load("Skin" + currentSkin) as GameObject);
+        player = Instantiate(Resources.Load("Balls/Skin" + currentSkin) as GameObject);
         player.name = "Player";
         player.transform.position = new Vector2(0, 0);
 
@@ -888,6 +888,11 @@ public class GameController : MonoBehaviour {
     }
     public void AdCompleted()
     {
+        adCont.ResetTimer();
+        int adsWatched = PlayerPrefs.GetInt("AdsWatched", 0);
+        adsWatched += 1;
+        PlayerPrefs.SetInt("AdsWatched", adsWatched);
+        PlayerPrefs.Save();
         doubleCoinAnimat = true;
         doubleCoinQtd = coinsCount * 2;
         coinsCountAnimation = coinsCount;
@@ -925,7 +930,7 @@ public class GameController : MonoBehaviour {
         PlayerPrefs.SetInt("DiamondQtd", diamondQtd);
         int continueCounter = PlayerPrefs.GetInt("ContinueCounter", 0);
         PlayerPrefs.SetInt("ContinueCounter", continueCounter + 1);
-        player = Instantiate(Resources.Load("Skin" + currentSkin) as GameObject);
+        player = Instantiate(Resources.Load("Balls/Skin" + currentSkin) as GameObject);
         player.transform.position = new Vector3(0, currentHeight, 0);
         player.name = "Player";
         playerRB = player.GetComponent<Rigidbody2D>();

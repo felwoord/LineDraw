@@ -16,6 +16,7 @@ public class MenuController : MonoBehaviour
     private Text totalCoinsTxt;
     private int totalCoins;
 
+    public GameObject wDrawing;
     public GameObject[] skinsGO;
     private int[] skins;
     public int[] skinPrice;
@@ -40,8 +41,9 @@ public class MenuController : MonoBehaviour
     private int removeAds;
     public GameObject receivedUI;
     public Text receivedQtd;
+    public GameObject receivedSkinUI;
 
-    public GameObject restorePurchaseButton, deleteGameConf;
+    public GameObject restorePurchaseButton/*,deleteGameConf*/;
 
     private int currentHint;
     public GameObject[] hint;
@@ -132,7 +134,7 @@ public class MenuController : MonoBehaviour
         if (enableDelayCenterSkin && !Input.GetMouseButton(0))
         {
             delayCenterSkin += Time.deltaTime;
-            if (delayCenterSkin > 0.02f && doOnceCalculateSkinPos)
+            if (delayCenterSkin > 0.025f && doOnceCalculateSkinPos)
             {
                 doOnceCalculateSkinPos = false;
                 CalculatePositionSkinScrollRect();
@@ -319,6 +321,7 @@ public class MenuController : MonoBehaviour
                 mainCanvas.SetActive(false);
                 shopCanvas.SetActive(true);
                 draw = false;
+                wDrawing.SetActive(false);
                 break;
             case 2:                            //open settings bar
                 openSettings = !openSettings;
@@ -326,6 +329,7 @@ public class MenuController : MonoBehaviour
             case 3:                            //shop -> main
                 shopCanvas.SetActive(false);
                 mainCanvas.SetActive(true);
+                wDrawing.SetActive(true);
                 draw = true;
                 break;
             case 4:
@@ -333,6 +337,7 @@ public class MenuController : MonoBehaviour
             case 5:                            //open cash shop
                 cashShopCanvas.SetActive(true);
                 draw = false;
+                wDrawing.SetActive(false);
                 adCont.bannerView.Hide();
                 break;
             case 6:                            //close cash shop
@@ -340,12 +345,14 @@ public class MenuController : MonoBehaviour
                 adCont.bannerView.Show();
                 if (mainCanvas.activeSelf)
                 {
+                    wDrawing.SetActive(true);
                     draw = true;
                 }
                 break;
             case 7:                            //main -> help
                 mainCanvas.SetActive(false);
                 helpCanvas.SetActive(true);
+                wDrawing.SetActive(false);
                 draw = false;
                 if (hintseen == 0)
                 {
@@ -358,17 +365,20 @@ public class MenuController : MonoBehaviour
             case 8:                            //help -> main
                 helpCanvas.SetActive(false);
                 mainCanvas.SetActive(true);
+                wDrawing.SetActive(true);
                 draw = true;
                 break;
             case 9:                            //main -> achievements
                 mainCanvas.SetActive(false);
                 achvCanvas.SetActive(true);
+                wDrawing.SetActive(false);
                 gameObject.GetComponent<AchiviementsController>().Start();
                 draw = false;
                 break;
             case 10:                           //achievements -> main
                 achvCanvas.SetActive(false);
                 mainCanvas.SetActive(true);
+                wDrawing.SetActive(true);
                 draw = true;
                 break;
             default:
@@ -384,23 +394,47 @@ public class MenuController : MonoBehaviour
     {
         if (skins[skinNum] == 0) //se nao tiver a skin
         {
-            if (totalCoins >= skinPrice[skinNum])
+            if (skinNum == 16 || skinNum == 19 || skinNum == 20 || skinNum == 21)
             {
-                totalCoins -= skinPrice[skinNum];
-                int coinsUsed = PlayerPrefs.GetInt("CoinsUsed", 0);
-                PlayerPrefs.SetInt("CoinsUsed", coinsUsed + skinPrice[skinNum]);
-                totalCoinsTxt.text = totalCoins.ToString();
-                PlayerPrefs.SetInt("TotalCoins", totalCoins);
-                skins[skinNum] = 1;
-                PlayerPrefs.SetInt("Skin" + skinNum, 1);
-                skinsGO[skinNum].transform.Find("Price").transform.Find("Image").GetComponent<Image>().enabled = false;
-                skinsGO[currentSkin].transform.Find("Price").GetComponent<Text>().text = "Select";
-                currentSkin = skinNum;
-                skinsGO[currentSkin].transform.Find("Price").GetComponent<Text>().text = "Selected";
-                buyEffect.Play();
-                PlayerPrefs.SetInt("CurrentSkin", currentSkin);
-                PlayerPrefs.Save();
+                if (diamondQtd >= skinPrice[skinNum])
+                {
+                    diamondQtd -= skinPrice[skinNum];
+                    int diamondsUsed = PlayerPrefs.GetInt("DiamondsUsed", 0);
+                    PlayerPrefs.SetInt("DiamondsUsed", diamondsUsed + skinPrice[skinNum]);
+                    diamondQtdTxt.text = diamondQtd.ToString();
+                    PlayerPrefs.SetInt("DiamondQtd", diamondQtd);
+                    skins[skinNum] = 1;
+                    PlayerPrefs.SetInt("Skin" + skinNum, 1);
+                    skinsGO[skinNum].transform.Find("Price").transform.Find("Image").GetComponent<Image>().enabled = false;
+                    skinsGO[currentSkin].transform.Find("Price").GetComponent<Text>().text = "Select";
+                    currentSkin = skinNum;
+                    skinsGO[currentSkin].transform.Find("Price").GetComponent<Text>().text = "Selected";
+                    buyEffect.Play();
+                    PlayerPrefs.SetInt("CurrentSkin", currentSkin);
+                    PlayerPrefs.Save();
+                }
             }
+            else
+            {
+                if (totalCoins >= skinPrice[skinNum])
+                {
+                    totalCoins -= skinPrice[skinNum];
+                    int coinsUsed = PlayerPrefs.GetInt("CoinsUsed", 0);
+                    PlayerPrefs.SetInt("CoinsUsed", coinsUsed + skinPrice[skinNum]);
+                    totalCoinsTxt.text = totalCoins.ToString();
+                    PlayerPrefs.SetInt("TotalCoins", totalCoins);
+                    skins[skinNum] = 1;
+                    PlayerPrefs.SetInt("Skin" + skinNum, 1);
+                    skinsGO[skinNum].transform.Find("Price").transform.Find("Image").GetComponent<Image>().enabled = false;
+                    skinsGO[currentSkin].transform.Find("Price").GetComponent<Text>().text = "Select";
+                    currentSkin = skinNum;
+                    skinsGO[currentSkin].transform.Find("Price").GetComponent<Text>().text = "Selected";
+                    buyEffect.Play();
+                    PlayerPrefs.SetInt("CurrentSkin", currentSkin);
+                    PlayerPrefs.Save();
+                }
+            }
+
         }
         else
         {
@@ -459,17 +493,22 @@ public class MenuController : MonoBehaviour
     }
     public void AdCompleted()
     {
+        adCont.ResetTimer();
+        int adsWatched = PlayerPrefs.GetInt("AdsWatched", 0);
+        adsWatched += 1;
+        PlayerPrefs.SetInt("AdsWatched", adsWatched);
         diamondQtd += 2;
         diamondQtdTxt.text = diamondQtd.ToString();
         PlayerPrefs.SetInt("DiamondQtd", diamondQtd);
-        OpenReceivedUI(2);
+        PlayerPrefs.Save();
+        OpenReceivedUI(2, 0);
     }
     public void BuyDiamond(int qtd)
     {
         diamondQtd += qtd;
         diamondQtdTxt.text = diamondQtd.ToString();
         PlayerPrefs.SetInt("DiamondQtd", diamondQtd);
-        OpenReceivedUI(qtd);
+        OpenReceivedUI(qtd, 0);
     }
     public void BuyRemoveAds()
     {
@@ -501,7 +540,7 @@ public class MenuController : MonoBehaviour
         if (currentHint > 10)
             currentHint = 0;
 
-        if(currentHint == 10)
+        if (currentHint == 10)
         {
             PlayerPrefs.SetInt("NerdBoy", 1);
         }
@@ -525,16 +564,37 @@ public class MenuController : MonoBehaviour
         }
 
     }
-    public void OpenReceivedUI(int qtd)
+    public void OpenReceivedUI(int qtd, int aux)
     {
-        receivedUI.SetActive(true);
-        receivedQtd.text = qtd.ToString();
-        coinDisplayCanvas.GetComponent<Canvas>().sortingOrder = 5;
+        if (aux == 0)
+        {
+            receivedUI.SetActive(true);
+            receivedQtd.text = qtd.ToString();
+            coinDisplayCanvas.GetComponent<Canvas>().sortingOrder = 5;
+        }
+        else
+        {
+            ChangeCanvas(10);
+            skins[21] = 1;
+            PlayerPrefs.SetInt("Skin21", 1);
+            PlayerPrefs.Save();
+            receivedSkinUI.SetActive(true);
+            coinDisplayCanvas.GetComponent<Canvas>().sortingOrder = 5;
+        }
     }
-    public void CloseReceivedUI()
+    public void CloseReceivedUI(int aux)
     {
-        receivedUI.SetActive(false);
-        coinDisplayCanvas.GetComponent<Canvas>().sortingOrder = 0;
+        if (aux == 0)
+        {
+            receivedUI.SetActive(false);
+            coinDisplayCanvas.GetComponent<Canvas>().sortingOrder = 0;
+        }
+        else
+        {
+            receivedSkinUI.SetActive(false);
+            coinDisplayCanvas.GetComponent<Canvas>().sortingOrder = 0;
+            SceneManager.LoadScene("MenuScene");
+        }
     }
     public void PlayAudio(int aux)
     {

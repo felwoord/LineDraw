@@ -41,7 +41,7 @@ public class AdController : MonoBehaviour
 
     void Start()
     {
-        adTimer = 0;
+        ResetTimer();
         removeAds = PlayerPrefs.GetInt("RemoveAds", 0);
     }
 
@@ -89,7 +89,7 @@ public class AdController : MonoBehaviour
             if (Advertisement.IsReady())
             {
                 Advertisement.Show();
-                adTimer = 0;
+                ResetTimer();
             }
             else
             {
@@ -152,5 +152,10 @@ public class AdController : MonoBehaviour
         {
             GameObject.Find("Main Camera").GetComponent<GameController>().AdCompleted();
         }
+    }
+
+    public void ResetTimer()
+    {
+        adTimer = 0;
     }
 }
