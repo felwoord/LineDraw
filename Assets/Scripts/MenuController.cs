@@ -450,23 +450,46 @@ public class MenuController : MonoBehaviour
     {
         if (lines[lineNum] == 0) //se nao tiver a Line
         {
-            if (totalCoins >= linePrice[lineNum])
+            if (lineNum >= 8)
             {
-                totalCoins -= linePrice[lineNum];
-                int coinsUsed = PlayerPrefs.GetInt("CoinsUsed", 0);
-                PlayerPrefs.SetInt("CoinsUsed", coinsUsed + linePrice[lineNum]);
-                totalCoinsTxt.text = totalCoins.ToString();
-                PlayerPrefs.SetInt("TotalCoins", totalCoins);
-                lines[lineNum] = 1;
-                PlayerPrefs.SetInt("Line" + lineNum, 1);
-                linesGO[lineNum].transform.Find("Price").transform.Find("Image").GetComponent<Image>().enabled = false;
-                linesGO[currentLine].transform.Find("Price").GetComponent<Text>().text = "Select";
-                currentLine = lineNum;
-                linesGO[currentLine].transform.Find("Price").GetComponent<Text>().text = "Selected";
-                linePrefab = linesPrefabs[currentLine];
-                buyEffect.Play();
-                PlayerPrefs.SetInt("CurrentLine", currentLine);
-                PlayerPrefs.Save();
+                if (diamondQtd >= linePrice[lineNum])
+                {
+                    diamondQtd -= linePrice[lineNum];
+                    int diamondsUsed = PlayerPrefs.GetInt("DiamondsUsed", 0);
+                    PlayerPrefs.SetInt("DiamondsUsed", diamondsUsed + linePrice[lineNum]);
+                    diamondQtdTxt.text = diamondQtd.ToString();
+                    PlayerPrefs.SetInt("DiamondQtd", diamondQtd);
+                    lines[lineNum] = 1;
+                    PlayerPrefs.SetInt("Line" + lineNum, 1);
+                    linesGO[lineNum].transform.Find("Price").transform.Find("Image").GetComponent<Image>().enabled = false;
+                    linesGO[currentLine].transform.Find("Price").GetComponent<Text>().text = "Select";
+                    currentLine = lineNum;
+                    linesGO[currentLine].transform.Find("Price").GetComponent<Text>().text = "Selected";
+                    buyEffect.Play();
+                    PlayerPrefs.SetInt("CurrentLine", currentLine);
+                    PlayerPrefs.Save();
+                }
+            }
+            else/////////////////////////////////////////////////////////////////FIX CASH LINES
+            {
+                if (totalCoins >= linePrice[lineNum])
+                {
+                    totalCoins -= linePrice[lineNum];
+                    int coinsUsed = PlayerPrefs.GetInt("CoinsUsed", 0);
+                    PlayerPrefs.SetInt("CoinsUsed", coinsUsed + linePrice[lineNum]);
+                    totalCoinsTxt.text = totalCoins.ToString();
+                    PlayerPrefs.SetInt("TotalCoins", totalCoins);
+                    lines[lineNum] = 1;
+                    PlayerPrefs.SetInt("Line" + lineNum, 1);
+                    linesGO[lineNum].transform.Find("Price").transform.Find("Image").GetComponent<Image>().enabled = false;
+                    linesGO[currentLine].transform.Find("Price").GetComponent<Text>().text = "Select";
+                    currentLine = lineNum;
+                    linesGO[currentLine].transform.Find("Price").GetComponent<Text>().text = "Selected";
+                    linePrefab = linesPrefabs[currentLine];
+                    buyEffect.Play();
+                    PlayerPrefs.SetInt("CurrentLine", currentLine);
+                    PlayerPrefs.Save();
+                }
             }
         }
         else
@@ -640,7 +663,6 @@ public class MenuController : MonoBehaviour
             }
         }
     }
-
     public void ResetCounterScrollRect(int aux)     //Called when store RectScroll stops moving
     {
         if (aux == 0)                                //Ball Skins

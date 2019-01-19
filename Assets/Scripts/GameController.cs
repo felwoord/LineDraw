@@ -61,6 +61,8 @@ public class GameController : MonoBehaviour {
     private float drawAudioCounterCD;
     private float drawCounter;
 
+    public GameObject ballBonusCoin;
+
     void Start()
     {
         adCont = GameObject.Find("AdControl").GetComponent<AdController>();
@@ -244,7 +246,7 @@ public class GameController : MonoBehaviour {
             switch (setRand)
             {
                 case 1:
-                    GameObject set1 = Instantiate(Resources.Load("Set1") as GameObject);
+                    GameObject set1 = Instantiate(Resources.Load("Sets/Set1") as GameObject);
                     set1.transform.position = new Vector3(Random.Range(-1.75f, 1.75f), lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set1.transform.Find("Height").localPosition.y;
                     lastSetPosition = set1.transform.position.y;
@@ -255,7 +257,7 @@ public class GameController : MonoBehaviour {
                         }
                     break;
                 case 2:
-                    GameObject set2 = Instantiate(Resources.Load("Set2") as GameObject);
+                    GameObject set2 = Instantiate(Resources.Load("Sets/Set2") as GameObject);
                     set2.transform.position = new Vector3(0, lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set2.transform.Find("Height").localPosition.y;
                     lastSetPosition = set2.transform.position.y;
@@ -266,7 +268,7 @@ public class GameController : MonoBehaviour {
                         }
                     break;
                 case 3:
-                    GameObject set3 = Instantiate(Resources.Load("Set3") as GameObject);
+                    GameObject set3 = Instantiate(Resources.Load("Sets/Set3") as GameObject);
                     set3.transform.position = new Vector3(0, lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set3.transform.Find("Height").localPosition.y;
                     lastSetPosition = set3.transform.position.y;
@@ -277,7 +279,7 @@ public class GameController : MonoBehaviour {
                         }
                     break;
                 case 4:
-                    GameObject set4 = Instantiate(Resources.Load("Set4") as GameObject);
+                    GameObject set4 = Instantiate(Resources.Load("Sets/Set4") as GameObject);
                     set4.transform.position = new Vector3(Random.Range(-1f, 1f), lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set4.transform.Find("Height").localPosition.y;
                     lastSetPosition = set4.transform.position.y;
@@ -293,7 +295,7 @@ public class GameController : MonoBehaviour {
                     }
                     break;
                 case 5:
-                    GameObject set5 = Instantiate(Resources.Load("Set5") as GameObject);
+                    GameObject set5 = Instantiate(Resources.Load("Sets/Set5") as GameObject);
                     set5.transform.position = new Vector3(Random.Range(-1f, 1f), lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set5.transform.Find("Height").localPosition.y;
                     lastSetPosition = set5.transform.position.y;
@@ -309,13 +311,13 @@ public class GameController : MonoBehaviour {
                     }
                     break;
                 case 6:
-                    GameObject set6 = Instantiate(Resources.Load("Set6") as GameObject);
+                    GameObject set6 = Instantiate(Resources.Load("Sets/Set6") as GameObject);
                     set6.transform.position = new Vector3(0, lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set6.transform.Find("Height").localPosition.y;
                     lastSetPosition = set6.transform.position.y;
                     break;
                 case 7:
-                    GameObject set7 = Instantiate(Resources.Load("Set7") as GameObject);
+                    GameObject set7 = Instantiate(Resources.Load("Sets/Set7") as GameObject);
                     set7.transform.position = new Vector3(0, lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set7.transform.Find("Height").localPosition.y;
                     lastSetPosition = set7.transform.position.y;
@@ -326,7 +328,7 @@ public class GameController : MonoBehaviour {
                     }
                     break;
                 case 8:
-                    GameObject set8 = Instantiate(Resources.Load("Set8") as GameObject);
+                    GameObject set8 = Instantiate(Resources.Load("Sets/Set8") as GameObject);
                     set8.transform.position = new Vector3(0, lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set8.transform.Find("Height").localPosition.y;
                     lastSetPosition = set8.transform.position.y;
@@ -337,7 +339,7 @@ public class GameController : MonoBehaviour {
                     }
                     break;
                 case 9:
-                    GameObject set9 = Instantiate(Resources.Load("Set9") as GameObject);
+                    GameObject set9 = Instantiate(Resources.Load("Sets/Set9") as GameObject);
                     set9.transform.position = new Vector3(Random.Range(-1.5f, 1.5f), lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set9.transform.Find("Height").localPosition.y;
                     lastSetPosition = set9.transform.position.y;
@@ -356,7 +358,7 @@ public class GameController : MonoBehaviour {
                         }
                     break;
                 case 10:
-                    GameObject set10 = Instantiate(Resources.Load("Set10") as GameObject);
+                    GameObject set10 = Instantiate(Resources.Load("Sets/Set10") as GameObject);
                     set10.transform.position = new Vector3(Random.Range(-1.5f, 1.5f), lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set10.transform.Find("Height").localPosition.y;
                     lastSetPosition = set10.transform.position.y;
@@ -375,7 +377,7 @@ public class GameController : MonoBehaviour {
                         }
                     break;
                 case 11:
-                    GameObject set11 = Instantiate(Resources.Load("Set11") as GameObject);
+                    GameObject set11 = Instantiate(Resources.Load("Sets/Set11") as GameObject);
                     set11.transform.position = new Vector3(Random.Range(-1.5f, 1.5f), lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set11.transform.Find("Height").localPosition.y;
                     lastSetPosition = set11.transform.position.y;
@@ -394,13 +396,13 @@ public class GameController : MonoBehaviour {
                         }
                     break;
                 case 12:
-                    GameObject set12 = Instantiate(Resources.Load("Set12") as GameObject);
+                    GameObject set12 = Instantiate(Resources.Load("Sets/Set12") as GameObject);
                     set12.transform.position = new Vector3(0, lastSetPosition + lastSetHeight + 6, 0);
                     lastSetHeight = set12.transform.Find("Height").localPosition.y;
                     lastSetPosition = set12.transform.position.y;
                     break;
                 case 13:
-                    GameObject set13 = Instantiate(Resources.Load("Set13") as GameObject);
+                    GameObject set13 = Instantiate(Resources.Load("Sets/Set13") as GameObject);
                     set13.transform.position = new Vector3(0, lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set13.transform.Find("Height").localPosition.y;
                     lastSetPosition = set13.transform.position.y;
@@ -411,7 +413,7 @@ public class GameController : MonoBehaviour {
                     }
                     break;
                 case 14:
-                    GameObject set14 = Instantiate(Resources.Load("Set14") as GameObject);
+                    GameObject set14 = Instantiate(Resources.Load("Sets/Set14") as GameObject);
                     set14.transform.position = new Vector3(0, lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set14.transform.Find("Height").localPosition.y;
                     lastSetPosition = set14.transform.position.y;
@@ -422,7 +424,7 @@ public class GameController : MonoBehaviour {
                     }
                     break;
                 case 15:
-                    GameObject set15 = Instantiate(Resources.Load("Set15") as GameObject);
+                    GameObject set15 = Instantiate(Resources.Load("Sets/Set15") as GameObject);
                     set15.transform.position = new Vector3(0, lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set15.transform.Find("Height").localPosition.y;
                     lastSetPosition = set15.transform.position.y;
@@ -433,7 +435,7 @@ public class GameController : MonoBehaviour {
                     }
                     break;
                 case 16:
-                    GameObject set16 = Instantiate(Resources.Load("Set16") as GameObject);
+                    GameObject set16 = Instantiate(Resources.Load("Sets/Set16") as GameObject);
                     set16.transform.position = new Vector3(0, lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set16.transform.Find("Height").localPosition.y;
                     lastSetPosition = set16.transform.position.y;
@@ -444,7 +446,7 @@ public class GameController : MonoBehaviour {
                     }
                     break;
                 case 17:
-                    GameObject set17 = Instantiate(Resources.Load("Set17") as GameObject);
+                    GameObject set17 = Instantiate(Resources.Load("Sets/Set17") as GameObject);
                     set17.transform.position = new Vector3(0, lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set17.transform.Find("Height").localPosition.y;
                     lastSetPosition = set17.transform.position.y;
@@ -455,7 +457,7 @@ public class GameController : MonoBehaviour {
                     }
                     break;
                 case 18:
-                    GameObject set18 = Instantiate(Resources.Load("Set18") as GameObject);
+                    GameObject set18 = Instantiate(Resources.Load("Sets/Set18") as GameObject);
                     set18.transform.position = new Vector3(0, lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set18.transform.Find("Height").localPosition.y;
                     lastSetPosition = set18.transform.position.y;
@@ -466,7 +468,7 @@ public class GameController : MonoBehaviour {
                         }
                     break;
                 case 19:
-                    GameObject set19 = Instantiate(Resources.Load("Set19") as GameObject);
+                    GameObject set19 = Instantiate(Resources.Load("Sets/Set19") as GameObject);
                     set19.transform.position = new Vector3(0, lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set19.transform.Find("Height").localPosition.y;
                     lastSetPosition = set19.transform.position.y;
@@ -477,28 +479,28 @@ public class GameController : MonoBehaviour {
                         }
                     break;
                 case 20:
-                    GameObject set20 = Instantiate(Resources.Load("Set20") as GameObject);
+                    GameObject set20 = Instantiate(Resources.Load("Sets/Set20") as GameObject);
                     set20.transform.position = new Vector3(Random.Range(-2, 2), lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set20.transform.Find("Height").localPosition.y;
                     lastSetPosition = set20.transform.position.y;
                     powerUpsCD = true;
                     break;
                 case 21:
-                    GameObject set21 = Instantiate(Resources.Load("Set21") as GameObject);
+                    GameObject set21 = Instantiate(Resources.Load("Sets/Set21") as GameObject);
                     set21.transform.position = new Vector3(Random.Range(-2, 2), lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set21.transform.Find("Height").localPosition.y;
                     lastSetPosition = set21.transform.position.y;
                     powerUpsCD = true;
                     break;
                 case 22:
-                    GameObject set22 = Instantiate(Resources.Load("Set22") as GameObject);
+                    GameObject set22 = Instantiate(Resources.Load("Sets/Set22") as GameObject);
                     set22.transform.position = new Vector3(Random.Range(-2, 2), lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set22.transform.Find("Height").localPosition.y;
                     lastSetPosition = set22.transform.position.y;
                     powerUpsCD = true;
                     break;
                 case 23:
-                    GameObject set23 = Instantiate(Resources.Load("Set23") as GameObject);
+                    GameObject set23 = Instantiate(Resources.Load("Sets/Set23") as GameObject);
                     set23.transform.position = new Vector3(Random.Range(-2, 2), lastSetPosition + lastSetHeight + 4, 0);
                     lastSetHeight = set23.transform.Find("Height").localPosition.y;
                     lastSetPosition = set23.transform.position.y;
@@ -854,6 +856,11 @@ public class GameController : MonoBehaviour {
         topHeightTxtEndRun.text = topHeight.ToString("0");
         PlayerPrefs.SetFloat("TopHeight", topHeight);
         coinEndRunTxt = GameObject.Find("CoinCountEndRun").GetComponent<Text>();
+        if(currentSkin == 16)
+        {
+            ballBonusCoin.SetActive(true);
+            coinsCount = Mathf.CeilToInt(coinsCount * 1.1f);
+        }
         coinEndRunTxt.text = coinsCount.ToString();
         if (doubleCoinAvlb)
         {
