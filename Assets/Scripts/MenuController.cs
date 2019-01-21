@@ -465,12 +465,13 @@ public class MenuController : MonoBehaviour
                     linesGO[currentLine].transform.Find("Price").GetComponent<Text>().text = "Select";
                     currentLine = lineNum;
                     linesGO[currentLine].transform.Find("Price").GetComponent<Text>().text = "Selected";
+                    linePrefab = linesPrefabs[currentLine];
                     buyEffect.Play();
                     PlayerPrefs.SetInt("CurrentLine", currentLine);
                     PlayerPrefs.Save();
                 }
             }
-            else/////////////////////////////////////////////////////////////////FIX CASH LINES
+            else
             {
                 if (totalCoins >= linePrice[lineNum])
                 {
