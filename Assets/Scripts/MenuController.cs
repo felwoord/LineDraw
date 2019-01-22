@@ -751,4 +751,10 @@ public class MenuController : MonoBehaviour
             enableLineCentering = false;
         }
     }
+
+    public void DeleteGame()
+    {
+        PlayerPrefs.DeleteAll();
+        SceneManager.LoadScene("MenuScene");
+    }
 }

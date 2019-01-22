@@ -909,17 +909,26 @@ public class GameController : MonoBehaviour {
     }
     public void EndRunButton(int aux)
     {
-        totalCoins += coinsCount;
-        PlayerPrefs.SetInt("TotalCoins", totalCoins);
-        if (aux == 1)
-        {
-            adCont.bannerView.Hide();
-            SceneManager.LoadScene("GameScene");
-        }
+        if (aux <= 1) {                                     //EndGame Buttons
+            totalCoins += coinsCount;
+            PlayerPrefs.SetInt("TotalCoins", totalCoins);
+            if (aux == 1)
+            {
+                adCont.bannerView.Hide();
+                SceneManager.LoadScene("GameScene");
+            }
+            else
+            {
+                adCont.bannerView.Destroy();
+                SceneManager.LoadScene("MenuScene");
+            }
+        }                                                   //Pause Buttons
         else
         {
-            adCont.bannerView.Destroy();
-            SceneManager.LoadScene("MenuScene");
+            if(aux == 3)
+            {
+                SceneManager.LoadScene("ManuScene");
+            }
         }
     }
     public void AddCoin()
