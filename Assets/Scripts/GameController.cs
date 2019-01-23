@@ -909,7 +909,8 @@ public class GameController : MonoBehaviour {
     }
     public void EndRunButton(int aux)
     {
-        if (aux <= 1) {                                     //EndGame Buttons
+        if (aux <= 1)                                       //EndGame Buttons
+        {                                     
             totalCoins += coinsCount;
             PlayerPrefs.SetInt("TotalCoins", totalCoins);
             if (aux == 1)
@@ -927,7 +928,9 @@ public class GameController : MonoBehaviour {
         {
             if(aux == 3)
             {
-                SceneManager.LoadScene("ManuScene");
+                Time.timeScale = 1;
+                adCont.bannerView.Show();
+                SceneManager.LoadScene("MenuScene");
             }
         }
     }
