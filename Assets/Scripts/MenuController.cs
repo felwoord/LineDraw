@@ -131,7 +131,7 @@ public class MenuController : MonoBehaviour
         }
         OpenCloseSettingsBar();
 
-        if (enableDelayCenterSkin && !Input.GetMouseButton(0))
+        if (enableDelayCenterSkin && Input.touchCount == 0)
         {
             delayCenterSkin += Time.deltaTime;
             if (delayCenterSkin > 0.025f && doOnceCalculateSkinPos)
@@ -146,7 +146,7 @@ public class MenuController : MonoBehaviour
             }
         }
 
-        if (enableDelayCenterLine && !Input.GetMouseButton(0))
+        if (enableDelayCenterLine && Input.touchCount == 0)
         {
             delayCenterLine += Time.deltaTime;
             if (delayCenterLine > 0.025f && doOnceCalculateLinePos)
