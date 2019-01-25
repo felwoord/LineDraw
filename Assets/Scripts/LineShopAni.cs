@@ -19,6 +19,6 @@ public class LineShopAni : MonoBehaviour
         {
             img.fillAmount = 0;
         }
-        img.fillAmount += Time.deltaTime * 1.5f;
+        img.fillAmount += Time.deltaTime * 1f;
     }
 }
