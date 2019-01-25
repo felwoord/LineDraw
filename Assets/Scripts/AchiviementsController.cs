@@ -510,8 +510,8 @@ public class AchiviementsController : MonoBehaviour
                 break;
             case 2:
                 achvhName[6].text = "Go-Getter II";
-                achvDescrpt[6].text = "Complete " + achvCompleted + "/5 achievementes!";
-                if (achvCompleted >= 5)
+                achvDescrpt[6].text = "Complete " + achvCompleted + "/9 achievementes!";
+                if (achvCompleted >= 9)
                 {
                     getRewardGO[6].SetActive(true);
                     achvNot.SetActive(true);
@@ -519,8 +519,8 @@ public class AchiviementsController : MonoBehaviour
                 break;
             case 3:
                 achvhName[6].text = "Go-Getter III";
-                achvDescrpt[6].text = "Complete " + achvCompleted + "/10 achievementes!";
-                if (achvCompleted >= 10)
+                achvDescrpt[6].text = "Complete " + achvCompleted + "/17 achievementes!";
+                if (achvCompleted >= 17)
                 {
                     getRewardGO[6].SetActive(true);
                     achvNot.SetActive(true);
@@ -528,8 +528,8 @@ public class AchiviementsController : MonoBehaviour
                 break;
             case 4:
                 achvhName[6].text = "Go-Getter IV";
-                achvDescrpt[6].text = "Complete " + achvCompleted + "/15 achievementes!";
-                if (achvCompleted >= 15)
+                achvDescrpt[6].text = "Complete " + achvCompleted + "/26 achievementes!";
+                if (achvCompleted >= 26)
                 {
                     getRewardGO[6].SetActive(true);
                     achvNot.SetActive(true);
@@ -537,8 +537,8 @@ public class AchiviementsController : MonoBehaviour
                 break;
             case 5:
                 achvhName[6].text = "Go-Getter V";
-                achvDescrpt[6].text = "Complete " + achvCompleted + "/20 achievementes!";
-                if (achvCompleted >= 20)
+                achvDescrpt[6].text = "Complete " + achvCompleted + "/35 achievementes!";
+                if (achvCompleted >= 35)
                 {
                     getRewardGO[6].SetActive(true);
                     achvNot.SetActive(true);
@@ -546,8 +546,8 @@ public class AchiviementsController : MonoBehaviour
                 break;
             case 6:
                 achvhName[6].text = "Go-Getter VI";
-                achvDescrpt[6].text = "Complete " + achvCompleted + "/25 achievementes!";
-                if (achvCompleted >= 25)
+                achvDescrpt[6].text = "Complete " + achvCompleted + "/45 achievementes!";
+                if (achvCompleted >= 45)
                 {
                     getRewardGO[6].SetActive(true);
                     achvNot.SetActive(true);
@@ -555,8 +555,8 @@ public class AchiviementsController : MonoBehaviour
                 break;
             case 7:
                 achvhName[6].text = "Go-Getter VII";
-                achvDescrpt[6].text = "Complete " + achvCompleted + "/35 achievementes!";
-                if (achvCompleted >= 35)
+                achvDescrpt[6].text = "Complete " + achvCompleted + "/55 achievementes!";
+                if (achvCompleted >= 55)
                 {
                     getRewardGO[6].SetActive(true);
                     achvNot.SetActive(true);
@@ -575,24 +575,6 @@ public class AchiviementsController : MonoBehaviour
         {
             case 1:
                 achvhName[7].text = "Spendthrift I";
-                achvDescrpt[7].text = "Spend " + coinsUsed + "/500 coins!";
-                if (achvCompleted >= 500)
-                {
-                    getRewardGO[7].SetActive(true);
-                    achvNot.SetActive(true);
-                }
-                break;
-            case 2:
-                achvhName[7].text = "Spendthrift II";
-                achvDescrpt[7].text = "Spend " + coinsUsed + "/1.000 coins!";
-                if (achvCompleted >= 1000)
-                {
-                    getRewardGO[7].SetActive(true);
-                    achvNot.SetActive(true);
-                }
-                break;
-            case 3:
-                achvhName[7].text = "Spendthrift III";
                 achvDescrpt[7].text = "Spend " + coinsUsed + "/5.000 coins!";
                 if (achvCompleted >= 5000)
                 {
@@ -600,26 +582,17 @@ public class AchiviementsController : MonoBehaviour
                     achvNot.SetActive(true);
                 }
                 break;
-            case 4:
-                achvhName[7].text = "Spendthrift IV";
-                achvDescrpt[7].text = "Spend " + coinsUsed + "/15.000 coins!";
-                if (achvCompleted >= 15000)
+            case 2:
+                achvhName[7].text = "Spendthrift II";
+                achvDescrpt[7].text = "Spend " + coinsUsed + "/25.000 coins!";
+                if (achvCompleted >= 25000)
                 {
                     getRewardGO[7].SetActive(true);
                     achvNot.SetActive(true);
                 }
                 break;
-            case 5:
-                achvhName[7].text = "Spendthrift V";
-                achvDescrpt[7].text = "Spend " + coinsUsed + "/30.000 coins!";
-                if (achvCompleted >= 30000)
-                {
-                    getRewardGO[7].SetActive(true);
-                    achvNot.SetActive(true);
-                }
-                break;
-            case 6:
-                achvhName[7].text = "Spendthrift VI";
+            case 3:
+                achvhName[7].text = "Spendthrift III";
                 achvDescrpt[7].text = "Spend " + coinsUsed + "/50.000 coins!";
                 if (achvCompleted >= 50000)
                 {
@@ -627,10 +600,37 @@ public class AchiviementsController : MonoBehaviour
                     achvNot.SetActive(true);
                 }
                 break;
-            case 7:
-                achvhName[7].text = "Spendthrift VII";
+            case 4:
+                achvhName[7].text = "Spendthrift IV";
+                achvDescrpt[7].text = "Spend " + coinsUsed + "/75.000 coins!";
+                if (achvCompleted >= 75000)
+                {
+                    getRewardGO[7].SetActive(true);
+                    achvNot.SetActive(true);
+                }
+                break;
+            case 5:
+                achvhName[7].text = "Spendthrift V";
                 achvDescrpt[7].text = "Spend " + coinsUsed + "/100.000 coins!";
                 if (achvCompleted >= 100000)
+                {
+                    getRewardGO[7].SetActive(true);
+                    achvNot.SetActive(true);
+                }
+                break;
+            case 6:
+                achvhName[7].text = "Spendthrift VI";
+                achvDescrpt[7].text = "Spend " + coinsUsed + "/200.000 coins!";
+                if (achvCompleted >= 200000)
+                {
+                    getRewardGO[7].SetActive(true);
+                    achvNot.SetActive(true);
+                }
+                break;
+            case 7:
+                achvhName[7].text = "Spendthrift VII";
+                achvDescrpt[7].text = "Spend " + coinsUsed + "/300.000 coins!";
+                if (achvCompleted >= 300000)
                 {
                     getRewardGO[7].SetActive(true);
                     achvNot.SetActive(true);
@@ -663,7 +663,7 @@ public class AchiviementsController : MonoBehaviour
                 getRewardGO[8].SetActive(false);
                 break;
         }
-        currentLv = PlayerPrefs.GetInt("Lv9", 1);               //Nerd Boy
+        currentLv = PlayerPrefs.GetInt("Lv9", 1);               //Gotta Make a Living
         switch (currentLv)
         {
             case 1:
@@ -710,16 +710,16 @@ public class AchiviementsController : MonoBehaviour
                     menuCont.BuyDiamond(15);
                     break;
                 case 4:
-                    menuCont.BuyDiamond(50);
+                    menuCont.BuyDiamond(25);
                     break;
                 case 5:
-                    menuCont.BuyDiamond(100);
+                    menuCont.BuyDiamond(50);
                     break;
                 case 6:
-                    menuCont.BuyDiamond(200);
+                    menuCont.BuyDiamond(100);
                     break;
                 case 7:
-                    menuCont.BuyDiamond(500);
+                    menuCont.BuyDiamond(250);
                     break;
                 default:
                     break;
