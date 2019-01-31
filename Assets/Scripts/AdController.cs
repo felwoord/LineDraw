@@ -10,13 +10,14 @@ public class AdController : MonoBehaviour
 {
     private float adTimer;
 
-    private string iosGameIDUnityAds = "2656056";
-    private string androidGameIDUnityAds = "2656055";
+
+    private string iosGameIDUnityAds = "2656056";       
+    private string androidGameIDUnityAds = "2656055";   
     private string gameID = null;
-    //private string androidGameIDAdmob = "ca-app-pub-8754874070275415~2313930081"; //real
-    //private string iosGameIDAdmob = "ca-app-pub-8754874070275415~8698950004";     //real
-    private string androidGameIDAdmob = "ca-app-pub-3940256099942544~3347511713";   //teste
-    private string iosGameIDAdmob = "ca-app-pub-3940256099942544~1458002511";       //teste
+    private string androidGameIDAdmob = "ca-app-pub-8754874070275415~2313930081"; //real
+    private string iosGameIDAdmob = "ca-app-pub-8754874070275415~8698950004";     //real
+    //private string androidGameIDAdmob = "ca-app-pub-3940256099942544~3347511713";   //teste
+    //private string iosGameIDAdmob = "ca-app-pub-3940256099942544~1458002511";       //teste
     private string appID = null;
     private int removeAds;
     private int type;
@@ -35,7 +36,7 @@ public class AdController : MonoBehaviour
         appID = iosGameIDAdmob;
 #endif
 
-        Advertisement.Initialize(gameID, true);
+        Advertisement.Initialize(gameID, false);
         MobileAds.Initialize(appID);
     }
 
