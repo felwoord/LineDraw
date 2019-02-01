@@ -87,8 +87,8 @@ public class MenuController : MonoBehaviour
     private bool doOnceCalculateLinePos;
     private float centeredPosLine;
 
-    //private float centeredSkinPos;
-    //private bool centerSkin;
+    public Button watchADButton;
+    public RectTransform settingsBarRectTrans, pivotSettingsRectTrans;
 
 
 
@@ -255,6 +255,11 @@ public class MenuController : MonoBehaviour
         restorePurchaseButton.SetActive(true);
 #else
         restorePurchaseButton.SetActive(false);
+        settingsBarRectTrans.sizeDelta = new Vector2(80, 280);
+        settingsBarRectTrans.anchoredPosition = new Vector2(settingsBarRectTrans.anchoredPosition.x, -60f);
+        //pivotSettingsRectTrans.sizeDelta = new Vector2(80, 280);
+        pivotSettingsRectTrans.anchoredPosition = new Vector2(pivotSettingsRectTrans.anchoredPosition.x, -60);
+        
 #endif
 
         if (effectVolume == 1)
@@ -279,6 +284,8 @@ public class MenuController : MonoBehaviour
             {
                 totalLineQtt++;
             }
+
+        CallCheckAd();
     }
     private void LineDraw()
     {
@@ -526,6 +533,7 @@ public class MenuController : MonoBehaviour
         PlayerPrefs.SetInt("DiamondQtd", diamondQtd);
         PlayerPrefs.Save();
         OpenReceivedUI(2, 0);
+        CallCheckAd();
     }
     public void BuyDiamond(int qtd)
     {
@@ -749,6 +757,17 @@ public class MenuController : MonoBehaviour
         {
             enableDelayCenterLine = false;
             enableLineCentering = false;
+        }
+    }
+    public void CallCheckAd()
+    {
+        if (!adCont.CheckAvlbRewarded())
+        {
+            watchADButton.enabled = false;
+        }
+        else
+        {
+            watchADButton.enabled = true;
         }
     }
 

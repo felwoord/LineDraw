@@ -63,9 +63,9 @@ public class AdController : MonoBehaviour
         if (removeAds == 0)
         {
 #if UNITY_ANDROID
-            string adUnitId = "ca-app-pub-3940256099942544/6300978111";
+            string adUnitId = gameID;
 #elif UNITY_IOS
-             string adUnitId = "ca-app-pub-3940256099942544/2934735716";
+             string adUnitId = appID;
 #else
              string adUnitId = "unexpected_platform";
 #endif
@@ -95,9 +95,9 @@ public class AdController : MonoBehaviour
             else
             {
 #if UNITY_ANDROID
-                string adUnitId = "ca-app-pub-3940256099942544/1033173712";
+                string adUnitId = gameID;
 #elif UNITY_IOS
-        string adUnitId = "ca-app-pub-3940256099942544/4411468910";
+        string adUnitId = appID;
 #else
         string adUnitId = "unexpected_platform";
 #endif
@@ -158,5 +158,10 @@ public class AdController : MonoBehaviour
     public void ResetTimer()
     {
         adTimer = 0;
+    }
+
+    public bool CheckAvlbRewarded()
+    {
+        return Advertisement.IsReady();
     }
 }
