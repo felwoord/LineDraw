@@ -1,0 +1,21 @@
+-Imagem 201x201
+
+	Na pastas Resources/Balls
+Criar Prefab com skin
+Ajustar Collider
+
+
+
+	Na loja Canvas
+Duplicar Skin
+Modificar Sprite
+Modificar OnClick()
+
+
+
+	Na MainCamera MenuController
+Aumentar Array SkinsGO e selecionar nova (da loja)
+Aumentar Array SkinsPrice e por novo preço
+
+
+
