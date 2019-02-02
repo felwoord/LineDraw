@@ -567,12 +567,12 @@ public class MenuController : MonoBehaviour
         hint[currentHint].SetActive(false);
         currentHint += aux;
         if (currentHint < 0)
-            currentHint = 10;
+            currentHint = 4;
 
-        if (currentHint > 10)
+        if (currentHint > 4)
             currentHint = 0;
 
-        if (currentHint == 10)
+        if (currentHint == 4)
         {
             PlayerPrefs.SetInt("NerdBoy", 1);
         }
