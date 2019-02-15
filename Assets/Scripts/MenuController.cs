@@ -106,14 +106,6 @@ public class MenuController : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-    void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
     void Start()
     {
         skinsCount = skinsGO.Length;
@@ -774,80 +766,16 @@ public class MenuController : MonoBehaviour
         }
     }
     public void CallCheckAd()
-    {
+    {/*
         if (!adCont.CheckAvlbRewarded())
         {
-            watchADButton.enabled = false;
+            watchADButton.interactable = false;
         }
         else
         {
-            watchADButton.enabled = true;
-        }
+            watchADButton.interactable = true;
+        }*/
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        gifCounter = 0;
-        gifCounterAux = 1;
-        addGifCounter = false;
-
-        StartCoroutine(LoadHints());
-    }
-
-    IEnumerator LoadHints()
-    {
-
-        yield return null;
-
-        if (gifCounter == 0 || gifCounter == 2)
-        {
-            hintGif = Instantiate(Resources.Load("Hints/Gif" + gifCounter) as GameObject);
-            hintGif.transform.SetParent(hintsTransf[gifCounter]);
-            hintGif.transform.localScale = new Vector3(1, 1, 0);
-
-            addGifCounter = true;
-        }
-
-        if (gifCounter == 1)
-        {
-            hintGif = Instantiate(Resources.Load("Hints/Gif" + gifCounter + "_" + gifCounterAux) as GameObject);
-            hintGif.transform.SetParent(hintsTransf[gifCounter]);
-            hintGif.transform.localScale = new Vector3(1, 1, 0);
-
-            gifCounterAux++;
-
-            if (gifCounterAux == 4)
-            {
-                addGifCounter = true;
-                gifCounterAux = 1;
-            }
-        }
-
-        if (gifCounter == 3 || gifCounter == 4)
-        {
-            hintGif = Instantiate(Resources.Load("Hints/Gif" + gifCounter + "_" + gifCounterAux) as GameObject);
-            hintGif.transform.SetParent(hintsTransf[gifCounter]);
-            hintGif.transform.localScale = new Vector3(1, 1, 0);
-
-            gifCounterAux++;
-
-            if (gifCounterAux == 5)
-            {
-                addGifCounter = true;
-                gifCounterAux = 1;
-            }
-        }
-
-        if(addGifCounter)
-        {
-            gifCounter++;
-            addGifCounter = false;
-        }
-
-        if (gifCounter < 5)
-        {
-            StartCoroutine(LoadHints());
-        }
-
-    }
+   
 }
