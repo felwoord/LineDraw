@@ -90,6 +90,10 @@ public class MenuController : MonoBehaviour
     public Button watchADButton;
     public RectTransform settingsBarRectTrans, pivotSettingsRectTrans;
 
+    public Transform[] hintsTransf;
+    private GameObject hintGif;
+    private int gifCounter;
+
 
 
     private void Awake()
@@ -99,6 +103,11 @@ public class MenuController : MonoBehaviour
             GameObject adContGO = Instantiate(Resources.Load("AdControl") as GameObject);
             adContGO.name = "AdControl";
         }
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
     void Start()
     {
@@ -771,9 +780,35 @@ public class MenuController : MonoBehaviour
         }
     }
 
-    public void DeleteGame()
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        PlayerPrefs.DeleteAll();
-        SceneManager.LoadScene("MenuScene");
+        gifCounter = 0;
+
+        StartCoroutine(LoadHints());
+    }
+
+    IEnumerator LoadHints()
+    {
+        
+        yield return null;
+
+
+        hintGif = Instantiate(Resources.Load("Hints/Gif" + gifCounter) as GameObject);
+        hintGif.transform.SetParent(hintsTransf[gifCounter]);
+        hintGif.transform.localScale = new Vector3(1, 1, 0);
+        if(hintGif.transform.childCount > 0)
+        {
+            foreach(Transform childTrans in hintGif.transform)
+            {
+                childTrans.localScale = new Vector3(1, 1, 0);
+            }
+        }
+        gifCounter++;
+        
+        if(gifCounter < 5)
+        {
+            StartCoroutine(LoadHints());
+        }
+
     }
 }
