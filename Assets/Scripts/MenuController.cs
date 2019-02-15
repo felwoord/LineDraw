@@ -92,7 +92,8 @@ public class MenuController : MonoBehaviour
 
     public Transform[] hintsTransf;
     private GameObject hintGif;
-    private int gifCounter;
+    private int gifCounter, gifCounterAux;
+    private bool addGifCounter;
 
 
 
@@ -108,6 +109,10 @@ public class MenuController : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
     void Start()
     {
@@ -783,29 +788,63 @@ public class MenuController : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         gifCounter = 0;
+        gifCounterAux = 1;
+        addGifCounter = false;
 
         StartCoroutine(LoadHints());
     }
 
     IEnumerator LoadHints()
     {
-        
+
         yield return null;
 
-
-        hintGif = Instantiate(Resources.Load("Hints/Gif" + gifCounter) as GameObject);
-        hintGif.transform.SetParent(hintsTransf[gifCounter]);
-        hintGif.transform.localScale = new Vector3(1, 1, 0);
-        if(hintGif.transform.childCount > 0)
+        if (gifCounter == 0 || gifCounter == 2)
         {
-            foreach(Transform childTrans in hintGif.transform)
+            hintGif = Instantiate(Resources.Load("Hints/Gif" + gifCounter) as GameObject);
+            hintGif.transform.SetParent(hintsTransf[gifCounter]);
+            hintGif.transform.localScale = new Vector3(1, 1, 0);
+
+            addGifCounter = true;
+        }
+
+        if (gifCounter == 1)
+        {
+            hintGif = Instantiate(Resources.Load("Hints/Gif" + gifCounter + "_" + gifCounterAux) as GameObject);
+            hintGif.transform.SetParent(hintsTransf[gifCounter]);
+            hintGif.transform.localScale = new Vector3(1, 1, 0);
+
+            gifCounterAux++;
+
+            if (gifCounterAux == 4)
             {
-                childTrans.localScale = new Vector3(1, 1, 0);
+                addGifCounter = true;
+                gifCounterAux = 1;
             }
         }
-        gifCounter++;
-        
-        if(gifCounter < 5)
+
+        if (gifCounter == 3 || gifCounter == 4)
+        {
+            hintGif = Instantiate(Resources.Load("Hints/Gif" + gifCounter + "_" + gifCounterAux) as GameObject);
+            hintGif.transform.SetParent(hintsTransf[gifCounter]);
+            hintGif.transform.localScale = new Vector3(1, 1, 0);
+
+            gifCounterAux++;
+
+            if (gifCounterAux == 5)
+            {
+                addGifCounter = true;
+                gifCounterAux = 1;
+            }
+        }
+
+        if(addGifCounter)
+        {
+            gifCounter++;
+            addGifCounter = false;
+        }
+
+        if (gifCounter < 5)
         {
             StartCoroutine(LoadHints());
         }
