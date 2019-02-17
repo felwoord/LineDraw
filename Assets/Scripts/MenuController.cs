@@ -766,7 +766,7 @@ public class MenuController : MonoBehaviour
         }
     }
     public void CallCheckAd()
-    {/*
+    {
         if (!adCont.CheckAvlbRewarded())
         {
             watchADButton.interactable = false;
@@ -774,7 +774,7 @@ public class MenuController : MonoBehaviour
         else
         {
             watchADButton.interactable = true;
-        }*/
+        }
     }
 
    
