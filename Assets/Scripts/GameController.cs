@@ -65,6 +65,7 @@ public class GameController : MonoBehaviour {
 
     void Start()
     {
+
         adCont = GameObject.Find("AdControl").GetComponent<AdController>();
         adCont.ShowInterstitial();
 
@@ -73,9 +74,11 @@ public class GameController : MonoBehaviour {
         player.name = "Player";
         player.transform.position = new Vector2(0, 0);
 
+        
         GameObjectFind();
         GetPlayerPrefs();
         Inicialization();
+        CameraResizer();
     }
 
     void Update()
@@ -131,6 +134,14 @@ public class GameController : MonoBehaviour {
         }
 
 
+    }
+    private void CameraResizer()
+    {
+        float ratio = Screen.width / Screen.height;
+        if(ratio <= 0.5f)
+        {
+            cam.GetComponent<Camera>().orthographicSize = 6;
+        }
     }
     private void GameObjectFind()
     {

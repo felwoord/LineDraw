@@ -29,7 +29,9 @@ public class CanvResizer : MonoBehaviour {
 			}
 
 		}
-	}
+
+        
+    }
 	
 	// Update is called once per frame
 	void Update () {
