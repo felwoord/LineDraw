@@ -137,7 +137,9 @@ public class GameController : MonoBehaviour {
     }
     private void CameraResizer()
     {
-        float ratio = Screen.width / Screen.height;
+        float width = Display.main.systemWidth;
+        float height = Display.main.systemHeight;
+        float ratio = width / height;
         if(ratio <= 0.5f)
         {
             cam.GetComponent<Camera>().orthographicSize = 6;
