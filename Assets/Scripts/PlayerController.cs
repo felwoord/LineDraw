@@ -44,6 +44,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if(transform.position.x < -3.25f || transform.position.x > 3.25f)
+        {
+            endGame = true;
+        }
         if (endGame)
         {
             endGameCount += Time.deltaTime;
