@@ -79,6 +79,7 @@ public class GameController : MonoBehaviour {
         GetPlayerPrefs();
         Inicialization();
         CameraResizer();
+        CallCheckAd();
     }
 
     void Update()
@@ -1018,6 +1019,17 @@ public class GameController : MonoBehaviour {
             {
                 drawAudioCD = true;
             }
+        }
+    }
+    public void CallCheckAd()
+    {
+        if (!adCont.CheckAvlbRewarded())
+        {
+            doubleCoinGO.GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            doubleCoinGO.GetComponent<Button>().interactable = true;
         }
     }
 }
