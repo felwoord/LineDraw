@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
+#if UNITY_ANDROID
 using GoogleMobileAds.Api;
 using GoogleMobileAds;
+#endif
 using System;
 
 public class AdController : MonoBehaviour
@@ -21,9 +23,9 @@ public class AdController : MonoBehaviour
     private string appID = null;
     private int removeAds;
     private int type;
-
+#if UNITY_ANDROID
     public BannerView bannerView;
-
+#endif
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -37,7 +39,9 @@ public class AdController : MonoBehaviour
 #endif
 
         Advertisement.Initialize(gameID, false);
+#if UNITY_ANDROID
         MobileAds.Initialize(appID);
+#endif
     }
 
     void Start()
@@ -70,6 +74,7 @@ public class AdController : MonoBehaviour
              string adUnitId = "unexpected_platform";
 #endif
 
+#if UNITY_ANDROID
             // Create a banner at the bottom of the screen.
             bannerView = new BannerView(adUnitId, AdSize.SmartBanner, AdPosition.Bottom);
 
@@ -81,6 +86,7 @@ public class AdController : MonoBehaviour
 
             // Show Banner
             bannerView.Show();
+#endif
         }
     }
     public void ShowInterstitial()
@@ -102,6 +108,7 @@ public class AdController : MonoBehaviour
         string adUnitId = "unexpected_platform";
 #endif
 
+#if UNITY_ANDROID
                 // Initialize an InterstitialAd.
                 InterstitialAd interstitial = new InterstitialAd(adUnitId);
                 // Create an empty ad request.
@@ -113,6 +120,7 @@ public class AdController : MonoBehaviour
                 {
                     interstitial.Show();
                 }
+#endif
             }
         }
     }

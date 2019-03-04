@@ -1071,6 +1071,7 @@ GameObject:
   - component: {fileID: 4856974136667884}
   - component: {fileID: 212629959334613540}
   - component: {fileID: 61213172578714812}
+  - component: {fileID: 15244273961149381}
   m_Layer: 0
   m_Name: NoBounceBarrier
   m_TagString: SideBarrier
@@ -1167,6 +1168,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.63, y: 0.4}
   m_EdgeRadius: 0
+--- !u!114 &15244273961149381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768423180306934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be934eaa771050043a70ec58b0ab3076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1833380504821010
 GameObject:
   m_ObjectHideFlags: 0
@@ -1344,6 +1357,7 @@ GameObject:
   - component: {fileID: 4351195804561598}
   - component: {fileID: 212764253210048132}
   - component: {fileID: 61299709384994164}
+  - component: {fileID: 9055298965882622902}
   m_Layer: 0
   m_Name: NoBounceBarrier
   m_TagString: SideBarrier
@@ -1440,6 +1454,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.63, y: 0.4}
   m_EdgeRadius: 0
+--- !u!114 &9055298965882622902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858557982576380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be934eaa771050043a70ec58b0ab3076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1960743585671760
 GameObject:
   m_ObjectHideFlags: 0
@@ -1451,6 +1477,7 @@ GameObject:
   - component: {fileID: 4960688363478240}
   - component: {fileID: 212154460137924478}
   - component: {fileID: 61167659199916704}
+  - component: {fileID: 3725013185789761086}
   m_Layer: 0
   m_Name: NoBounceBarrier
   m_TagString: SideBarrier
@@ -1547,6 +1574,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.63, y: 0.4}
   m_EdgeRadius: 0
+--- !u!114 &3725013185789761086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960743585671760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be934eaa771050043a70ec58b0ab3076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1974861463566966
 GameObject:
   m_ObjectHideFlags: 0
@@ -1558,6 +1597,7 @@ GameObject:
   - component: {fileID: 4000930458807570}
   - component: {fileID: 212104975657771866}
   - component: {fileID: 61997096143681606}
+  - component: {fileID: 2477894731014973109}
   m_Layer: 0
   m_Name: NoBounceBarrier
   m_TagString: SideBarrier
@@ -1654,6 +1694,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.63, y: 0.4}
   m_EdgeRadius: 0
+--- !u!114 &2477894731014973109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974861463566966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be934eaa771050043a70ec58b0ab3076, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3521984614468798826
 GameObject:
   m_ObjectHideFlags: 0
