@@ -576,7 +576,7 @@ public class AchiviementsController : MonoBehaviour
             case 1:
                 achvhName[7].text = "Spendthrift I";
                 achvDescrpt[7].text = "Spend " + coinsUsed + "/5.000 coins!";
-                if (achvCompleted >= 5000)
+                if (coinsUsed >= 5000)
                 {
                     getRewardGO[7].SetActive(true);
                     achvNot.SetActive(true);
@@ -585,7 +585,7 @@ public class AchiviementsController : MonoBehaviour
             case 2:
                 achvhName[7].text = "Spendthrift II";
                 achvDescrpt[7].text = "Spend " + coinsUsed + "/25.000 coins!";
-                if (achvCompleted >= 25000)
+                if (coinsUsed >= 25000)
                 {
                     getRewardGO[7].SetActive(true);
                     achvNot.SetActive(true);
@@ -594,7 +594,7 @@ public class AchiviementsController : MonoBehaviour
             case 3:
                 achvhName[7].text = "Spendthrift III";
                 achvDescrpt[7].text = "Spend " + coinsUsed + "/50.000 coins!";
-                if (achvCompleted >= 50000)
+                if (coinsUsed >= 50000)
                 {
                     getRewardGO[7].SetActive(true);
                     achvNot.SetActive(true);
@@ -603,7 +603,7 @@ public class AchiviementsController : MonoBehaviour
             case 4:
                 achvhName[7].text = "Spendthrift IV";
                 achvDescrpt[7].text = "Spend " + coinsUsed + "/75.000 coins!";
-                if (achvCompleted >= 75000)
+                if (coinsUsed >= 75000)
                 {
                     getRewardGO[7].SetActive(true);
                     achvNot.SetActive(true);
@@ -612,7 +612,7 @@ public class AchiviementsController : MonoBehaviour
             case 5:
                 achvhName[7].text = "Spendthrift V";
                 achvDescrpt[7].text = "Spend " + coinsUsed + "/100.000 coins!";
-                if (achvCompleted >= 100000)
+                if (coinsUsed >= 100000)
                 {
                     getRewardGO[7].SetActive(true);
                     achvNot.SetActive(true);
@@ -621,7 +621,7 @@ public class AchiviementsController : MonoBehaviour
             case 6:
                 achvhName[7].text = "Spendthrift VI";
                 achvDescrpt[7].text = "Spend " + coinsUsed + "/200.000 coins!";
-                if (achvCompleted >= 200000)
+                if (coinsUsed >= 200000)
                 {
                     getRewardGO[7].SetActive(true);
                     achvNot.SetActive(true);
@@ -630,7 +630,7 @@ public class AchiviementsController : MonoBehaviour
             case 7:
                 achvhName[7].text = "Spendthrift VII";
                 achvDescrpt[7].text = "Spend " + coinsUsed + "/300.000 coins!";
-                if (achvCompleted >= 300000)
+                if (coinsUsed >= 300000)
                 {
                     getRewardGO[7].SetActive(true);
                     achvNot.SetActive(true);
@@ -638,7 +638,7 @@ public class AchiviementsController : MonoBehaviour
                 break;
             default:
                 achvhName[7].text = "Spendthrift";
-                achvDescrpt[7].text = "Completed! (Current total: " + coinsUsed + " coins!)";
+                achvDescrpt[7].text = "Completed! (Current total: " + coinsUsed + " coins spent!)";
                 achvTransform[7].SetAsLastSibling();
                 getRewardGO[7].SetActive(false);
                 break;
