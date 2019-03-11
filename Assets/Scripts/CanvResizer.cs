@@ -13,13 +13,13 @@ public class CanvResizer : MonoBehaviour {
 
 		if (canvScaler.screenMatchMode == CanvasScaler.ScreenMatchMode.MatchWidthOrHeight) {
 
-			if (SceneManager.GetActiveScene ().name == "ShopScene"){
+			/*if (SceneManager.GetActiveScene ().name == "MenuScene"){
 			#if UNITY_STANDALONE
 			canvScaler.referenceResolution = new Vector2 (1920, 1080);
 			#else
 			canvScaler.referenceResolution = new Vector2 (1920, 1080);
 			#endif
-			}
+			}*/
 			if (SceneManager.GetActiveScene ().name == "GameScene"){
 				#if UNITY_STANDALONE
 				canvScaler.referenceResolution = new Vector2 (1920, 1080) * 0.75f;
@@ -28,7 +28,35 @@ public class CanvResizer : MonoBehaviour {
 				#endif
 			}
 
-		}
+            float width = Display.main.systemWidth;
+            float height = Display.main.systemHeight;
+            float ratio = width / height;
+            if (ratio <= 0.5f)
+            {
+                if (gameObject.name == "AchievementsCanvas")
+                {
+                    canvScaler.matchWidthOrHeight = 0.85f;
+                }
+                if (gameObject.name == "HelpCanvas")
+                {
+                    canvScaler.matchWidthOrHeight = 0.87f;
+                }
+                if (gameObject.name == "HelpCanvas")
+                {
+                    canvScaler.matchWidthOrHeight = 0.87f;
+                }
+                if (gameObject.name == "EndRunCanvas")
+                {
+                    canvScaler.matchWidthOrHeight = 0.9f;
+                }
+                if (gameObject.name == "ContinueCanvas")
+                {
+                    canvScaler.matchWidthOrHeight = 0.85f;
+                }
+            }
+
+
+        }
 
         
     }
