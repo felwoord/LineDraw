@@ -248,7 +248,7 @@ public class GameController : MonoBehaviour {
             {
                 setRand = Random.Range(1, 20);
                 powerUpsCDCounter += Time.deltaTime;
-                if (powerUpsCDCounter > 15)
+                if (powerUpsCDCounter > 10)
                 {
                     powerUpsCD = false;
                 }
