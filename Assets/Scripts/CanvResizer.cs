@@ -10,7 +10,6 @@ public class CanvResizer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		canvScaler = GetComponent<CanvasScaler> ();
-
 		if (canvScaler.screenMatchMode == CanvasScaler.ScreenMatchMode.MatchWidthOrHeight) {
 
 			/*if (SceneManager.GetActiveScene ().name == "MenuScene"){
