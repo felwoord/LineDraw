@@ -251,9 +251,7 @@ public class MenuController : MonoBehaviour
         }
         draw = true;
         currentHint = 0;
-#if UNITY_ANDROID
-        adCont.RequestBanner();
-#endif
+
         if (hintseen == 1)
         {
             hintNot[0].SetActive(false);
@@ -353,15 +351,9 @@ public class MenuController : MonoBehaviour
                 cashShopCanvas.SetActive(true);
                 draw = false;
                 wDrawing.SetActive(false);
-#if UNITY_ANDROID
-                adCont.bannerView.Hide();
-#endif
                 break;
             case 6:                            //close cash shop
                 cashShopCanvas.SetActive(false);
-#if UNITY_ANDROID
-                adCont.bannerView.Show();
-#endif
                 if (mainCanvas.activeSelf)
                 {
                     wDrawing.SetActive(true);
@@ -406,9 +398,6 @@ public class MenuController : MonoBehaviour
     }
     public void PlayButton()
     {
-#if UNITY_ANDROID
-        adCont.bannerView.Hide();
-#endif
         SceneManager.LoadScene("GameScene");
     }
     public void BuySelectSkin(int skinNum)

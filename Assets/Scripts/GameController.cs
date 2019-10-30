@@ -860,9 +860,6 @@ public class GameController : MonoBehaviour {
     {
         continueCanvas.SetActive(false);
         endRunCanvas.SetActive(true);
-#if UNITY_ANDROID
-        adCont.bannerView.Show();
-#endif
 
         currentHeightTxtEndRun = GameObject.Find("CurrentHeightEndRun").GetComponent<Text>();
         currentHeightTxtEndRun.text = currentHeight.ToString("0");
@@ -926,32 +923,23 @@ public class GameController : MonoBehaviour {
     public void EndRunButton(int aux)
     {
         if (aux <= 1)                                       //EndGame Buttons
-        {                                     
+        {
             totalCoins += coinsCount;
             PlayerPrefs.SetInt("TotalCoins", totalCoins);
             if (aux == 1)
             {
-#if UNITY_ANDROID
-                adCont.bannerView.Hide();
-#endif
                 SceneManager.LoadScene("GameScene");
             }
             else
             {
-#if UNITY_ANDROID
-                adCont.bannerView.Destroy();
-#endif
                 SceneManager.LoadScene("MenuScene");
             }
         }                                                   //Pause Buttons
         else
         {
-            if(aux == 3)
+            if (aux == 3)
             {
                 Time.timeScale = 1;
-#if UNITY_ANDROID
-                adCont.bannerView.Show();
-#endif
                 SceneManager.LoadScene("MenuScene");
             }
         }
@@ -978,9 +966,6 @@ public class GameController : MonoBehaviour {
         playerAlive = true;
         lastSetPosition = player.transform.position.y + 5;
         doubleCoinAvlb = true;
-#if UNITY_ANDROID
-        adCont.bannerView.Hide();
-#endif
         mainCanvas.SetActive(true);
         continueCanvas.SetActive(false);
         continueCanvasOpen = false;
@@ -995,17 +980,11 @@ public class GameController : MonoBehaviour {
             pauseCanvas.SetActive(true);
             Time.timeScale = 0;
             paused = true;
-#if UNITY_ANDROID
-            adCont.bannerView.Show();
-#endif
         }
         else
         {
             mainCanvas.SetActive(true);
             pauseCanvas.SetActive(false);
-#if UNITY_ANDROID
-            adCont.bannerView.Hide();
-#endif
             Time.timeScale = 1;
             paused = false;
         }
